@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ToolBar -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+        <Button
+            android:id="@+id/a_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/button_min_width"
+            android:minHeight="@dimen/button_min_height"
+            android:layout_marginRight="15dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="A"
+            android:textStyle="bold"
+            android:background="@drawable/selector_toolbar_button"/>
+        <Button
+            android:id="@+id/b_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/button_min_width"
+            android:minHeight="@dimen/button_min_height"
+            android:layout_marginRight="15dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="B"
+            android:textStyle="bold"
+            android:background="@drawable/selector_toolbar_button"/>
+        <ImageButton
+            android:id="@+id/pause_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/button_min_width"
+            android:minHeight="@dimen/button_min_height"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:src="@drawable/ic_pause_black_24dp"
+            android:background="@drawable/selector_toolbar_pause_button"/>
+        <ImageButton
+            android:id="@+id/camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/button_min_width"
+            android:minHeight="@dimen/button_min_height"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="Cam"
+            android:src="@drawable/ic_camera_enhance_black_24dp"
+            android:background="@drawable/selector_toolbar_pause_button"/>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/parent_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/main_tool_bar"/>
+
+</RelativeLayout>
