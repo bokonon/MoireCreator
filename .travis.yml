@@ -9,7 +9,7 @@ android:
     # - tools
 
     # The BuildTools version used by your project
-    - build-tools-22.0.1
+    - build-tools-23.0.2
 
     # The SDK version used to compile your project
     - android-23
@@ -25,8 +25,8 @@ android:
     # - sys-img-armeabi-v7a-android-22
     # - sys-img-armeabi-v7a-android-17
 install:
-  # - android-update-sdk --accept-licenses='android-sdk-license-.+' --components=tools
-  # - android-update-sdk --accept-licenses='android-sdk-license-.+' --components=build-tools-23.0.2
+  - android-update-sdk --accept-licenses='android-sdk-license-.+' --components=tools
+  - android-update-sdk --accept-licenses='android-sdk-license-.+' --components=build-tools-23.0.2
   - android-update-sdk --accept-licenses='android-sdk-license-.+' --components=android-23
   - android-update-sdk --accept-licenses='android-sdk-license-.+' --components=extra-android-m2repository
   - android-update-sdk --accept-licenses='android-sdk-license-.+' --components=extra-google-m2repository
