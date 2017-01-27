@@ -40,12 +40,9 @@ captures/
 *.jks
 
 # Android Studio
-.gradle/
-.idea/
-gradle/
-build/
-build.gradle
-gradlew
-gradlew.bat
-settings.gradle
-*.iml
+*.ipr
+*.iws
+/.idea
+.gradle
+app/build/
+.DS_Store
