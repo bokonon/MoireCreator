@@ -30,6 +30,6 @@ script:
   - ./gradlew assembleDebug
 notifications:
   email:
-    recipients: <GitHub's user email>
+    recipients: yuji.shimada@gmail.com
     on_success: change
     on_failure: always
