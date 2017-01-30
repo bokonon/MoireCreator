@@ -28,9 +28,11 @@ android:
     # - sys-img-armeabi-v7a-android-17
 script:
 #   - ./gradlew assembleDebug
-  - ./gradlew connectedAndroidTest
+  - ./gradlew assembleDebug test
 notifications:
-  email:
-    recipients: yuji.shimada@gmail.com
     on_success: change
     on_failure: always
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
