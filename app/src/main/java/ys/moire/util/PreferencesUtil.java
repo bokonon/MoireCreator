@@ -103,7 +103,7 @@ public class PreferencesUtil {
      * @param key
      * @param val
      */
-    public void putInt(final Context activityContext, final String key, final int val) {
+    public static void putInt(final Context activityContext, final String key, final int val) {
         SharedPreferences setting = activityContext
                 .getApplicationContext()
                 .getSharedPreferences(Config.PREF, Activity.MODE_PRIVATE);
