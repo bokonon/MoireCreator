@@ -1,9 +1,9 @@
-package ys.moire.dto;
+package ys.moire.data.model;
 
 /**
- * SharePreference保存用の設定値Dtoクラス.
+ * Base Entity for SharePreferences.
  */
-public class BaseDto {
+public class BaseEntity {
 
     public int number;
 

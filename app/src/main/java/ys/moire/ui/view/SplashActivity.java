@@ -1,4 +1,4 @@
-package ys.moire.activity;
+package ys.moire.ui.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,12 +8,13 @@ import android.view.KeyEvent;
 import android.view.Window;
 
 import ys.moire.R;
+import ys.moire.ui.view.main.MainActivity;
 
 public class SplashActivity extends Activity {
 
     private static final int PENDING_TIME = 1000;
 
-    private Handler mHandler;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +23,8 @@ public class SplashActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash);
 
-        mHandler = new Handler();
-        mHandler.postDelayed(new SplashHandler(), PENDING_TIME);
+        handler = new Handler();
+        handler.postDelayed(new SplashHandler(), PENDING_TIME);
     }
 
     class SplashHandler implements Runnable {
@@ -36,9 +37,8 @@ public class SplashActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //戻りボタンの処理
         if (keyCode == KeyEvent.KEYCODE_BACK){
-            // バックキーを無効に
+            // disable back key
         }
         else {
             return super.onKeyDown(keyCode, event);

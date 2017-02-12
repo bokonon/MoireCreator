@@ -1,4 +1,4 @@
-package ys.moire.view;
+package ys.moire.ui.view.moire;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 
 import ys.moire.BuildConfig;
 import ys.moire.config.Config;
+import ys.moire.type.BaseTypes;
 import ys.moire.type.Circles;
 import ys.moire.type.CustomLines;
 import ys.moire.type.Lines;
@@ -25,51 +26,61 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
     private static final int LINE_A = 0;
     private static final int LINE_B = 1;
 
-    private int mLayoutWidth;
-    private int mLayoutHeight;
+    private int layoutWidth;
+    private int layoutHeight;
 
     /** Line A */
-    private Lines mALines;
+    private Lines aLines;
     /** Line B */
-    private Lines mBLines;
+    private Lines bLines;
     /** Circle A */
-    private Circles mACircles;
+    private Circles aCircles;
     /** Circle B */
-    private Circles mBCircles;
+    private Circles bCircles;
     /** Rectangle A */
-    private Rectangles mARectangles;
+    private Rectangles aRectangles;
     /** Rectangle B */
-    private Rectangles mBRectangles;
+    private Rectangles bRectangles;
     /** CustomLines A */
-    private CustomLines mACustomLines;
+    private CustomLines aCustomLines;
     /** CustomLines B */
-    private CustomLines mBCustomLines;
+    private CustomLines bCustomLines;
     /** Background Color */
     private int colorOfBg = Color.WHITE;
 
-    private boolean mIsPause = false;
+    private boolean isPause = false;
 
-    private boolean mIsOnBackground = false;
+    private boolean isOnBackground = false;
 
     /** Handler */
-    private Handler mHandler;
+    private Handler handler;
     /** Thread */
     private final Runnable drawRunnable = new Runnable() {public void run() {drawFrame();}};
 
     /** Context */
-    private Context mContext;
+    private Context context;
+
+    public interface OnSurfaceChange {
+        void onSurfaceChange();
+    }
+
+    private OnSurfaceChange listener;
 
     public MoireView(Context context, int width, int height, int type) {
         super(context);
-        mContext = context;
+        this.context = context;
         getHolder().addCallback(this);
-        mLayoutWidth = width;
-        mLayoutHeight = height;
+        layoutWidth = width;
+        layoutHeight = height;
         mType = type;
+
+        if (context instanceof OnSurfaceChange) {
+            listener = (OnSurfaceChange)context;
+        }
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
-        mHandler = new Handler();
+        handler = new Handler();
 
         // Do on SurfaceChanged for height is changed.
 //        linesLoad();
@@ -80,10 +91,13 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
         if(BuildConfig.DEBUG) {
             Log.d(TAG, "surfaceChanged height : " + height);
         }
-        if(mLayoutHeight != height) {
-            mLayoutWidth = width;
-            mLayoutHeight = height;
-            loadLines();
+        if(layoutHeight != height) {
+            layoutWidth = width;
+            layoutHeight = height;
+
+            if (listener != null) {
+                listener.onSurfaceChange();
+            }
         }
         drawFrame();
     }
@@ -95,53 +109,53 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
             switch(mType) {
                 case Config.TYPE_LINE:
                     // check line for loop.
-                    mALines.checkOutOfRange(mLayoutWidth);
-                    mBLines.checkOutOfRange(mLayoutWidth);
-                    if(!mIsPause) {
-                        mALines.move(LINE_A);
-                        mBLines.move(LINE_B);
+                    aLines.checkOutOfRange(layoutWidth);
+                    bLines.checkOutOfRange(layoutWidth);
+                    if(!isPause) {
+                        aLines.move(LINE_A);
+                        bLines.move(LINE_B);
                     }
-                    mALines.draw(canvas);
-                    mBLines.draw(canvas);
+                    aLines.draw(canvas);
+                    bLines.draw(canvas);
 
                     break;
                 case Config.TYPE_CIRCLE:
-                    mACircles.checkOutOfRange(mLayoutWidth);
-                    mBCircles.checkOutOfRange(mLayoutWidth);
-                    if(!mIsPause) {
-                        mACircles.move(LINE_A);
-                        mBCircles.move(LINE_B);
+                    aCircles.checkOutOfRange(layoutWidth);
+                    bCircles.checkOutOfRange(layoutWidth);
+                    if(!isPause) {
+                        aCircles.move(LINE_A);
+                        bCircles.move(LINE_B);
                     }
-                    mACircles.draw(canvas);
-                    mBCircles.draw(canvas);
+                    aCircles.draw(canvas);
+                    bCircles.draw(canvas);
                     break;
                 case Config.TYPE_RECT:
-                    mARectangles.checkOutOfRange(mLayoutWidth);
-                    mBRectangles.checkOutOfRange(mLayoutWidth);
-                    if(!mIsPause) {
-                        mARectangles.move(LINE_A);
-                        mBRectangles.move(LINE_B);
+                    aRectangles.checkOutOfRange(layoutWidth);
+                    bRectangles.checkOutOfRange(layoutWidth);
+                    if(!isPause) {
+                        aRectangles.move(LINE_A);
+                        bRectangles.move(LINE_B);
                     }
-                    mARectangles.draw(canvas);
-                    mBRectangles.draw(canvas);
+                    aRectangles.draw(canvas);
+                    bRectangles.draw(canvas);
                     break;
                 case Config.TYPE_ORIGINAL:
-                    mACustomLines.checkOutOfRange(LINE_A, mLayoutWidth);
-                    mBCustomLines.checkOutOfRange(LINE_B, mLayoutWidth);
-                    if(!mIsPause) {
-                        mACustomLines.move(LINE_A);
-                        mBCustomLines.move(LINE_B);
+                    aCustomLines.checkOutOfRange(LINE_A, layoutWidth);
+                    bCustomLines.checkOutOfRange(LINE_B, layoutWidth);
+                    if(!isPause) {
+                        aCustomLines.move(LINE_A);
+                        bCustomLines.move(LINE_B);
                     }
-                    mACustomLines.draw(canvas);
-                    mBCustomLines.draw(canvas);
+                    aCustomLines.draw(canvas);
+                    bCustomLines.draw(canvas);
                     break;
                 default:
                     break;
             }
             getHolder().unlockCanvasAndPost(canvas);
-            mHandler.removeCallbacks(drawRunnable);
-            if(!mIsPause && !mIsOnBackground) {
-                mHandler.postDelayed(drawRunnable, 100);
+            handler.removeCallbacks(drawRunnable);
+            if(!isPause && !isOnBackground) {
+                handler.postDelayed(drawRunnable, 100);
             }
         }
     }
@@ -150,20 +164,20 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawColor(colorOfBg);
         switch(mType) {
             case Config.TYPE_LINE:
-                mALines.draw(canvas);
-                mBLines.draw(canvas);
+                aLines.draw(canvas);
+                bLines.draw(canvas);
                 break;
             case Config.TYPE_CIRCLE:
-                mACircles.draw(canvas);
-                mBCircles.draw(canvas);
+                aCircles.draw(canvas);
+                bCircles.draw(canvas);
                 break;
             case Config.TYPE_RECT:
-                mARectangles.draw(canvas);
-                mBRectangles.draw(canvas);
+                aRectangles.draw(canvas);
+                bRectangles.draw(canvas);
                 break;
             case Config.TYPE_ORIGINAL:
-                mACustomLines.draw(canvas);
-                mBCustomLines.draw(canvas);
+                aCustomLines.draw(canvas);
+                bCustomLines.draw(canvas);
                 break;
             default:
                 break;
@@ -171,7 +185,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
-        mHandler.removeCallbacks(drawRunnable);
+        handler.removeCallbacks(drawRunnable);
     }
 
     public void setBgColor(int color) {
@@ -183,42 +197,42 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     /** load line status */
-    public void loadLines() {
+    public void loadLines(final BaseTypes aTypes, final BaseTypes bTypes) {
         switch(mType) {
             case Config.TYPE_LINE:
-                mALines = new Lines();
-                mALines.loadData(mContext, Config.LINE_A);
-                mBLines = new Lines();
-                mBLines.loadData(mContext, Config.LINE_B);
-                mALines.init(LINE_A, mLayoutWidth, mLayoutHeight);
-                mBLines.init(LINE_B, mLayoutWidth, mLayoutHeight);
+                aLines = new Lines();
+                aLines.loadData(aTypes);
+                bLines = new Lines();
+                bLines.loadData(bTypes);
+                aLines.init(LINE_A, layoutWidth, layoutHeight);
+                bLines.init(LINE_B, layoutWidth, layoutHeight);
                 break;
             case Config.TYPE_CIRCLE:
-                mACircles = new Circles();
-                mACircles.loadData(mContext, Config.LINE_A);
-                mBCircles = new Circles();
-                mBCircles.loadData(mContext, Config.LINE_B);
-                mACircles.init(LINE_A, mLayoutWidth, mLayoutHeight);
-                mBCircles.init(LINE_B, mLayoutWidth, mLayoutHeight);
+                aCircles = new Circles();
+                aCircles.loadData(aTypes);
+                bCircles = new Circles();
+                bCircles.loadData(bTypes);
+                aCircles.init(LINE_A, layoutWidth, layoutHeight);
+                bCircles.init(LINE_B, layoutWidth, layoutHeight);
                 break;
             case Config.TYPE_RECT:
-                mARectangles = new Rectangles();
-                mARectangles.loadData(mContext, Config.LINE_A);
-                mBRectangles = new Rectangles();
-                mBRectangles.loadData(mContext, Config.LINE_B);
+                aRectangles = new Rectangles();
+                aRectangles.loadData(aTypes);
+                bRectangles = new Rectangles();
+                bRectangles.loadData(bTypes);
                 // TODO change dynamic
-                float maxTopLength = mLayoutHeight/3f*2;
-                float maxBottomLength = mLayoutHeight/3f*2;
-                mARectangles.init(LINE_A, mLayoutWidth, mLayoutHeight, maxTopLength, maxBottomLength);
-                mBRectangles.init(LINE_B, mLayoutWidth, mLayoutHeight, maxTopLength, maxBottomLength);
+                float maxTopLength = layoutHeight /3f*2;
+                float maxBottomLength = layoutHeight /3f*2;
+                aRectangles.init(LINE_A, layoutWidth, layoutHeight, maxTopLength, maxBottomLength);
+                bRectangles.init(LINE_B, layoutWidth, layoutHeight, maxTopLength, maxBottomLength);
                 break;
             case Config.TYPE_ORIGINAL:
-                mACustomLines = new CustomLines();
-                mACustomLines.loadData(mContext, Config.LINE_A);
-                mBCustomLines = new CustomLines();
-                mBCustomLines.loadData(mContext, Config.LINE_B);
-                mACustomLines.init(LINE_A, mLayoutWidth, mLayoutHeight);
-                mBCustomLines.init(LINE_B, mLayoutWidth, mLayoutHeight);
+                aCustomLines = new CustomLines();
+                aCustomLines.loadData(aTypes);
+                bCustomLines = new CustomLines();
+                bCustomLines.loadData(bTypes);
+                aCustomLines.init(LINE_A, layoutWidth, layoutHeight);
+                bCustomLines.init(LINE_B, layoutWidth, layoutHeight);
                 break;
             default:
                 break;
@@ -232,26 +246,26 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
         switch(mType) {
             case Config.TYPE_LINE:
                 if(which == LINE_A) {
-                    mALines.addTouchVal(valX, valY);
+                    aLines.addTouchVal(valX, valY);
                 }
                 else if(which == LINE_B) {
-                    mBLines.addTouchVal(valX, valY);
+                    bLines.addTouchVal(valX, valY);
                 }
                 break;
             case Config.TYPE_CIRCLE:
                 if(which == LINE_A) {
-                    mACircles.addTouchVal(valX, valY);
+                    aCircles.addTouchVal(valX, valY);
                 }
                 else if(which == LINE_B) {
-                    mBCircles.addTouchVal(valX, valY);
+                    bCircles.addTouchVal(valX, valY);
                 }
                 break;
             case Config.TYPE_RECT:
                 if(which == LINE_A) {
-                    mARectangles.addTouchVal(valX, valY);
+                    aRectangles.addTouchVal(valX, valY);
                 }
                 else if(which == LINE_B) {
-                    mBRectangles.addTouchVal(valX, valY);
+                    bRectangles.addTouchVal(valX, valY);
                 }
                 break;
             case Config.TYPE_ORIGINAL:
@@ -267,12 +281,12 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void drawOriginalLine(final int which, final int layoutWidth, final float valX, final float valY, final int moveCount) {
+    public void drawOriginalLine(final int which, final float valX, final float valY, final int moveCount) {
         if(which == LINE_A) {
-            mACustomLines.drawOriginalLine(layoutWidth, valX, valY, moveCount);
+            aCustomLines.drawOriginalLine(layoutWidth, valX, valY, moveCount);
         }
         else if(which == LINE_B) {
-            mBCustomLines.drawOriginalLine(layoutWidth, valX, valY, moveCount);
+            bCustomLines.drawOriginalLine(layoutWidth, valX, valY, moveCount);
         }
     }
 
@@ -284,34 +298,34 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
         switch(mType) {
             case Config.TYPE_LINE:
                 if(which == LINE_A) {
-                    mALines.setOnTouchMode(isOnTouch);
+                    aLines.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBLines.setOnTouchMode(isOnTouch);
+                    bLines.setOnTouchMode(isOnTouch);
                 }
                 break;
             case Config.TYPE_CIRCLE:
                 if(which == LINE_A) {
-                    mACircles.setOnTouchMode(isOnTouch);
+                    aCircles.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBCircles.setOnTouchMode(isOnTouch);
+                    bCircles.setOnTouchMode(isOnTouch);
                 }
                 break;
             case Config.TYPE_RECT:
                 if(which == LINE_A) {
-                    mARectangles.setOnTouchMode(isOnTouch);
+                    aRectangles.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBRectangles.setOnTouchMode(isOnTouch);
+                    bRectangles.setOnTouchMode(isOnTouch);
                 }
                 break;
             case Config.TYPE_ORIGINAL:
                 if(which == LINE_A) {
-                    mACustomLines.setOnTouchMode(isOnTouch);
+                    aCustomLines.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBCustomLines.setOnTouchMode(isOnTouch);
+                    bCustomLines.setOnTouchMode(isOnTouch);
                 }
                 break;
             default:
@@ -324,7 +338,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
      * @return boolean is on pause
      */
     public boolean isPause() {
-        return mIsPause;
+        return isPause;
     }
 
     /**
@@ -332,10 +346,10 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
      * @param pause
      */
     public void pause(final boolean pause) {
-        mIsPause = pause;
+        isPause = pause;
         if(!pause) {
-            if(mHandler != null) {
-                mHandler.postDelayed(drawRunnable, 100);
+            if(handler != null) {
+                handler.postDelayed(drawRunnable, 100);
             }
         }
     }
@@ -345,10 +359,10 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
      * @param onBack is on Background
      */
     public void setOnBackground(final boolean onBack) {
-        mIsOnBackground = onBack;
+        isOnBackground = onBack;
         if(!onBack) {
-            if(mHandler != null) {
-                mHandler.postDelayed(drawRunnable, 100);
+            if(handler != null) {
+                handler.postDelayed(drawRunnable, 100);
             }
         }
     }

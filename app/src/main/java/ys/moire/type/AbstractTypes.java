@@ -1,6 +1,5 @@
 package ys.moire.type;
 
-import android.content.Context;
 import android.graphics.Canvas;
 
 /**
@@ -8,7 +7,7 @@ import android.graphics.Canvas;
  */
 public abstract class AbstractTypes {
 
-    abstract void loadData(final Context context, final String lineConfigName);
+    abstract void loadData(final BaseTypes types);
 
     abstract void init(final int whichLine, final int layoutWidth, final int layoutHeight);
 

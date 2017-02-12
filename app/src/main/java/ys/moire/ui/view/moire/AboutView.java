@@ -1,4 +1,4 @@
-package ys.moire.view;
+package ys.moire.ui.view.moire;
 
 import android.content.Context;
 import android.content.res.TypedArray;

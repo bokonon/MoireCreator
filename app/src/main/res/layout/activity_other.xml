@@ -41,7 +41,7 @@
         android:layout_above="@id/ad_view_layout">
         <fragment
             android:id="@+id/other_fragment"
-            android:name="ys.moire.fragment.OtherFragment"
+            android:name="ys.moire.ui.view.other.OtherFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_other" />

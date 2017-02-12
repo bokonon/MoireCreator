@@ -1,6 +1,5 @@
-package ys.moire.activity;
+package ys.moire.ui.view.about;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -15,22 +14,23 @@ import android.widget.LinearLayout;
 
 import ys.moire.BuildConfig;
 import ys.moire.sensor.SensorEL;
-import ys.moire.view.AboutView;
+import ys.moire.ui.base.BaseActivity;
+import ys.moire.ui.view.moire.AboutView;
 
 /**
- * このアプリについて画面
- * about screen
+ * about screen class
+ * about this app
  */
-public class AboutActivity extends Activity implements SensorEL.OnSensorChangeListener {
+public class AboutActivity extends BaseActivity implements SensorEL.OnSensorChangeListener {
 
     private static final String TAG = "AboutActivity";
 
     /** Sensor EL */
-    private SensorEL mSensorEL;
+    private SensorEL sensorEL;
     /** Sensor Manager */
-    private SensorManager mSensorManager;
+    private SensorManager sensorManager;
     /** View */
-    private AboutView mAboutView;
+    private AboutView aboutView;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -47,25 +47,25 @@ public class AboutActivity extends Activity implements SensorEL.OnSensorChangeLi
             Log.d(TAG, "layoutHeight : "+layoutHeight);
         }
 
-        mSensorEL = new SensorEL(isTablet(), this);
+        sensorEL = new SensorEL(isTablet(), this);
 
         LinearLayout ll = new LinearLayout(this);
-        mAboutView = new AboutView(this, mSensorEL, layoutWidth, layoutHeight);
-        ll.addView(mAboutView);
+        aboutView = new AboutView(this, sensorEL, layoutWidth, layoutHeight);
+        ll.addView(aboutView);
         setContentView(ll);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(mSensorEL, sensor, SensorManager.SENSOR_DELAY_GAME);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
     public void onPause() {
-        mSensorManager.unregisterListener(mSensorEL);
+        sensorManager.unregisterListener(sensorEL);
         super.onPause();
     }
 
@@ -80,15 +80,15 @@ public class AboutActivity extends Activity implements SensorEL.OnSensorChangeLi
 
     @Override
     public void onSensorChange() {
-        if(mAboutView != null) {
-            // センサー変更で描画します.
-            mAboutView.drawFrame();
+        if(aboutView != null) {
+            // draw on sensor change.
+            aboutView.drawFrame();
         }
     }
 
     /**
-     * タブレットであるか.
-     * @return タブレットである
+     * is Tablet.
+     * @return is Tablet
      */
     private Boolean isTablet() {
         Context context = getApplicationContext();
@@ -111,7 +111,7 @@ public class AboutActivity extends Activity implements SensorEL.OnSensorChangeLi
     }
 
     /**
-     * ステータスバーのサイズを取得します.
+     * get status bar height.
      * @return status bar size
      */
     private int getStatusBarHeight() {
@@ -121,7 +121,7 @@ public class AboutActivity extends Activity implements SensorEL.OnSensorChangeLi
             result = getResources().getDimensionPixelSize(resourceId);
         }
         if(BuildConfig.DEBUG) {
-            Log.d(TAG, "status_bar_height : "+result);
+            Log.d(TAG, "status bar height : "+result);
         }
         return result;
     }
