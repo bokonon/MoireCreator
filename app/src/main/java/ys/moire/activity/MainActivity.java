@@ -39,16 +39,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity";
 
-    /** RequestCodeの定数 */
+    /** RequestCode constant */
     private static final int INTENT_FOR_SETTING = 1;
-    private static final int INTENT_FOR_DESCRIPTION = 2;
+    private static final int INTENT_FOR_ABOUT = 2;
+    private static final int INTENT_FOR_OTHER = 3;
 
     private static final int LINE_A = 0;
     private static final int LINE_B = 1;
 
-    /** 表示域の横幅 */
+    /** view width */
     private int mLayoutWidth;
-    /** 表示域の縦幅 */
+    /** view height */
     private int mLayoutHeight;
     /** View */
     private MoireView mMoireView;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /** ScreenShot Button */
     private ImageButton mScreenShotImageButton;
 
-    /** Touchで動かすLine（現状はAorB） */
+    /** Line Mode（AorB） */
     private int mTouchLineMode;
 
     private int mStatusBarHeight;
@@ -125,12 +126,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_settings:
-                Intent its = new Intent(this, PreferenceActivity.class);
-                startActivityForResult(its, INTENT_FOR_SETTING);
+                Intent settingIntent = new Intent(this, PreferenceActivity.class);
+                startActivityForResult(settingIntent, INTENT_FOR_SETTING);
                 break;
             case R.id.menu_about:
-                Intent ita = new Intent(this, AboutActivity.class);
-                startActivityForResult(ita, INTENT_FOR_DESCRIPTION);
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivityForResult(aboutIntent, INTENT_FOR_ABOUT);
+                break;
+            case R.id.menu_other:
+                Intent otherIntent = new Intent(this, OtherActivity.class);
+                startActivityForResult(otherIntent, INTENT_FOR_OTHER);
+                break;
+            default:
                 break;
         }
         return true;
@@ -144,10 +151,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mMoireView.setMoireType(PreferencesUtil.getMoireType(this));
                 mMoireView.setBgColor(PreferencesUtil.getBgColor(this));
 
-                mMoireView.linesLoad();
+                mMoireView.loadLines();
             }
             // from about screen
-            else if(requestCode == INTENT_FOR_DESCRIPTION) {
+            else if(requestCode == INTENT_FOR_ABOUT) {
+
+            }
+            // from other screen
+            else if(requestCode == INTENT_FOR_OTHER) {
 
             }
         }
@@ -177,16 +188,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mFirstTouchX = (int)e.getX();
                 mFirstTouchY = (int)e.getY();
                 if(mMoireView.mType == Config.TYPE_LINE) {
-                    // TouchModeをOnにします.
+                    // TouchMode on
                     mMoireView.setOnTouchMode(mTouchLineMode, true);
-                    // 移動距離を初期化
+                    // init dx dy
                     mTouchMoveX = 0;
                     mTempMoveX = 0;
                 }
                 else if(mMoireView.mType == Config.TYPE_CIRCLE || mMoireView.mType == Config.TYPE_RECT) {
-                    // TouchModeをOnにします.
+                    // TouchMode on
                     mMoireView.setOnTouchMode(mTouchLineMode, true);
-                    // 移動距離を初期化
+                    // init dx dy
                     mTouchMoveX = 0;
                     mTouchMoveY = 0;
                     mTempMoveX = 0;
@@ -218,31 +229,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mMoireView.drawOriginalLine(mTouchLineMode, mLayoutWidth, e.getX(), e.getY() - mStatusBarHeight - mToolBarHeight, mMoveCount);
                         mMoveCount++;
                     }
-                    // 一時停止中も描画する為、強制描画します.
+                    // draw
                     mMoireView.drawFrame();
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if(mMoireView.mType == Config.TYPE_LINE) {
-                    // TouchModeをOffにします.
+                    // TouchMode off
                     mMoireView.setOnTouchMode(mTouchLineMode, false);
-                    // 移動距離を初期化
+                    // init dx dy
                     mTouchMoveX = 0;
                     mTempMoveX = 0;
                 }
                 else if(mMoireView.mType == Config.TYPE_CIRCLE || mMoireView.mType == Config.TYPE_RECT) {
-                    // TouchModeをOffにします.
+                    // TouchMode off
                     mMoireView.setOnTouchMode(mTouchLineMode, false);
-                    // 移動距離を初期化
+                    // init dx dy
                     mTouchMoveX = 0;
                     mTouchMoveY = 0;
                     mTempMoveX = 0;
                     mTempMoveY = 0;
                 }
                 if(mMoireView.mType == Config.TYPE_ORIGINAL) {
-                    // TouchModeをOffにします.
+                    // TouchMode off
                     mMoireView.setOnTouchMode(mTouchLineMode, false);
-                    // 移動距離を初期化
+                    // init dx dy
                     mTouchMoveX = 0;
                     mTouchMoveY = 0;
                     mTempMoveX = 0;
@@ -265,12 +276,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mBTouchSelectedButton.setSelected(true);
         }
         else if(view == mPauseImageButton) {
-            if(mMoireView.getOnPause()) {
-                mMoireView.setOnPause(false);
+            if(mMoireView.isPause()) {
+                mMoireView.pause(false);
                 mPauseImageButton.setImageResource(R.drawable.ic_pause_black_24dp);
             }
             else {
-                mMoireView.setOnPause(true);
+                mMoireView.pause(true);
                 mPauseImageButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
             }
         }
@@ -290,12 +301,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPauseImageButton.setOnClickListener(this);
         mScreenShotImageButton.setOnClickListener(this);
 
-        // 初期選択の設定
+        // set A button at first.
         mATouchSelectedButton.setSelected(true);
     }
 
     /**
-     * ステータスバーのサイズを取得します.
+     * get StatusBar height.
      * @return status bar size
      */
     private int getStatusBarHeight() {
@@ -316,10 +327,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * キャプチャーを取得して保存します.
+     * save capture image.
      */
     private void captureCanvas() {
-        // 保存先の決定(存在しない場合は作成)
+        // decide stored directory.
         File dir;
         String path = Environment.getExternalStorageDirectory() + "/ys.MoireCreator/";
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -328,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             dir = Environment.getDataDirectory();
         }
-        // 一意となるファイル名を作成
+        // create file name.
         String fileName = getFileName();
         String AttachName = dir.getAbsolutePath() + "/" + fileName;
 
@@ -350,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-        // ギャラリーに反映させます.
+        // reflected in gallery.
         ContentValues values = new ContentValues();
         ContentResolver contentResolver = getContentResolver();
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");

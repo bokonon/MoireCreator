@@ -68,7 +68,7 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
         Toolbar toolbar = (Toolbar) findViewById(R.id.preference_tool_bar);
         setSupportActionBar(toolbar);
 
-        final AdView adView = (AdView)this.findViewById(R.id.adView);
+        final AdView adView = (AdView)this.findViewById(R.id.ad_view);
         adView.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
@@ -98,9 +98,9 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        // リソースを取得します.
+        // get view resources.
         initViews();
-        // リスナーをセットします
+        // set listener
         setListener();
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -121,7 +121,7 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
 
         });
 
-        // 保存状態をまとめてロード
+        // load save data
         mALines = PreferencesUtil.loadTypesData(this, Config.LINE_A);
         mBLines = PreferencesUtil.loadTypesData(this, Config.LINE_B);
 

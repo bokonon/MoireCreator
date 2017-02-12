@@ -19,7 +19,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = "MoireView";
 
-    /** 描画タイプ */
+    /** draw type */
     public int mType;
 
     private static final int LINE_A = 0;
@@ -71,7 +71,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         mHandler = new Handler();
 
-        // heightが変更される為、下記をsurfaceChangedで行います.
+        // Do on SurfaceChanged for height is changed.
 //        linesLoad();
 //        drawFrame();
     }
@@ -83,7 +83,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
         if(mLayoutHeight != height) {
             mLayoutWidth = width;
             mLayoutHeight = height;
-            linesLoad();
+            loadLines();
         }
         drawFrame();
     }
@@ -94,7 +94,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawColor(colorOfBg);
             switch(mType) {
                 case Config.TYPE_LINE:
-                    // ラインが描画範囲外であればループさせます
+                    // check line for loop.
                     mALines.checkOutOfRange(mLayoutWidth);
                     mBLines.checkOutOfRange(mLayoutWidth);
                     if(!mIsPause) {
@@ -182,8 +182,8 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
         mType = t;
     }
 
-    /** 各タイプの情報を読み込み直します */
-    public void linesLoad() {
+    /** load line status */
+    public void loadLines() {
         switch(mType) {
             case Config.TYPE_LINE:
                 mALines = new Lines();
@@ -206,7 +206,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
                 mARectangles.loadData(mContext, Config.LINE_A);
                 mBRectangles = new Rectangles();
                 mBRectangles.loadData(mContext, Config.LINE_B);
-                // TODO 今後可変にする
+                // TODO change dynamic
                 float maxTopLength = mLayoutHeight/3f*2;
                 float maxBottomLength = mLayoutHeight/3f*2;
                 mARectangles.init(LINE_A, mLayoutWidth, mLayoutHeight, maxTopLength, maxBottomLength);
@@ -226,7 +226,7 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     /**
-     * タッチ移動の値を図形に反映します.
+     * add touch value.
      */
     public void addTouchValue(final int which, final int valX, final int valY) {
         switch(mType) {
@@ -277,41 +277,41 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     /**
-     * タッチ状態をセットします.
-     * @param touch タッチ中であるか
+     * set touch mode.
+     * @param isOnTouch is on touch
      */
-    public void setOnTouchMode(final int which, final boolean touch) {
+    public void setOnTouchMode(final int which, final boolean isOnTouch) {
         switch(mType) {
             case Config.TYPE_LINE:
                 if(which == LINE_A) {
-                    mALines.setOnTouchMode(touch);
+                    mALines.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBLines.setOnTouchMode(touch);
+                    mBLines.setOnTouchMode(isOnTouch);
                 }
                 break;
             case Config.TYPE_CIRCLE:
                 if(which == LINE_A) {
-                    mACircles.setOnTouchMode(touch);
+                    mACircles.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBCircles.setOnTouchMode(touch);
+                    mBCircles.setOnTouchMode(isOnTouch);
                 }
                 break;
             case Config.TYPE_RECT:
                 if(which == LINE_A) {
-                    mARectangles.setOnTouchMode(touch);
+                    mARectangles.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBRectangles.setOnTouchMode(touch);
+                    mBRectangles.setOnTouchMode(isOnTouch);
                 }
                 break;
             case Config.TYPE_ORIGINAL:
                 if(which == LINE_A) {
-                    mACustomLines.setOnTouchMode(touch);
+                    mACustomLines.setOnTouchMode(isOnTouch);
                 }
                 else if(which == LINE_B) {
-                    mBCustomLines.setOnTouchMode(touch);
+                    mBCustomLines.setOnTouchMode(isOnTouch);
                 }
                 break;
             default:
@@ -320,27 +320,29 @@ public class MoireView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     /**
-     * Pauseを取得します.
-     * @return boolean
+     * return is pause.
+     * @return boolean is on pause
      */
-    public boolean getOnPause() {
+    public boolean isPause() {
         return mIsPause;
     }
 
     /**
-     * Pauseであるかをセットします.
+     * pause.
      * @param pause
      */
-    public void setOnPause(final boolean pause) {
+    public void pause(final boolean pause) {
         mIsPause = pause;
         if(!pause) {
-            mHandler.postDelayed(drawRunnable, 100);
+            if(mHandler != null) {
+                mHandler.postDelayed(drawRunnable, 100);
+            }
         }
     }
 
     /**
-     * Backgroundであるかをセットします.
-     * @param onBack
+     * is on Background.
+     * @param onBack is on Background
      */
     public void setOnBackground(final boolean onBack) {
         mIsOnBackground = onBack;
