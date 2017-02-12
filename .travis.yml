@@ -9,7 +9,7 @@ android:
     - tools
 
     # The BuildTools version used by your project
-    - build-tools-23.0.2
+    - build-tools-23.0.3
 
     # The SDK version used to compile your project
     - android-23
@@ -24,12 +24,15 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    # - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-22
     # - sys-img-armeabi-v7a-android-17
 script:
-  - ./gradlew assembleDebug
+#   - ./gradlew assembleDebug
+  - ./gradlew assembleDebug test
 notifications:
-  email:
-    recipients: yuji.shimada@gmail.com
     on_success: change
     on_failure: always
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
