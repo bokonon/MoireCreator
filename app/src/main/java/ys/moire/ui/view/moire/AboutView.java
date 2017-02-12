@@ -1,4 +1,4 @@
-package ys.moire.view;
+package ys.moire.ui.view.moire;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,20 +15,20 @@ import ys.moire.R;
 import ys.moire.sensor.SensorEL;
 
 /**
- * AboutScreenView
- * モアレ説明画面
+ * about moire view class
+ * description screen
  */
 public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
 
-    /** 移動距離 */
+    /** move value */
     private static int VAL = 8;
     private float mLayoutWidth;
     private float mLayoutHeight;
-    /** 文字画像 */
+    /** char image bitmap */
     private Bitmap[] mBmp = new Bitmap[145];
-    /** 文字画像のポイント */
+    /** char image point */
     private PointF[] mBmpPoint = new PointF[145];
-    /** ペイント */
+    /** paint */
     private Paint mPaint;
     /** SensorEventListener */
     private SensorEL mSensorEL;
@@ -41,10 +41,10 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
         mLayoutHeight = height;
     }
     public void drawFrame() {
-        // Canvasクラス取得
+        // get canvas
         Canvas canvas = getHolder().lockCanvas();
         if(canvas != null){
-            // 描画 
+            // draw canvas
             canvas.drawColor(Color.WHITE);
             for(int i=0; i< mBmp.length; i++) {
                 float r = (float)Math.random()*5;
@@ -57,7 +57,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    // SurfaceViewが最初に生成されたときに呼び出される
+    // called when SurfaceView is created.
     public void surfaceCreated(SurfaceHolder holder) {
 
         TypedArray tArray = getResources().obtainTypedArray(R.array.chara_items);
@@ -65,8 +65,8 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
             int resource = tArray.getResourceId(i, 0);
             mBmp[i] = BitmapFactory.decodeResource(getResources(), resource);
         }
-        //以下文字の位置決め
-        // 1行目
+        // init char point
+        // line1
         for (int i=0; i<15; i++) {
             if(i == 0) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /17*(i+1)+20, mLayoutHeight /10- mBmp[i].getHeight());
@@ -84,7 +84,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /17*(i+1)+5, mLayoutHeight /10- mBmp[i].getHeight());
             }
         }
-        // 2行目
+        // line2
         for (int i=15; i<33; i++) {
             if(i == 15 || i == 21) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /19*(i-15)+10, mLayoutHeight *2/10- mBmp[i].getHeight());
@@ -93,7 +93,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /19*(i-15)+5, mLayoutHeight *2/10- mBmp[i].getHeight());
             }
         }
-        // 3行目
+        // line3
         for (int i=33; i<49; i++) {
             if(i == 33) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /18*(i-33)+5, mLayoutHeight *3/10- mBmp[i].getHeight()*4/5);
@@ -102,7 +102,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /18*(i-33)+5, mLayoutHeight *3/10- mBmp[i].getHeight());
             }
         }
-        // 4行目
+        // line4
         for (int i=49; i<65; i++) {
             if(i == 57) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /16*(i-49)+15, mLayoutHeight *4/10- mBmp[i].getHeight()*4/5);
@@ -117,7 +117,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /16*(i-49)+5, mLayoutHeight *4/10- mBmp[i].getHeight());
             }
         }
-        // 5行目
+        // line5
         for (int i=65; i<78; i++) {
             if(i == 65) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /15*(i-65)+10, mLayoutHeight *5/10- mBmp[i].getHeight());
@@ -129,7 +129,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /15*(i-65)+5, mLayoutHeight *5/10- mBmp[i].getHeight());
             }
         }
-        // 6行目
+        // line6
         for (int i=78; i<99; i++) {
             if(i == 95) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /21*(i-78)+5, mLayoutHeight *6/10- mBmp[i].getHeight()*4/5);
@@ -138,7 +138,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /21*(i-78)+5, mLayoutHeight *6/10- mBmp[i].getHeight());
             }
         }
-        // 7行目
+        // line7
         for (int i=99; i<116; i++) {
             if(i == 102) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /20*(i-98)-15, mLayoutHeight *7/10- mBmp[i].getHeight());
@@ -150,7 +150,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /20*(i-98)+5, mLayoutHeight *7/10- mBmp[i].getHeight());
             }
         }
-        // 8行目
+        // line8
         for (int i=116; i<134; i++) {
             if(i == 116 || i == 117 || i == 118 || i == 126) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /20*(i-116)+10, mLayoutHeight *8/10- mBmp[i].getHeight());
@@ -162,7 +162,7 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
                 mBmpPoint[i] = new PointF(mLayoutWidth /20*(i-116)+5, mLayoutHeight *8/10- mBmp[i].getHeight());
             }
         }
-        // 9行目
+        // line9
         for (int i=134; i<145; i++) {
             if(i == 134) {
                 mBmpPoint[i] = new PointF(mLayoutWidth /15*(i-130)-5, mLayoutHeight *9/10- mBmp[i].getHeight());
@@ -175,14 +175,13 @@ public class AboutView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
         mPaint = new Paint();
-//        mHandler = new Handler();
         drawFrame();
     }
-    // SurfaceViewのサイズなどが変更されたときに呼び出される
+    // called when SurfaceView is changed.
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         drawFrame();
     }
-    // SurfaceViewが破棄されるときに呼び出される
+    // called when SurfaceView is destroyed.
     public void surfaceDestroyed(SurfaceHolder holder) {
 
     }

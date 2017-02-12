@@ -1,14 +1,11 @@
 package ys.moire.type;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import ys.moire.util.PreferencesUtil;
-
 /**
- * 図形集合のベースクラス.
+ * Geometry base class.
  */
 public class BaseTypes extends AbstractTypes {
 
@@ -16,7 +13,7 @@ public class BaseTypes extends AbstractTypes {
     protected static final int LINE_B = 1;
 
     protected static final int MAX_NUMBER = 50;
-    /** 自動移動スピード */
+    /** auto move speed */
     protected static final float AUTO_SPEED = 0.7f;
     /** number */
     protected int number = MAX_NUMBER;
@@ -28,10 +25,10 @@ public class BaseTypes extends AbstractTypes {
     protected int color = Color.BLACK;
     /** paint */
     protected Paint paint;
-    /** タッチ中であるか */
+    /** isOnTouch */
     protected boolean onTouch;
 
-    /** 移動距離（オート）*/
+    /** move value */
     protected float dx = AUTO_SPEED;
 
     public BaseTypes() {
@@ -43,8 +40,7 @@ public class BaseTypes extends AbstractTypes {
     }
 
     @Override
-    public void loadData(final Context context, final String lineConfigName) {
-        BaseTypes types = PreferencesUtil.loadTypesData(context, lineConfigName);
+    public void loadData(final BaseTypes types) {
         setColor(types.color);
         setNumber(types.number);
         setThick(types.thick);
@@ -72,8 +68,8 @@ public class BaseTypes extends AbstractTypes {
     }
 
     /**
-     * 色をセットします.
-     * @param color 色
+     * set color.
+     * @param color color
      */
     @Override
     public void setColor(int color) {
@@ -86,16 +82,16 @@ public class BaseTypes extends AbstractTypes {
     }
 
     /**
-     * 色を返します.
-     * @return 色
+     * get color.
+     * @return color
      */
     public int getColor() {
         return color;
     }
 
     /**
-     * 線の数をセットします.
-     * @param number 線の数
+     * set line num.
+     * @param number line num
      */
     @Override
     public void setNumber(int number) {
@@ -103,16 +99,16 @@ public class BaseTypes extends AbstractTypes {
     }
 
     /**
-     * 線の数を返します.
-     * @return 数
+     * get line num.
+     * @return line num
      */
     public int getNumber() {
         return number;
     }
 
     /**
-     * 線の太さをセットします.
-     * @param thick 線の太さ
+     * set line thick.
+     * @param thick line thick
      */
     @Override
     public void setThick(int thick) {
@@ -125,16 +121,16 @@ public class BaseTypes extends AbstractTypes {
     }
 
     /**
-     * 線の太さを返します.
-     * @return 線の太さ
+     * get line thick.
+     * @return line thick
      */
     public int getThick() {
         return thick;
     }
 
     /**
-     * 線の傾きをセットします.
-     * @param slope 線の傾き
+     * set line slope.
+     * @param slope line slope
      */
     @Override
     public void setSlope(final int slope) {
@@ -142,8 +138,8 @@ public class BaseTypes extends AbstractTypes {
     }
 
     /**
-     * 線の傾きを返します.
-     * @return 線の傾き
+     * get line slope.
+     * @return slope value
      */
     public int getSlope() {
         return slope;
@@ -155,8 +151,8 @@ public class BaseTypes extends AbstractTypes {
     }
 
     /**
-     * タッチ状態をセットします.
-     * @param touch タッチ中であるか
+     * set is OnTouch.
+     * @param touch isOnTouch
      */
     @Override
     public void setOnTouchMode(boolean touch) {

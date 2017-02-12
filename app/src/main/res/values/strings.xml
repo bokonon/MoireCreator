@@ -27,8 +27,17 @@
 
     <string name="setting">setting</string>
     <string name="about">about</string>
+    <string name="other">other</string>
 
     <string name="message_capture_success">successful in capture!</string>
     <string name="message_capture_failed">failed to capture</string>
+
+    <string name="ad_unit_id">ca-app-pub-XXXX</string>
+
+    <string-array name="other_items">
+        <item>privacy policy</item>
+        <item>license</item>
+        <item>version</item>
+    </string-array>
 
 </resources>
