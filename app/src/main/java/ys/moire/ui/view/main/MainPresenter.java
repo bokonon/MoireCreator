@@ -35,7 +35,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     private MoireView moireView;
     private SharedPreferencesManager preferencesManager;
 
-    MainPresenter(final Context activityContext) {
+    public MainPresenter(final Context activityContext) {
         this.activityContext = activityContext;
         preferencesManager = new SharedPreferencesManager(activityContext);
     }
