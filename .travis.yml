@@ -1,6 +1,7 @@
 language: android
 jdk:
   - oraclejdk8
+
 android:
   components:
     # Uncomment the lines below if you want to
@@ -18,9 +19,6 @@ android:
     - extra-android-support
     - extra-android-m2repository
     - extra-google-m2repository
-  licenses:
-    - android-sdk-license-.+
-    - google-gdk-license-.+
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
@@ -29,14 +27,13 @@ android:
 script:
 #   - ./gradlew assembleDebug
   - ./gradlew assembleDebug test
+
 notifications:
     on_success: change
     on_failure: always
+
 cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-deploy:
-  provider: s3
-  s3_region: "ap-northeast-1"
 

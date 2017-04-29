@@ -11,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import ys.moire.domain.SharedPreferencesManager;
-import ys.moire.ui.view.main.MainPresenter;
-import ys.moire.ui.view.moire.MoireView;
+import ys.moire.domain.usecase.SharedPreferencesManager;
+import ys.moire.presentation.presenter.main.MainPresenter;
+import ys.moire.presentation.ui.view_parts.MoireView;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static org.mockito.Mockito.mock;
