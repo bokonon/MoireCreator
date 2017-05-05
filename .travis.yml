@@ -38,6 +38,9 @@ branches:
   only:
   - develop
 
+before_install:
+ - chmod +x travis/uploader.sh
+
 script:
    - ./gradlew assembleDebug
 
