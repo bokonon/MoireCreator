@@ -6,7 +6,7 @@ TOKEN=$1
 SRC_FILE=$2
 FILE_NAME=basename $SRC_FILE
 DST_FILE=$3
-DATE=date "+%Y/%m/%d-%R"
+DATE=`date +%Y/%m/%d-%R`
 
 curl -f -I -X POST \
        -H "Authorization: Bearer $TOKEN" \
