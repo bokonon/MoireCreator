@@ -40,7 +40,7 @@ branches:
 
 before_install:
  - chmod +x travis/uploader.sh
- shopt -s failglob
+ - shopt -s failglob
 
 script:
    - ./gradlew assembleDebug
