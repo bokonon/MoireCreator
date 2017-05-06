@@ -40,12 +40,13 @@ branches:
 
 before_install:
  - chmod +x travis/uploader.sh
+ shopt -s failglob
 
 script:
    - ./gradlew assembleDebug
 
 after_success:
-- ./travis/uploader.sh $ACCESS_TOKEN ./app/build/outputs/apk/app-debug.apk $TRAVIS_BRANCH
+- ./travis/uploader.sh $ACCESS_TOKEN ./app/build/outputs/apk/app-*.apk $TRAVIS_BRANCH
 
 cache:
   directories:
