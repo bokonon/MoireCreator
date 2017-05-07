@@ -39,7 +39,7 @@ branches:
     - develop
 
 script:
-  - ./gradlew assembleRelease
+  - ./gradlew assembleDebug
 
 after_success:
   - chmod +x travis/uploader.sh
