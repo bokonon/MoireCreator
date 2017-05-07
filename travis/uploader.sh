@@ -6,7 +6,7 @@ TOKEN=$1
 SRC_FILE=$2
 FILE_NAME=basename $SRC_FILE
 DST_FILE=$3
-DATE=`date +%Y\/%m\/%d-%T`
+DATE=`date +%Y-%m-%d-%T`
 echo "Date format is $DATE";
 
 curl -f -I -X POST \
@@ -19,7 +19,7 @@ if [ "echo $FILE_NAME|grep debug" ]; then
 
        curl -f -I -X POST \
               -H "Authorization: Bearer $TOKEN" \
-              -T "./app/build/outputs/mapping/$DST_FILE/mapping.txt" \
+              -T "./app/build/outputs/mapping/release/mapping.txt" \
               "https://content.dropboxapi.com/1/files_put/auto/$DST_FILE/${DATE}/mapping.txt"
 
        echo '--- uploader mapping.text end ---';
