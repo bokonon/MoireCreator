@@ -6,8 +6,7 @@ TOKEN=$1
 SRC_FILE=$2
 FILE_NAME=basename $SRC_FILE
 DST_FILE=$3
-DATE=`date +%Y%m%d-%H:%M:%S`
-echo "Date format is $DATE";
+DATE=`Asia/Tokyo date +%Y%m%d-%H%M%S`
 
 curl -f -I -X POST \
        -H "Authorization: Bearer $TOKEN" \
