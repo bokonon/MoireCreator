@@ -36,15 +36,15 @@ android:
 
 branches:
   only:
-  - develop
+    - develop
 
 script:
-   - ./gradlew assembleRelease
+  - ./gradlew assembleRelease
 
 after_success:
- - chmod +x travis/uploader.sh
- - shopt -s failglob
-- ./travis/uploader.sh $ACCESS_TOKEN ./app/build/outputs/apk/app-*.apk $TRAVIS_BRANCH
+  - chmod +x travis/uploader.sh
+  - shopt -s failglob
+  - ./travis/uploader.sh $ACCESS_TOKEN ./app/build/outputs/apk/app-*.apk $TRAVIS_BRANCH
 
 cache:
   directories:
