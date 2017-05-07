@@ -6,7 +6,7 @@ TOKEN=$1
 SRC_FILE=$2
 FILE_NAME=basename $SRC_FILE
 DST_FILE=$3
-DATE=`date +%Y-%m-%d-%T`
+DATE=`date +%Y%m%d-%H:%M:%S`
 echo "Date format is $DATE";
 
 curl -f -I -X POST \
