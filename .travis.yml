@@ -1,6 +1,15 @@
 language: android
+sudo: false
 jdk:
   - oraclejdk8
+
+env:
+  global:
+    - secure: "Mkr3v6IdoaE7HIqwMaUK41QwAmTf5uauDEw3qy7V/WIG8uXXYftEz8b4Z35TwWMM56jPfmSJOXW5XYaTM4ZqPKYhHJEefTBYnbwqDnnVYZcPhfQv0RXJN6u1xA3Nv7V4cvKlkp5fP3xeLN4NOOLiRCTBLf7VKn9/+7PZNJ/kdcNPuQGi1UQgE9K+veVSe2gzWwlH+TjirMd2BjTWnXvHQ5tjFTUAe4XPTBe/nT9kgm5TW+SyoceAZfRkB3Zy4speavOIXt7OtxDYV8EOkuhqpytSH/OEWI6lo+M7AeNwuFr9lTVSsSSUu0ouEaKQHdM5H8+oCbobc0R1zT0/0xLngUQbMqWfbAe/ldeXJZWvpLvBI6BgUWKJtZxow1Xow+u5147qktoHwmHTB0CqQVO3bZqyKKm2U2ZSESVVb16HQiDVGccGqJ4qBfNjwCEW2GsaS+4oxWIpYO2YXA2McgnAOXRDNyswh4F9yqGjuJtjlyL/Crpq4NTr4HSNKQfv6TIXbevW62wG+wFQ/70Vt72giY/3XVj2J5RC5bayyEXYifEBGwKxTZlMkq48Uo03L9EiMR7dGmUFXLQ4dRwFjhZpLA+xF9R8474kKznu/VFXlHeBE47xXu6VGhMAc/qy4FeXG6B2Wi561xv3uy+7N5X4tGcXlCIB8TINQugiXDBHKts="
+
+notifications:
+    on_success: change
+    on_failure: always
 
 android:
   components:
@@ -10,7 +19,7 @@ android:
     - tools
 
     # The BuildTools version used by your project
-    - build-tools-23.0.3
+    - build-tools-25.0.0
 
     # The SDK version used to compile your project
     - android-23
@@ -24,13 +33,18 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-22
     # - sys-img-armeabi-v7a-android-17
-script:
-#   - ./gradlew assembleDebug
-  - ./gradlew assembleDebug test
 
-notifications:
-    on_success: change
-    on_failure: always
+branches:
+  only:
+    - develop
+
+script:
+  - ./gradlew assembleDebug
+
+after_success:
+  - chmod +x travis/uploader.sh
+  - shopt -s failglob
+  - ./travis/uploader.sh $ACCESS_TOKEN ./app/build/outputs/apk/app-*.apk $TRAVIS_BRANCH
 
 cache:
   directories:
