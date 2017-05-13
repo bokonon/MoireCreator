@@ -12,11 +12,10 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        resValue "string", "ad_unit_id", "${ad_unit_id}"
     }
     buildTypes {
         debug {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true
