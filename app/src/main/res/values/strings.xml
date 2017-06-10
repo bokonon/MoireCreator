@@ -14,8 +14,8 @@
     <string name="number_title">Number</string>
     <string name="thick_title">Thick</string>
     <string name="slope_title">Slope</string>
-    <string name="line_a_val_text">Line A : </string>
-    <string name="line_b_val_text">Line B : </string>
+    <string name="line_a_val_text">Line A : %d</string>
+    <string name="line_b_val_text">Line B : %d</string>
 
     <string name="bt_ok">OK</string>
     <string name="splash">splash_image</string>
