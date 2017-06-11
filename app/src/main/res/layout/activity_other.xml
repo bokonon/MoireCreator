@@ -15,30 +15,11 @@
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
 
-    <!-- AD -->
-    <LinearLayout
-        android:id="@+id/ad_view_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true" >
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/ad_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            ads:adUnitId="@string/ad_unit_id"
-            ads:adSize="BANNER"
-            android:visibility="gone"/>
-    </LinearLayout>
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/other_tool_bar"
-        android:layout_above="@id/ad_view_layout">
+        android:layout_below="@id/other_tool_bar">
         <fragment
             android:id="@+id/other_fragment"
             android:name="ys.moire.presentation.ui.other.OtherFragment"
@@ -46,5 +27,17 @@
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_other" />
     </FrameLayout>
+
+    <!-- AD -->
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ad_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adUnitId="@string/ad_unit_id"
+        ads:adSize="BANNER"
+        android:visibility="gone"/>
 
 </RelativeLayout>

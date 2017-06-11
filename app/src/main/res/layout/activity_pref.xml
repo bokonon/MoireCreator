@@ -297,6 +297,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/padding_medium"
                     android:orientation="vertical" >
                     <TextView
                         android:id="@+id/slope_a_seekBar_text"
@@ -337,29 +338,22 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- AD -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="bottom" >
-                <com.google.android.gms.ads.AdView
-                    xmlns:ads="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/ad_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    ads:adUnitId="@string/ad_unit_id"
-                    ads:adSize="BANNER"
-                    android:visibility="gone"/>
-            </LinearLayout>
-
             <!-- dummy view for margin -->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="40dp"/>
+                android:layout_height="80dp"/>
 
         </LinearLayout>
     </ScrollView>
+    <!-- AD -->
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ad_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adUnitId="@string/ad_unit_id"
+        ads:adSize="BANNER"
+        android:visibility="gone"/>
 </RelativeLayout>
