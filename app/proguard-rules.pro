@@ -16,7 +16,7 @@
 #   public *;
 #}
 
-##---------------Begin: proguard configuration for Gson  ----------
+# Gson
 # Gson uses generic type information stored in a class file when working with fields. Proguard
 # removes such information by default, so configure it to keep all of it.
 -keepattributes Signature
@@ -37,9 +37,7 @@
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 
-##---------------End: proguard configuration for Gson  ----------
-
-##---------------Begin: proguard configuration for AdMob  ----------
+# AdMob
 -keep public class com.google.android.gms.ads.** {
    public *;
 }
@@ -47,4 +45,6 @@
 -keep public class com.google.ads.** {
    public *;
 }
-##---------------End: proguard configuration for AdMob  ----------
+
+# Kotlin
+-dontwarn kotlin.**
