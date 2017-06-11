@@ -4,6 +4,7 @@
         <item>Line</item>
         <item>Circle</item>
         <item>Rect</item>
+        <item>Heart</item>
         <item>Original</item>
     </string-array>
     <integer-array name="chara_items">

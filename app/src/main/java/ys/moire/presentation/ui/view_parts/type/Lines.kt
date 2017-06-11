@@ -51,7 +51,7 @@ class Lines : BaseTypes() {
     public override fun draw(canvas: Canvas) {
         for (i in 0..number - 1) {
             if (BuildConfig.DEBUG) {
-                // make first line blue only debug
+                // make first line to blue color for only debug
                 if (i == 0) {
                     val p = Paint()
                     p.style = Paint.Style.STROKE
@@ -61,7 +61,7 @@ class Lines : BaseTypes() {
                             line!![i]!!.bottomY, p)
                     continue
                 }
-                // make last line red only debug
+                // make last line to red color for only debug
                 if (i == number - 1) {
                     val p = Paint()
                     p.style = Paint.Style.STROKE

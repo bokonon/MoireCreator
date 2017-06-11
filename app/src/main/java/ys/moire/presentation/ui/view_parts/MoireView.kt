@@ -28,6 +28,10 @@ class MoireView(
     private var aRectangles: Rectangles? = null
     /** Rectangle B  */
     private var bRectangles: Rectangles? = null
+    /** Rectangle A  */
+    private var aHearts: Hearts? = null
+    /** Rectangle B  */
+    private var bHearts: Hearts? = null
     /** CustomLines A  */
     private var aCustomLines: CustomLines? = null
     /** CustomLines B  */
@@ -122,6 +126,16 @@ class MoireView(
                     aRectangles!!.draw(canvas)
                     bRectangles!!.draw(canvas)
                 }
+                ys.moire.common.config.TYPE_HEART() -> {
+                    aHearts!!.checkOutOfRange(layoutWidth)
+                    bHearts!!.checkOutOfRange(layoutWidth)
+                    if (!isPause) {
+                        aHearts!!.move(LINE_A)
+                        bHearts!!.move(LINE_B)
+                    }
+                    aHearts!!.draw(canvas)
+                    bHearts!!.draw(canvas)
+                }
                 ys.moire.common.config.TYPE_ORIGINAL() -> {
                     aCustomLines!!.checkOutOfRange(LINE_A, layoutWidth)
                     bCustomLines!!.checkOutOfRange(LINE_B, layoutWidth)
@@ -157,6 +171,10 @@ class MoireView(
             ys.moire.common.config.TYPE_RECT() -> {
                 aRectangles!!.draw(canvas)
                 bRectangles!!.draw(canvas)
+            }
+            ys.moire.common.config.TYPE_HEART() -> {
+                aHearts!!.draw(canvas)
+                bHearts!!.draw(canvas)
             }
             ys.moire.common.config.TYPE_ORIGINAL() -> {
                 aCustomLines!!.draw(canvas)
@@ -209,6 +227,14 @@ class MoireView(
                 aRectangles!!.init(LINE_A, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
                 bRectangles!!.init(LINE_B, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
             }
+            ys.moire.common.config.TYPE_HEART() -> {
+                aHearts = Hearts()
+                aHearts!!.loadData(aTypes)
+                bHearts = Hearts()
+                bHearts!!.loadData(bTypes)
+                aHearts!!.init(LINE_A, layoutWidth, layoutHeight)
+                bHearts!!.init(LINE_B, layoutWidth, layoutHeight)
+            }
             ys.moire.common.config.TYPE_ORIGINAL() -> {
                 aCustomLines = CustomLines()
                 aCustomLines!!.loadData(aTypes)
@@ -241,6 +267,11 @@ class MoireView(
                 aRectangles!!.addTouchVal(valX, valY)
             } else if (which == LINE_B) {
                 bRectangles!!.addTouchVal(valX, valY)
+            }
+            ys.moire.common.config.TYPE_HEART() -> if (which == LINE_A) {
+                aHearts!!.addTouchVal(valX, valY)
+            } else if (which == LINE_B) {
+                bHearts!!.addTouchVal(valX, valY)
             }
             ys.moire.common.config.TYPE_ORIGINAL() -> if (which == LINE_A) {
                 // add nothing for customLine

@@ -35,7 +35,7 @@ class ColorPickerDialogFragment : DialogFragment() {
 
         builder.setTitle(R.string.color)
         builder.setView(view)
-        builder.setPositiveButton(android.R.string.ok) { dialog, witch ->
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
             onOkClick()
             dismiss()
         }

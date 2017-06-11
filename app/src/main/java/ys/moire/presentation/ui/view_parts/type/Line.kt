@@ -30,7 +30,7 @@ class Line : BaseType() {
      * scroll line automatically.
      * @param dx dx
      */
-    internal override fun autoMove(dx: Float) {
+    override fun autoMove(dx: Float) {
         topX += dx
         bottomX += dx
     }
@@ -39,7 +39,7 @@ class Line : BaseType() {
      * check if the line is out of range.
      * @param layoutWidth 画面の横幅
      */
-    internal override fun checkOutOfRange(layoutWidth: Int, slope: Int) {
+    override fun checkOutOfRange(layoutWidth: Int, slope: Int) {
         // LineA
         if (bottomX < topX) {
             if (layoutWidth < bottomX) {

@@ -33,13 +33,10 @@ class CustomLine : BaseType() {
     /**
      * check if the custom line is out of range.
      * @param layoutWidth screen width
-     * *
-     * @param slope no use with custom line
      */
-    internal fun checkOutOfRange(whichLine: Int, layoutWidth: Int, slope: Int) {
+    internal fun checkParcellingOutOfRange(whichLine: Int, layoutWidth: Int) {
         var underZeroCount = 0
         var overWidthCount = 0
-        var diff = 0f
         var minX = 0f
         var maxX = 0f
         for (point in pathList) {
@@ -65,7 +62,7 @@ class CustomLine : BaseType() {
                 }
             }
         }
-        diff = maxX - minX
+        val diff = maxX - minX
         // less than 0
         if (whichLine == LINE_B && underZeroCount == pathList.size) {
             for (point in pathList) {

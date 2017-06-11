@@ -19,7 +19,7 @@ class Circle : BaseType() {
      * scroll circle automatically.
      * @param dx auto move distance
      */
-    internal override fun autoMove(dx: Float) {
+    override fun autoMove(dx: Float) {
         x += dx
     }
 

@@ -34,7 +34,7 @@ class Rectangle : BaseType() {
      * scroll rectangle automatically.
      * @param dx dx
      */
-    internal override fun autoMove(dx: Float) {
+    override fun autoMove(dx: Float) {
         leftTop.x += dx
         rightTop.x += dx
         rightBottom.x += dx

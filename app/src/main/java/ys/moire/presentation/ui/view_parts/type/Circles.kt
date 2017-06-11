@@ -31,12 +31,12 @@ class Circles : BaseTypes() {
     public override fun checkOutOfRange(layoutWidth: Int) {
         // check only outside circle.
         if (circle!![number - 1]!!.x < -circle!![number - 1]!!.r) {
-            // disappear minus x val
+            // disappear for minus x val
             for (i in 0..number - 1) {
                 circle!![i]!!.x = layoutWidth + circle!![number - 1]!!.r
             }
         } else if (layoutWidth + circle!![number - 1]!!.r < circle!![number - 1]!!.x) {
-            // disappear plus x value
+            // disappear for plus x value
             for (i in 0..number - 1) {
                 circle!![i]!!.x = -circle!![number - 1]!!.r
             }

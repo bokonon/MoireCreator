@@ -41,12 +41,12 @@ class Rectangles : BaseTypes() {
         // check only out side line
         if (isTrapezoid) {
             if (rectangle!![number - 1]!!.rightBottom.x < 0) {
-                // disappear less than 0
+                // disappear for less than 0
                 for (i in 0..number - 1) {
                     rectangle!![i]!!.moveX(layoutWidth + rectangle!![number - 1]!!.bottomLength / 2)
                 }
             } else if (layoutWidth < rectangle!![number - 1]!!.leftBottom.x) {
-                // disappear more than width
+                // disappear for more than width
                 for (i in 0..number - 1) {
                     rectangle!![i]!!.moveX(-rectangle!![number - 1]!!.bottomLength / 2)
                 }

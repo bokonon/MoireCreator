@@ -227,9 +227,9 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         f.show(supportFragmentManager, ColorPickerDialogFragment.TAG)
     }
 
-    override fun onColorSelected(bundle: Bundle) {
-        val color = bundle.getInt(ys.moire.common.config.COLOR(), -1)
-        val type = bundle.getString(ys.moire.common.config.COLOR_OF_TYPE()) ?: return
+    override fun onColorSelected(args: Bundle) {
+        val color = args.getInt(ys.moire.common.config.COLOR(), -1)
+        val type = args.getString(ys.moire.common.config.COLOR_OF_TYPE()) ?: return
         when (type) {
             ys.moire.common.config.LINE_A() -> {
                 aLines!!.color = color

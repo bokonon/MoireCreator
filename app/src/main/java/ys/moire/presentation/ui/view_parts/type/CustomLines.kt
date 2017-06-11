@@ -24,7 +24,7 @@ class CustomLines : BaseTypes() {
             return
         }
         for (i in 0..number - 1) {
-            customLines!![i]!!.checkOutOfRange(whichLine, layoutWidth, slope)
+            customLines!![i]!!.checkParcellingOutOfRange(whichLine, layoutWidth)
         }
     }
 

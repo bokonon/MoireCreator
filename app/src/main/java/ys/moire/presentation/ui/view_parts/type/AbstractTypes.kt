@@ -17,14 +17,6 @@ abstract class AbstractTypes {
 
     internal abstract fun draw(canvas: Canvas)
 
-//    internal abstract fun setColor(color: Int)
-//
-//    internal abstract fun setNumber(number: Int)
-//
-//    internal abstract fun setThick(thick: Int)
-//
-//    internal abstract fun setSlope(slope: Int)
-
     internal abstract fun addTouchVal(valX: Int, valY: Int)
 
     internal abstract fun setOnTouchMode(touch: Boolean)

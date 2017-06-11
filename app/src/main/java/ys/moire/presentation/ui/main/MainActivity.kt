@@ -1,7 +1,6 @@
 package ys.moire.presentation.ui.main
 
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
@@ -167,7 +166,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                     touchMoveX = 0
                     tempMoveX = 0
                 } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
-                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()) {
+                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()
+                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()) {
                     // TouchMode on
                     moireView!!.setOnTouchMode(touchLineMode, true)
                     // init dx dy
@@ -188,7 +188,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
 
                     tempMoveX = currentX - firstTouchX
                 } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
-                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()) {
+                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()
+                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()) {
                     touchMoveX = currentX - firstTouchX - tempMoveX
                     touchMoveY = currentY - firstTouchY - tempMoveY
                     moireView!!.addTouchValue(touchLineMode, touchMoveX, touchMoveY)
@@ -210,7 +211,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                     touchMoveX = 0
                     tempMoveX = 0
                 } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
-                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()) {
+                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()
+                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()) {
                     // TouchMode off
                     moireView!!.setOnTouchMode(touchLineMode, false)
                     // init dx dy

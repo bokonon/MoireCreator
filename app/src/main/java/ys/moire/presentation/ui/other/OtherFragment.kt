@@ -22,7 +22,7 @@ class OtherFragment : Fragment() {
 
         val listView = view.findViewById(R.id.listView) as ListView
         listView.addHeaderView(View(activity), null, false)
-        listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             var url = ""
             when (i) {
             // header

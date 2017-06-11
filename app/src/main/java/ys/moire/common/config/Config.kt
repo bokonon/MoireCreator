@@ -8,7 +8,8 @@ package ys.moire.common.config
 fun TYPE_LINE() = 0
 fun TYPE_CIRCLE() = 1
 fun TYPE_RECT() = 2
-fun TYPE_ORIGINAL() = 3
+fun TYPE_HEART() = 3
+fun TYPE_ORIGINAL() = 4
 
 /** SharedPreferenceKey  */
 fun PREF() = "pref"
