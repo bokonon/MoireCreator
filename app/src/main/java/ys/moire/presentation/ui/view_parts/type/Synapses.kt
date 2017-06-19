@@ -40,12 +40,12 @@ class Synapses : BaseTypes() {
 
     public override fun checkOutOfRange(layoutWidth: Int) {
         if (synapse!![number - 1]!!.right.x < 0) {
-            val startX = layoutWidth -  synapse!![0]!!.center.x
+            val startX = layoutWidth -  synapse!![0]!!.center.x + synapse!![number - 1]!!.right.x
             for (i in 0..number - 1) {
                 synapse!![i]!!.center.x = startX
             }
         } else if (layoutWidth < synapse!![number - 1]!!.left.x) {
-            val startX = synapse!![0]!!.center.x - layoutWidth
+            val startX = synapse!![0]!!.center.x - synapse!![number - 1]!!.left.x
             for (i in 0..number - 1) {
                 synapse!![i]!!.center.x = - startX
             }
