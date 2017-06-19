@@ -32,6 +32,10 @@ class MoireView(
     private var aHearts: Hearts? = null
     /** Rectangle B  */
     private var bHearts: Hearts? = null
+    /** Synapse A  */
+    private var aSynapses: Synapses? = null
+    /** Synapse B  */
+    private var bSynapses: Synapses? = null
     /** CustomLines A  */
     private var aCustomLines: CustomLines? = null
     /** CustomLines B  */
@@ -136,6 +140,16 @@ class MoireView(
                     aHearts!!.draw(canvas)
                     bHearts!!.draw(canvas)
                 }
+                ys.moire.common.config.TYPE_SYNAPSE() -> {
+                    aSynapses!!.checkOutOfRange(layoutWidth)
+                    bSynapses!!.checkOutOfRange(layoutWidth)
+                    if (!isPause) {
+                        aSynapses!!.move(LINE_A)
+                        bSynapses!!.move(LINE_B)
+                    }
+                    aSynapses!!.draw(canvas)
+                    bSynapses!!.draw(canvas)
+                }
                 ys.moire.common.config.TYPE_ORIGINAL() -> {
                     aCustomLines!!.checkOutOfRange(LINE_A, layoutWidth)
                     bCustomLines!!.checkOutOfRange(LINE_B, layoutWidth)
@@ -175,6 +189,10 @@ class MoireView(
             ys.moire.common.config.TYPE_HEART() -> {
                 aHearts!!.draw(canvas)
                 bHearts!!.draw(canvas)
+            }
+            ys.moire.common.config.TYPE_SYNAPSE() -> {
+                aSynapses!!.draw(canvas)
+                bSynapses!!.draw(canvas)
             }
             ys.moire.common.config.TYPE_ORIGINAL() -> {
                 aCustomLines!!.draw(canvas)
@@ -235,6 +253,14 @@ class MoireView(
                 aHearts!!.init(LINE_A, layoutWidth, layoutHeight)
                 bHearts!!.init(LINE_B, layoutWidth, layoutHeight)
             }
+            ys.moire.common.config.TYPE_SYNAPSE() -> {
+                aSynapses = Synapses()
+                aSynapses!!.loadData(aTypes)
+                bSynapses = Synapses()
+                bSynapses!!.loadData(bTypes)
+                aSynapses!!.init(LINE_A, layoutWidth, layoutHeight)
+                bSynapses!!.init(LINE_B, layoutWidth, layoutHeight)
+            }
             ys.moire.common.config.TYPE_ORIGINAL() -> {
                 aCustomLines = CustomLines()
                 aCustomLines!!.loadData(aTypes)
@@ -272,6 +298,11 @@ class MoireView(
                 aHearts!!.addTouchVal(valX, valY)
             } else if (which == LINE_B) {
                 bHearts!!.addTouchVal(valX, valY)
+            }
+            ys.moire.common.config.TYPE_SYNAPSE() -> if (which == LINE_A) {
+                aSynapses!!.addTouchVal(valX, valY)
+            } else if (which == LINE_B) {
+                bSynapses!!.addTouchVal(valX, valY)
             }
             ys.moire.common.config.TYPE_ORIGINAL() -> if (which == LINE_A) {
                 // add nothing for customLine
@@ -311,6 +342,16 @@ class MoireView(
                 aRectangles!!.setOnTouchMode(isOnTouch)
             } else if (which == LINE_B) {
                 bRectangles!!.setOnTouchMode(isOnTouch)
+            }
+            ys.moire.common.config.TYPE_HEART() -> if (which == LINE_A) {
+                aHearts!!.setOnTouchMode(isOnTouch)
+            } else if (which == LINE_B) {
+                bHearts!!.setOnTouchMode(isOnTouch)
+            }
+            ys.moire.common.config.TYPE_SYNAPSE() -> if (which == LINE_A) {
+                aSynapses!!.setOnTouchMode(isOnTouch)
+            } else if (which == LINE_B) {
+                bSynapses!!.setOnTouchMode(isOnTouch)
             }
             ys.moire.common.config.TYPE_ORIGINAL() -> if (which == LINE_A) {
                 aCustomLines!!.setOnTouchMode(isOnTouch)

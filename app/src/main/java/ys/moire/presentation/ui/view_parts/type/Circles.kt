@@ -2,7 +2,6 @@ package ys.moire.presentation.ui.view_parts.type
 
 import android.graphics.Canvas
 import android.util.Log
-
 import ys.moire.BuildConfig
 
 /**
@@ -78,7 +77,6 @@ class Circles : BaseTypes() {
     }
 
     companion object {
-
         private val TAG = "Circles"
     }
 }

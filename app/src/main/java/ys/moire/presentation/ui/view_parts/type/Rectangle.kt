@@ -13,8 +13,8 @@ class Rectangle : BaseType() {
     lateinit var rightBottom: PointF
     lateinit var leftBottom: PointF
 
-    var topLength: Float = 0.toFloat()
-    var bottomLength: Float = 0.toFloat()
+    var topLength: Float = 0f
+    var bottomLength: Float = 0f
 
     lateinit var path: Path
 

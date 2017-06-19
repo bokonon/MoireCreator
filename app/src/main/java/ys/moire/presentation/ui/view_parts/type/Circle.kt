@@ -4,10 +4,10 @@ package ys.moire.presentation.ui.view_parts.type
  * Circle class.
  */
 class Circle : BaseType() {
-    var x: Float = 0.toFloat()
-    var y: Float = 0.toFloat()
+    var x: Float = 0f
+    var y: Float = 0f
     /** radius  */
-    var r: Float = 0.toFloat()
+    var r: Float = 0f
 
     fun init(x: Float, y: Float, r: Float) {
         this.x = x
