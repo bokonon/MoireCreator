@@ -4,10 +4,10 @@ package ys.moire.presentation.ui.view_parts.type
  * line class.
  */
 class Line : BaseType() {
-    var topX: Float = 0.toFloat()
-    var topY: Float = 0.toFloat()
-    var bottomX: Float = 0.toFloat()
-    var bottomY: Float = 0.toFloat()
+    var topX: Float = 0f
+    var topY: Float = 0f
+    var bottomX: Float = 0f
+    var bottomY: Float = 0f
 
     /**
      * init line.

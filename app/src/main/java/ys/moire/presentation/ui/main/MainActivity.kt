@@ -167,7 +167,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                     tempMoveX = 0
                 } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
                         || moireView!!.type == ys.moire.common.config.TYPE_RECT()
-                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()) {
+                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()
+                        || moireView!!.type == ys.moire.common.config.TYPE_SYNAPSE()) {
                     // TouchMode on
                     moireView!!.setOnTouchMode(touchLineMode, true)
                     // init dx dy
@@ -189,7 +190,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                     tempMoveX = currentX - firstTouchX
                 } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
                         || moireView!!.type == ys.moire.common.config.TYPE_RECT()
-                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()) {
+                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()
+                        || moireView!!.type == ys.moire.common.config.TYPE_SYNAPSE()) {
                     touchMoveX = currentX - firstTouchX - tempMoveX
                     touchMoveY = currentY - firstTouchY - tempMoveY
                     moireView!!.addTouchValue(touchLineMode, touchMoveX, touchMoveY)
@@ -212,7 +214,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                     tempMoveX = 0
                 } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
                         || moireView!!.type == ys.moire.common.config.TYPE_RECT()
-                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()) {
+                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()
+                        || moireView!!.type == ys.moire.common.config.TYPE_SYNAPSE()) {
                     // TouchMode off
                     moireView!!.setOnTouchMode(touchLineMode, false)
                     // init dx dy

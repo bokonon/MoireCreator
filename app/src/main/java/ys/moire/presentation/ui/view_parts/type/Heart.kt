@@ -8,8 +8,8 @@ import android.graphics.PointF
  */
 class Heart : BaseType() {
 
-    var width = 0.toFloat()
-    var height = 0.toFloat()
+    var width = 0f
+    var height = 0f
     lateinit var centerTop: PointF
     var leftTop: Array<PointF?> = arrayOfNulls(3)
     var leftBottom: Array<PointF?> = arrayOfNulls(3)

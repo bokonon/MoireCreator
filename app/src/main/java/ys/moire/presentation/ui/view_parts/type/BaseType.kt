@@ -4,6 +4,7 @@ package ys.moire.presentation.ui.view_parts.type
  * geometry base class.
  */
 open class BaseType : AbstractType() {
+
     override fun autoMove(dx: Float) {
 
     }
