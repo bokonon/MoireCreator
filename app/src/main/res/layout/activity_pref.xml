@@ -196,7 +196,7 @@
                     android:id="@+id/number_a_seekBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="50"
+                    android:max="49"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp" />
             </LinearLayout>
@@ -217,7 +217,7 @@
                     android:id="@+id/number_b_seekBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="50"
+                    android:max="49"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp" />
             </LinearLayout>

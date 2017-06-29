@@ -115,27 +115,27 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         // Line A Number
         lineANumberSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineANumberText!!.text = getString(R.string.line_a_val_text, progress)
+                lineANumberText!!.text = getString(R.string.line_a_val_text, progress + 1)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                aLines!!.number = seekBar.progress
+                aLines!!.number = seekBar.progress + 1
                 presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines!!)
             }
         })
         // Line B Number
         lineBNumberSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineBNumberText!!.text = getString(R.string.line_b_val_text, progress)
+                lineBNumberText!!.text = getString(R.string.line_b_val_text, progress + 1)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                bLines!!.number = seekBar.progress
-                presenter.saveTypesData(ys.moire.common.config.LINE_B(), aLines!!)
+                bLines!!.number = seekBar.progress + 1
+                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines!!)
             }
         })
         // Line A Thick
@@ -309,10 +309,10 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         lineBPreColor!!.setBackgroundColor(bLines!!.color)
         bgPreColor!!.setBackgroundColor(presenter.bgColor)
         // Number
-        lineANumberSeekBar!!.progress = aLines!!.number
-        lineANumberText!!.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress)
-        lineBNumberSeekBar!!.progress = bLines!!.number
-        lineBNumberText!!.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress)
+        lineANumberSeekBar!!.progress = aLines!!.number - 1
+        lineANumberText!!.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + 1)
+        lineBNumberSeekBar!!.progress = bLines!!.number - 1
+        lineBNumberText!!.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + 1)
         // Thick
         lineAThickSeekBar!!.progress = aLines!!.thick
         lineAThickText!!.text = getString(R.string.line_a_val_text, lineAThickSeekBar!!.progress)
