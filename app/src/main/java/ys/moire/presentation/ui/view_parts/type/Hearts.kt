@@ -22,7 +22,7 @@ class Hearts : BaseTypes() {
             val heartWidth = layoutWidth.toFloat() / number * (i + 1)
             val heartHeight = layoutHeight.toFloat() * 2 / 3 / number * (i + 1)
             if (whichLine == BaseTypes.LINE_A) {
-                heart!![i]!!.init(0.toFloat(), layoutHeight.toFloat() / 3, heartWidth, heartHeight)
+                heart!![i]!!.init(0.toFloat(), layoutHeight.toFloat() * 5 / 18, heartWidth, heartHeight)
             } else if (whichLine == BaseTypes.LINE_B) {
                 heart!![i]!!.init(layoutWidth.toFloat(), layoutHeight.toFloat() * 2 / 3, heartWidth, heartHeight)
             }

@@ -20,7 +20,7 @@ class Synapse : BaseType() {
     lateinit var rightTop: PointF
     lateinit var rightBottom: PointF
 
-    var curveMargin: Int = 15
+    var curveMargin: Int = 1
     lateinit var path: Path
 
     fun init(center: PointF, left: PointF, top: PointF,
@@ -106,66 +106,66 @@ class Synapse : BaseType() {
 
         path.moveTo(top.x, top.y)
         path.cubicTo(
-                (center.x + curveMargin * Math.cos(345.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(345.0)).toFloat(),
-                (center.x + curveMargin * Math.cos(330.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(330.0)).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(345.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(345.0))).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(330.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(330.0))).toFloat(),
                 leftTop.x, leftTop.y)
 
         path.moveTo(leftTop.x, leftTop.y)
         path.cubicTo(
-                (center.x + curveMargin * Math.cos(300.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(300.0)).toFloat(),
-                (center.x + curveMargin * Math.cos(285.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(285.0)).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(300.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(300.0))).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(285.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(285.0))).toFloat(),
                 left.x, left.y)
 
         path.moveTo(left.x, left.y)
         path.cubicTo(
-                (center.x + curveMargin * Math.cos(255.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(255.0)).toFloat(),
-                (center.x + curveMargin * Math.cos(240.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(240.0)).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(255.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(255.0))).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(240.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(240.0))).toFloat(),
                 leftBottom.x, leftBottom.y)
 
         path.moveTo(leftBottom.x, leftBottom.y)
         path.cubicTo(
-                (center.x + curveMargin * Math.cos(210.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(210.0)).toFloat(),
-                (center.x + curveMargin * Math.cos(195.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(195.0)).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(210.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(210.0))).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(195.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(195.0))).toFloat(),
                 bottom.x, bottom.y)
 
         path.moveTo(bottom.x, bottom.y)
         path.cubicTo(
-                (center.x + curveMargin * Math.cos(165.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(165.0)).toFloat(),
-                (center.x + curveMargin * Math.cos(150.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(150.0)).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(165.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(165.0))).toFloat(),
+                (center.x + curveMargin * Math.cos(Math.toRadians(150.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(150.0))).toFloat(),
                 rightBottom.x, rightBottom.y)
 
         path.moveTo(rightBottom.x, rightBottom.y)
         path.cubicTo(
-                (center.x + curveMargin* Math.cos(120.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(120.0)).toFloat(),
-                (center.x + curveMargin* Math.cos(105.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(105.0)).toFloat(),
+                (center.x + curveMargin* Math.cos(Math.toRadians(120.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(120.0))).toFloat(),
+                (center.x + curveMargin* Math.cos(Math.toRadians(105.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(105.0))).toFloat(),
                 right.x, right.y)
 
         path.moveTo(right.x, right.y)
         path.cubicTo(
-                (center.x + curveMargin* Math.cos(75.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(75.0)).toFloat(),
-                (center.x + curveMargin* Math.cos(60.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(60.0)).toFloat(),
+                (center.x + curveMargin* Math.cos(Math.toRadians(75.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(75.0))).toFloat(),
+                (center.x + curveMargin* Math.cos(Math.toRadians(60.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(60.0))).toFloat(),
                 rightTop.x, rightTop.y)
 
         path.moveTo(rightTop.x, rightTop.y)
         path.cubicTo(
-                (center.x + curveMargin* Math.cos(30.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(30.0)).toFloat(),
-                (center.x + curveMargin* Math.cos(15.0)).toFloat(),
-                (center.y + curveMargin * Math.sin(15.0)).toFloat(),
+                (center.x + curveMargin* Math.cos(Math.toRadians(30.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(30.0))).toFloat(),
+                (center.x + curveMargin* Math.cos(Math.toRadians(15.0))).toFloat(),
+                (center.y + curveMargin * Math.sin(Math.toRadians(15.0))).toFloat(),
                 top.x, top.y)
     }
 
