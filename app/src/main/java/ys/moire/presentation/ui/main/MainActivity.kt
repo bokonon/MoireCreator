@@ -1,8 +1,13 @@
 package ys.moire.presentation.ui.main
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.DisplayMetrics
 import android.util.Log
@@ -256,7 +261,11 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                 pauseImageButton!!.setImageResource(R.drawable.ic_play_arrow_black_24dp)
             }
         } else if (view === screenShotImageButton) {
-            mainPresenter.captureCanvas()
+            if (isWriteExternalStoragePermission()) {
+                mainPresenter.captureCanvas()
+            } else {
+                requestPermission()
+            }
         }
     }
 
@@ -302,6 +311,36 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         )
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mainPresenter.captureCanvas()
+                } else {
+                    mainPresenter.showToast(getString(R.string.message_capture_failed))
+                }
+            }
+        }
+    }
+
+    private fun isWriteExternalStoragePermission(): Boolean {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+                return true
+            }
+            return false
+        }
+        return true
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST_CODE)
+    }
+
     companion object {
 
         private val TAG = "MainActivity"
@@ -313,5 +352,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
 
         private val LINE_A = 0
         private val LINE_B = 1
+
+        private val PERMISSION_REQUEST_CODE = 1
     }
 }
