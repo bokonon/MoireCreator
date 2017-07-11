@@ -1,6 +1,5 @@
 package ys.moire.presentation.presenter.main
 
-import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,23 +8,19 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
-
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-
-import lombok.RequiredArgsConstructor
+import com.google.android.gms.wearable.DataMap.TAG
 import ys.moire.BuildConfig
 import ys.moire.R
 import ys.moire.domain.usecase.LoadMoireUseCase
 import ys.moire.presentation.presenter.base.BasePresenter
 import ys.moire.presentation.ui.view_parts.MoireView
 import ys.moire.presentation.ui.view_parts.type.BaseTypes
-
-import com.google.android.gms.wearable.DataMap.TAG
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * MainPresenter.
@@ -96,6 +91,10 @@ class MainPresenter(private val context: Context?, private val loadMoireUseCase:
         }
     }
 
+    fun showToast(message: String) {
+        Toast.makeText(context!!.applicationContext, message, Toast.LENGTH_SHORT).show()
+    }
+
     private fun createBitmap(): Bitmap {
         val bitmap = Bitmap.createBitmap(moireView!!.width, moireView!!.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
@@ -109,8 +108,4 @@ class MainPresenter(private val context: Context?, private val loadMoireUseCase:
             val date = Date()
             return "Moire_" + formatter.format(date) + ".png"
         }
-
-    private fun showToast(message: String) {
-        Toast.makeText(context!!.applicationContext, message, Toast.LENGTH_SHORT).show()
-    }
 }
