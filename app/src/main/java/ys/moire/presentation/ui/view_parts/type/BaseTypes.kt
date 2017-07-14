@@ -36,7 +36,13 @@ open class BaseTypes : AbstractTypes() {
     public override fun loadData(types: BaseTypes) {
         color = types.color
         paint!!.color = color
-        number = types.number
+        // for migration to new version
+        val previousValue = types.number
+        if (previousValue < MINIMUM_VAL) {
+            number = MINIMUM_VAL
+        } else {
+            number = previousValue
+        }
         thick = types.thick
         paint!!.strokeWidth = thick.toFloat()
         slope = types.slope
@@ -74,6 +80,8 @@ open class BaseTypes : AbstractTypes() {
 
         val LINE_A = 0
         val LINE_B = 1
+
+        val MINIMUM_VAL = 10;
 
         protected val MAX_NUMBER = 50
         /** auto move speed  */

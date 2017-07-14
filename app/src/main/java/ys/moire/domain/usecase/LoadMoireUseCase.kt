@@ -54,7 +54,13 @@ class LoadMoireUseCase(private val prefs: Prefs?) {
     private fun convertToObj(@NonNull dto: BaseEntity): BaseTypes {
         val types = BaseTypes()
         types.color = dto.color
-        types.number = dto.number
+        // for migration to new version
+        val previousValue = dto.number
+        if (previousValue < BaseTypes.MINIMUM_VAL) {
+            types.number = BaseTypes.MINIMUM_VAL
+        } else {
+            types.number = previousValue
+        }
         types.thick = dto.thick
         types.slope = dto.slope
         return types

@@ -115,26 +115,26 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         // Line A Number
         lineANumberSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineANumberText!!.text = getString(R.string.line_a_val_text, progress + 1)
+                lineANumberText!!.text = getString(R.string.line_a_val_text, progress + MINIMUM_VAL)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                aLines!!.number = seekBar.progress + 1
+                aLines!!.number = seekBar.progress + MINIMUM_VAL
                 presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines!!)
             }
         })
         // Line B Number
         lineBNumberSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineBNumberText!!.text = getString(R.string.line_b_val_text, progress + 1)
+                lineBNumberText!!.text = getString(R.string.line_b_val_text, progress + MINIMUM_VAL)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                bLines!!.number = seekBar.progress + 1
+                bLines!!.number = seekBar.progress + MINIMUM_VAL
                 presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines!!)
             }
         })
@@ -309,10 +309,10 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         lineBPreColor!!.setBackgroundColor(bLines!!.color)
         bgPreColor!!.setBackgroundColor(presenter.bgColor)
         // Number
-        lineANumberSeekBar!!.progress = aLines!!.number - 1
-        lineANumberText!!.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + 1)
-        lineBNumberSeekBar!!.progress = bLines!!.number - 1
-        lineBNumberText!!.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + 1)
+        lineANumberSeekBar!!.progress = aLines!!.number - MINIMUM_VAL
+        lineANumberText!!.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + MINIMUM_VAL)
+        lineBNumberSeekBar!!.progress = bLines!!.number - MINIMUM_VAL
+        lineBNumberText!!.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + MINIMUM_VAL)
         // Thick
         lineAThickSeekBar!!.progress = aLines!!.thick
         lineAThickText!!.text = getString(R.string.line_a_val_text, lineAThickSeekBar!!.progress)
@@ -327,6 +327,8 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
 
     companion object {
         private val TAG = "PreferencesActivity"
+
+        private val MINIMUM_VAL = 10;
     }
 
 }
