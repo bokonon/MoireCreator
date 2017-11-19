@@ -56,7 +56,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         MoireApplication.component.inject(this)
 
         // set toolbar
-        val toolbar = findViewById(R.id.main_tool_bar) as Toolbar?
+        val toolbar = findViewById<Toolbar>(R.id.main_tool_bar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
@@ -72,7 +72,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         moireView = MoireView(this, layoutWidth, layoutHeight, mainPresenter.moireType)
         moireView!!.setBgColor(mainPresenter.bgColor)
 
-        val linearLayout = findViewById(R.id.parent_linear_layout) as LinearLayout?
+        val linearLayout = findViewById<LinearLayout>(R.id.parent_linear_layout)
         linearLayout!!.addView(moireView)
 
         initToolBarViews(toolbar!!)
@@ -270,10 +270,10 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     private fun initToolBarViews(toolbar: Toolbar) {
-        aTouchSelectedButton = toolbar.findViewById(R.id.a_button) as Button
-        bTouchSelectedButton = toolbar.findViewById(R.id.b_button) as Button
-        pauseImageButton = toolbar.findViewById(R.id.pause_button) as ImageButton
-        screenShotImageButton = toolbar.findViewById(R.id.camera_button) as ImageButton
+        aTouchSelectedButton = toolbar.findViewById<Button>(R.id.a_button)
+        bTouchSelectedButton = toolbar.findViewById<Button>(R.id.b_button)
+        pauseImageButton = toolbar.findViewById<ImageButton>(R.id.pause_button)
+        screenShotImageButton = toolbar.findViewById<ImageButton>(R.id.camera_button)
 
         aTouchSelectedButton!!.setOnClickListener(this)
         bTouchSelectedButton!!.setOnClickListener(this)
@@ -299,7 +299,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        val toolbar = findViewById(R.id.main_tool_bar) as Toolbar?
+        val toolbar = findViewById<Toolbar>(R.id.main_tool_bar)
 
         toolBarHeight = toolbar!!.height
     }

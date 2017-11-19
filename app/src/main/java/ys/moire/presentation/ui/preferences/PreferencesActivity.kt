@@ -62,10 +62,10 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         MoireApplication.component.inject(this)
 
         // set toolbar
-        val toolbar = findViewById(R.id.preference_tool_bar) as Toolbar?
+        val toolbar = findViewById<Toolbar>(R.id.preference_tool_bar)
         setSupportActionBar(toolbar)
 
-        val adView = this.findViewById(R.id.ad_view) as AdView?
+        val adView = this.findViewById<AdView>(R.id.ad_view)
         adView!!.adListener = object : AdListener() {
             override fun onAdClosed() {}
             override fun onAdFailedToLoad(errorCode: Int) {}
@@ -264,32 +264,32 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
      */
     private fun initViews() {
         // ScrollView
-        scrollView = findViewById(R.id.parent_scroll_view) as ScrollView?
+        scrollView = findViewById<ScrollView>(R.id.parent_scroll_view)
         // Spinner
-        spinner = findViewById(R.id.type_spinner) as Spinner?
+        spinner = findViewById<Spinner>(R.id.type_spinner)
         // Color
         lineAPreColor = findViewById(R.id.line_a_pre_color)
         lineBPreColor = findViewById(R.id.line_b_pre_color)
         bgPreColor = findViewById(R.id.bg_pre_color)
-        lineAColorSelectButton = findViewById(R.id.line_a_color_button) as Button?
-        lineBColorSelectButton = findViewById(R.id.line_b_color_button) as Button?
-        backgroundColorSelectButton = findViewById(R.id.bg_color_button) as Button?
+        lineAColorSelectButton = findViewById<Button>(R.id.line_a_color_button)
+        lineBColorSelectButton = findViewById<Button>(R.id.line_b_color_button)
+        backgroundColorSelectButton = findViewById<Button>(R.id.bg_color_button)
         // Number
-        lineANumberSeekBar = findViewById(R.id.number_a_seekBar) as SeekBar?
-        lineANumberText = findViewById(R.id.number_a_seekBar_text) as TextView?
-        lineBNumberSeekBar = findViewById(R.id.number_b_seekBar) as SeekBar?
-        lineBNumberText = findViewById(R.id.number_b_seekBar_text) as TextView?
+        lineANumberSeekBar = findViewById<SeekBar>(R.id.number_a_seekBar)
+        lineANumberText = findViewById<TextView>(R.id.number_a_seekBar_text)
+        lineBNumberSeekBar = findViewById<SeekBar>(R.id.number_b_seekBar)
+        lineBNumberText = findViewById<TextView>(R.id.number_b_seekBar_text)
         // Thick
-        lineAThickSeekBar = findViewById(R.id.thick_a_seekBar) as SeekBar?
-        lineAThickText = findViewById(R.id.thick_a_seekBar_text) as TextView?
-        lineBThickSeekBar = findViewById(R.id.thick_b_seekBar) as SeekBar?
-        lineBThickText = findViewById(R.id.thick_b_seekBar_text) as TextView?
+        lineAThickSeekBar = findViewById<SeekBar>(R.id.thick_a_seekBar)
+        lineAThickText = findViewById<TextView>(R.id.thick_a_seekBar_text)
+        lineBThickSeekBar = findViewById<SeekBar>(R.id.thick_b_seekBar)
+        lineBThickText = findViewById<TextView>(R.id.thick_b_seekBar_text)
         // Slope
-        lineASlopeSeekBar = findViewById(R.id.slope_a_seekBar) as SeekBar?
-        lineASlopeText = findViewById(R.id.slope_a_seekBar_text) as TextView?
-        lineBSlopeSeekBar = findViewById(R.id.slope_b_seekBar) as SeekBar?
-        lineBSlopeText = findViewById(R.id.slope_b_seekBar_text) as TextView?
-        slopeLayout = findViewById(R.id.slope_layout) as LinearLayout?
+        lineASlopeSeekBar = findViewById<SeekBar>(R.id.slope_a_seekBar)
+        lineASlopeText = findViewById<TextView>(R.id.slope_a_seekBar_text)
+        lineBSlopeSeekBar = findViewById<SeekBar>(R.id.slope_b_seekBar)
+        lineBSlopeText = findViewById<TextView>(R.id.slope_b_seekBar_text)
+        slopeLayout = findViewById<LinearLayout>(R.id.slope_layout)
     }
 
     private fun setListener() {
