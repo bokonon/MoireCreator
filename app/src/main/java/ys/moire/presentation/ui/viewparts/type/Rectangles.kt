@@ -1,4 +1,4 @@
-package ys.moire.presentation.ui.view_parts.type
+package ys.moire.presentation.ui.viewparts.type
 
 import android.graphics.Canvas
 
@@ -13,7 +13,7 @@ class Rectangles : BaseTypes() {
     // Trapezoidal judgment
     private var isTrapezoid: Boolean = false
 
-    fun init(whichLine: Int,
+    override fun init(whichLine: Int,
              layoutWidth: Int,
              layoutHeight: Int,
              maxTopLength: Float,

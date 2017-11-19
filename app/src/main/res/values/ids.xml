@@ -7,6 +7,7 @@
         <item>Heart</item>
         <item>Synapse</item>
         <item>Original</item>
+        <!--<item>Octagon</item>-->
     </string-array>
     <integer-array name="chara_items">
         <item>@drawable/a</item>

@@ -1,4 +1,4 @@
-package ys.moire.presentation.ui.view_parts.type
+package ys.moire.presentation.ui.viewparts.type
 
 import android.graphics.Canvas
 import android.graphics.Color

@@ -10,13 +10,9 @@ import android.content.SharedPreferences
 
 class PrefsImpl(context: Context) : Prefs {
 
-    private val preferences: SharedPreferences
-
-    init {
-        preferences = context
-                .applicationContext
-                .getSharedPreferences(ys.moire.common.config.PREF(), Activity.MODE_PRIVATE)
-    }
+    private val preferences: SharedPreferences = context
+            .applicationContext
+            .getSharedPreferences(ys.moire.common.config.PREF(), Activity.MODE_PRIVATE)
 
     override fun put(key: String, value: String) {
         preferences.edit().putString(key, value).apply()
@@ -26,11 +22,7 @@ class PrefsImpl(context: Context) : Prefs {
         preferences.edit().putInt(key, value).apply()
     }
 
-    override fun get(key: String, defValue: String): String {
-        return preferences.getString(key, defValue)
-    }
+    override fun get(key: String, defValue: String): String = preferences.getString(key, defValue)
 
-    override fun get(key: String, defValue: Int): Int {
-        return preferences.getInt(key, defValue)
-    }
+    override fun get(key: String, defValue: Int): Int = preferences.getInt(key, defValue)
 }

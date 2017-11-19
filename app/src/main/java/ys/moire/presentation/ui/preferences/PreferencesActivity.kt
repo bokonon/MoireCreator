@@ -13,9 +13,10 @@ import com.google.android.gms.ads.AdView
 import ys.moire.BuildConfig
 import ys.moire.MoireApplication
 import ys.moire.R
+import ys.moire.common.config.getType
 import ys.moire.presentation.presenter.preferences.PreferencesPresenter
 import ys.moire.presentation.ui.base.BaseActivity
-import ys.moire.presentation.ui.view_parts.type.BaseTypes
+import ys.moire.presentation.ui.viewparts.type.BaseTypes
 import javax.inject.Inject
 
 class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDialogFragment.OnColorSelectedListener {
@@ -95,9 +96,10 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
 
             override fun onItemSelected(v: AdapterView<*>, view: View, pos: Int, id: Long) {
                 val spinner = v as Spinner
-                val type = spinner.selectedItemPosition
-                presenter.putMoireType(type)
-                if (type == ys.moire.common.config.TYPE_LINE()) {
+                val typeRawValue = spinner.selectedItemPosition
+                val moireType = getType(typeRawValue)
+                presenter.putMoireType(moireType)
+                if (moireType == ys.moire.common.config.TypeEnum.LINE) {
                     slopeLayout!!.visibility = View.VISIBLE
                 } else {
                     slopeLayout!!.visibility = View.GONE
@@ -303,7 +305,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
      */
     private fun setPreferencesValues() {
         // Type
-        spinner!!.setSelection(presenter.moireType)
+        spinner!!.setSelection(presenter.moireType.number)
         // Color
         lineAPreColor!!.setBackgroundColor(aLines!!.color)
         lineBPreColor!!.setBackgroundColor(bLines!!.color)

@@ -4,13 +4,19 @@ package ys.moire.common.config
  * Config class.
  */
 
+fun getType(number: Int): TypeEnum = TypeEnum.values().first { number == it.number }
+
 /** MoreType  */
-fun TYPE_LINE() = 0
-fun TYPE_CIRCLE() = 1
-fun TYPE_RECT() = 2
-fun TYPE_HEART() = 3
-fun TYPE_SYNAPSE() = 4
-fun TYPE_ORIGINAL() = 5
+enum class TypeEnum(val number: Int,
+                    val description: String) {
+    LINE(0, "Line"),
+    CIRCLE(1, "Circle"),
+    RECT(2, "Rect"),
+    HEART(3, "Heart"),
+    SYNAPSE(4, "Synapse"),
+    ORIGINAL(5, "Original"),
+//    OCTAGON(6, "Octagon");
+}
 
 /** SharedPreferenceKey  */
 fun PREF() = "pref"

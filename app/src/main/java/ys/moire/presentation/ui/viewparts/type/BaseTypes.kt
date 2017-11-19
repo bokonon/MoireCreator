@@ -1,4 +1,4 @@
-package ys.moire.presentation.ui.view_parts.type
+package ys.moire.presentation.ui.viewparts.type
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -52,7 +52,16 @@ open class BaseTypes : AbstractTypes() {
 
     }
 
+    // for rect
+    override fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int, maxTopLength: Float, maxBottomLength: Float) {
+
+    }
+
     override fun checkOutOfRange(layoutWidth: Int) {
+
+    }
+
+    override fun checkOutOfRange(whichLine: Int, layoutWidth: Int) {
 
     }
 
@@ -65,6 +74,10 @@ open class BaseTypes : AbstractTypes() {
     }
 
     override fun addTouchVal(valX: Int, valY: Int) {
+
+    }
+
+    override fun drawOriginalLine(layoutWidth: Int, valX: Float, valY: Float, moveCount: Int) {
 
     }
 
