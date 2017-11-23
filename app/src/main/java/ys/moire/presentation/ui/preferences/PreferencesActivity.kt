@@ -67,7 +67,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         setSupportActionBar(toolbar)
 
         val adView = this.findViewById<AdView>(R.id.ad_view)
-        adView!!.adListener = object : AdListener() {
+        adView?.adListener = object : AdListener() {
             override fun onAdClosed() {}
             override fun onAdFailedToLoad(errorCode: Int) {}
             override fun onAdLeftApplication() {}
@@ -92,7 +92,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         // set listener
         setListener()
 
-        spinner!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(v: AdapterView<*>, view: View, pos: Int, id: Long) {
                 val spinner = v as Spinner
@@ -115,9 +115,9 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         bLines = presenter.loadTypesData(ys.moire.common.config.LINE_B())
 
         // Line A Number
-        lineANumberSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineANumberSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineANumberText!!.text = getString(R.string.line_a_val_text, progress + MINIMUM_VAL)
+                lineANumberText?.text = getString(R.string.line_a_val_text, progress + MINIMUM_VAL)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -128,9 +128,9 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
             }
         })
         // Line B Number
-        lineBNumberSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineBNumberSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineBNumberText!!.text = getString(R.string.line_b_val_text, progress + MINIMUM_VAL)
+                lineBNumberText?.text = getString(R.string.line_b_val_text, progress + MINIMUM_VAL)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -141,9 +141,9 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
             }
         })
         // Line A Thick
-        lineAThickSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineAThickSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineAThickText!!.text = getString(R.string.line_a_val_text, progress)
+                lineAThickText?.text = getString(R.string.line_a_val_text, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -154,7 +154,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
             }
         })
         // Line B Thick
-        lineBThickSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineBThickSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 lineBThickText!!.text = getString(R.string.line_b_val_text, progress)
             }
@@ -167,7 +167,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
             }
         })
         // Slope
-        lineASlopeSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineASlopeSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 lineASlopeText!!.text = getString(R.string.line_a_val_text, progress)
             }
@@ -179,7 +179,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
                 presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines!!)
             }
         })
-        lineBSlopeSeekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineBSlopeSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 lineBSlopeText!!.text = getString(R.string.line_b_val_text, progress)
             }
@@ -196,7 +196,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
     }
 
     override fun onDestroy() {
-        //        adView.destroy();
+//        adView.destroy();
         super.onDestroy()
     }
 
@@ -295,9 +295,9 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
     }
 
     private fun setListener() {
-        lineAColorSelectButton!!.setOnClickListener(this)
-        lineBColorSelectButton!!.setOnClickListener(this)
-        backgroundColorSelectButton!!.setOnClickListener(this)
+        lineAColorSelectButton?.setOnClickListener(this)
+        lineBColorSelectButton?.setOnClickListener(this)
+        backgroundColorSelectButton?.setOnClickListener(this)
     }
 
     /**
@@ -305,26 +305,26 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
      */
     private fun setPreferencesValues() {
         // Type
-        spinner!!.setSelection(presenter.moireType.number)
+        spinner?.setSelection(presenter.moireType.number)
         // Color
-        lineAPreColor!!.setBackgroundColor(aLines!!.color)
-        lineBPreColor!!.setBackgroundColor(bLines!!.color)
-        bgPreColor!!.setBackgroundColor(presenter.bgColor)
+        lineAPreColor?.setBackgroundColor(aLines!!.color)
+        lineBPreColor?.setBackgroundColor(bLines!!.color)
+        bgPreColor?.setBackgroundColor(presenter.bgColor)
         // Number
-        lineANumberSeekBar!!.progress = aLines!!.number - MINIMUM_VAL
-        lineANumberText!!.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + MINIMUM_VAL)
-        lineBNumberSeekBar!!.progress = bLines!!.number - MINIMUM_VAL
-        lineBNumberText!!.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + MINIMUM_VAL)
+        lineANumberSeekBar?.progress = aLines!!.number - MINIMUM_VAL
+        lineANumberText?.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + MINIMUM_VAL)
+        lineBNumberSeekBar?.progress = bLines!!.number - MINIMUM_VAL
+        lineBNumberText?.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + MINIMUM_VAL)
         // Thick
-        lineAThickSeekBar!!.progress = aLines!!.thick
-        lineAThickText!!.text = getString(R.string.line_a_val_text, lineAThickSeekBar!!.progress)
-        lineBThickSeekBar!!.progress = bLines!!.thick
-        lineBThickText!!.text = getString(R.string.line_b_val_text, lineBThickSeekBar!!.progress)
+        lineAThickSeekBar?.progress = aLines!!.thick
+        lineAThickText?.text = getString(R.string.line_a_val_text, lineAThickSeekBar!!.progress)
+        lineBThickSeekBar?.progress = bLines!!.thick
+        lineBThickText?.text = getString(R.string.line_b_val_text, lineBThickSeekBar!!.progress)
         // Slope
-        lineASlopeSeekBar!!.progress = aLines!!.slope
-        lineASlopeText!!.text = getString(R.string.line_a_val_text, lineASlopeSeekBar!!.progress)
-        lineBSlopeSeekBar!!.progress = bLines!!.slope
-        lineBSlopeText!!.text = getString(R.string.line_b_val_text, lineBSlopeSeekBar!!.progress)
+        lineASlopeSeekBar?.progress = aLines!!.slope
+        lineASlopeText?.text = getString(R.string.line_a_val_text, lineASlopeSeekBar!!.progress)
+        lineBSlopeSeekBar?.progress = bLines!!.slope
+        lineBSlopeText?.text = getString(R.string.line_b_val_text, lineBSlopeSeekBar!!.progress)
     }
 
     companion object {

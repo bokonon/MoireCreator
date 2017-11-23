@@ -17,6 +17,8 @@ class MoireView(
         /** draw type  */
         var type: TypeEnum) : SurfaceView(context), SurfaceHolder.Callback {
 
+    constructor(context: Context) : this(context, 0, 0, ys.moire.common.config.TypeEnum.LINE)
+
     private var aBaseTypes: BaseTypes? = null
     private var bBaseTypes: BaseTypes? = null
 
@@ -86,20 +88,20 @@ class MoireView(
                 ys.moire.common.config.TypeEnum.SYNAPSE,
                 ys.moire.common.config.TypeEnum.OCTAGON -> {
                     // check line for loop.
-                    aBaseTypes!!.checkOutOfRange(layoutWidth)
-                    bBaseTypes!!.checkOutOfRange(layoutWidth)
+                    aBaseTypes?.checkOutOfRange(layoutWidth)
+                    bBaseTypes?.checkOutOfRange(layoutWidth)
                 }
                 ys.moire.common.config.TypeEnum.ORIGINAL -> {
-                    aBaseTypes!!.checkOutOfRange(LINE_A, layoutWidth)
-                    bBaseTypes!!.checkOutOfRange(LINE_B, layoutWidth)
+                    aBaseTypes?.checkOutOfRange(LINE_A, layoutWidth)
+                    bBaseTypes?.checkOutOfRange(LINE_B, layoutWidth)
                 }
             }
             if (!isPause) {
-                aBaseTypes!!.move(LINE_A)
-                bBaseTypes!!.move(LINE_B)
+                aBaseTypes?.move(LINE_A)
+                bBaseTypes?.move(LINE_B)
             }
-            aBaseTypes!!.draw(canvas)
-            bBaseTypes!!.draw(canvas)
+            aBaseTypes?.draw(canvas)
+            bBaseTypes?.draw(canvas)
             holder.unlockCanvasAndPost(canvas)
             handler!!.removeCallbacks(drawRunnable)
             if (!isPause && !isOnBackground) {
@@ -110,8 +112,8 @@ class MoireView(
 
     fun captureCanvas(canvas: Canvas) {
         canvas.drawColor(colorOfBg)
-        aBaseTypes!!.draw(canvas)
-        bBaseTypes!!.draw(canvas)
+        aBaseTypes?.draw(canvas)
+        bBaseTypes?.draw(canvas)
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
@@ -159,8 +161,8 @@ class MoireView(
             }
         }
 
-        aBaseTypes!!.loadData(aTypes)
-        bBaseTypes!!.loadData(bTypes)
+        aBaseTypes?.loadData(aTypes)
+        bBaseTypes?.loadData(bTypes)
 
         when (type) {
             ys.moire.common.config.TypeEnum.LINE,
@@ -169,15 +171,15 @@ class MoireView(
             ys.moire.common.config.TypeEnum.SYNAPSE,
             ys.moire.common.config.TypeEnum.ORIGINAL,
             ys.moire.common.config.TypeEnum.OCTAGON -> {
-                aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight)
-                bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight)
+                aBaseTypes?.init(LINE_A, layoutWidth, layoutHeight)
+                bBaseTypes?.init(LINE_B, layoutWidth, layoutHeight)
             }
             ys.moire.common.config.TypeEnum.RECT -> {
                 // TODO change dynamically
                 val maxTopLength = layoutHeight / 3f * 2
                 val maxBottomLength = layoutHeight / 3f * 2
-                aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
-                bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
+                aBaseTypes?.init(LINE_A, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
+                bBaseTypes?.init(LINE_B, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
             }
         }
     }
@@ -194,9 +196,9 @@ class MoireView(
             ys.moire.common.config.TypeEnum.SYNAPSE,
             ys.moire.common.config.TypeEnum.OCTAGON
             -> if (which == LINE_A) {
-                aBaseTypes!!.addTouchVal(valX, valY)
+                aBaseTypes?.addTouchVal(valX, valY)
             } else if (which == LINE_B) {
-                bBaseTypes!!.addTouchVal(valX, valY)
+                bBaseTypes?.addTouchVal(valX, valY)
             }
             ys.moire.common.config.TypeEnum.ORIGINAL
             -> if (which == LINE_A) {
@@ -209,9 +211,9 @@ class MoireView(
 
     fun drawOriginalLine(which: Int, valX: Float, valY: Float, moveCount: Int) {
         if (which == LINE_A) {
-            aBaseTypes!!.drawOriginalLine(layoutWidth, valX, valY, moveCount)
+            aBaseTypes?.drawOriginalLine(layoutWidth, valX, valY, moveCount)
         } else if (which == LINE_B) {
-            bBaseTypes!!.drawOriginalLine(layoutWidth, valX, valY, moveCount)
+            bBaseTypes?.drawOriginalLine(layoutWidth, valX, valY, moveCount)
         }
     }
 
@@ -221,9 +223,9 @@ class MoireView(
      */
     fun setOnTouchMode(which: Int, isOnTouch: Boolean) {
         if (which == LINE_A) {
-            aBaseTypes!!.setOnTouchMode(isOnTouch)
+            aBaseTypes?.setOnTouchMode(isOnTouch)
         } else if (which == LINE_B) {
-            bBaseTypes!!.setOnTouchMode(isOnTouch)
+            bBaseTypes?.setOnTouchMode(isOnTouch)
         }
     }
 
@@ -235,7 +237,7 @@ class MoireView(
         isPause = pause
         if (!pause) {
             if (handler != null) {
-                handler!!.postDelayed(drawRunnable, 100)
+                handler?.postDelayed(drawRunnable, 100)
             }
         }
     }
@@ -248,7 +250,7 @@ class MoireView(
         isOnBackground = onBack
         if (!onBack) {
             if (handler != null) {
-                handler!!.postDelayed(drawRunnable, 100)
+                handler?.postDelayed(drawRunnable, 100)
             }
         }
     }
