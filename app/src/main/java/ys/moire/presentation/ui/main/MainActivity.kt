@@ -173,7 +173,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                 } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
                         || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
                         || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE) {
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
                     // TouchMode on
                     moireView!!.setOnTouchMode(touchLineMode, true)
                     // init dx dy
@@ -196,7 +197,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                 } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
                         || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
                         || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE) {
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
                     touchMoveX = currentX - firstTouchX - tempMoveX
                     touchMoveY = currentY - firstTouchY - tempMoveY
                     moireView!!.addTouchValue(touchLineMode, touchMoveX, touchMoveY)
@@ -220,7 +222,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                 } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
                         || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
                         || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE) {
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
                     // TouchMode off
                     moireView!!.setOnTouchMode(touchLineMode, false)
                     // init dx dy

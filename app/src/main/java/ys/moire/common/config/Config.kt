@@ -15,7 +15,7 @@ enum class TypeEnum(val number: Int,
     HEART(3, "Heart"),
     SYNAPSE(4, "Synapse"),
     ORIGINAL(5, "Original"),
-//    OCTAGON(6, "Octagon");
+    OCTAGON(6, "Octagon");
 }
 
 /** SharedPreferenceKey  */

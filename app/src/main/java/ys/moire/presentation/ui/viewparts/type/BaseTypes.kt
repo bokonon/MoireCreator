@@ -57,6 +57,11 @@ open class BaseTypes : AbstractTypes() {
 
     }
 
+    // for octagon
+    override fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int, number: Int) {
+
+    }
+
     override fun checkOutOfRange(layoutWidth: Int) {
 
     }

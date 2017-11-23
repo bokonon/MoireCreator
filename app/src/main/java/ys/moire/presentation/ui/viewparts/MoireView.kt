@@ -83,28 +83,23 @@ class MoireView(
                 ys.moire.common.config.TypeEnum.CIRCLE,
                 ys.moire.common.config.TypeEnum.RECT,
                 ys.moire.common.config.TypeEnum.HEART,
-                ys.moire.common.config.TypeEnum.SYNAPSE -> {
+                ys.moire.common.config.TypeEnum.SYNAPSE,
+                ys.moire.common.config.TypeEnum.OCTAGON -> {
                     // check line for loop.
                     aBaseTypes!!.checkOutOfRange(layoutWidth)
                     bBaseTypes!!.checkOutOfRange(layoutWidth)
-                    if (!isPause) {
-                        aBaseTypes!!.move(LINE_A)
-                        bBaseTypes!!.move(LINE_B)
-                    }
-                    aBaseTypes!!.draw(canvas)
-                    bBaseTypes!!.draw(canvas)
                 }
                 ys.moire.common.config.TypeEnum.ORIGINAL -> {
                     aBaseTypes!!.checkOutOfRange(LINE_A, layoutWidth)
                     bBaseTypes!!.checkOutOfRange(LINE_B, layoutWidth)
-                    if (!isPause) {
-                        aBaseTypes!!.move(LINE_A)
-                        bBaseTypes!!.move(LINE_B)
-                    }
-                    aBaseTypes!!.draw(canvas)
-                    bBaseTypes!!.draw(canvas)
                 }
             }
+            if (!isPause) {
+                aBaseTypes!!.move(LINE_A)
+                bBaseTypes!!.move(LINE_B)
+            }
+            aBaseTypes!!.draw(canvas)
+            bBaseTypes!!.draw(canvas)
             holder.unlockCanvasAndPost(canvas)
             handler!!.removeCallbacks(drawRunnable)
             if (!isPause && !isOnBackground) {
@@ -136,54 +131,53 @@ class MoireView(
         when (type) {
             ys.moire.common.config.TypeEnum.LINE -> {
                 aBaseTypes = Lines()
-                aBaseTypes!!.loadData(aTypes)
                 bBaseTypes = Lines()
-                bBaseTypes!!.loadData(bTypes)
-                aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight)
-                bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight)
             }
             ys.moire.common.config.TypeEnum.CIRCLE -> {
                 aBaseTypes = Circles()
-                aBaseTypes!!.loadData(aTypes)
                 bBaseTypes = Circles()
-                bBaseTypes!!.loadData(bTypes)
+            }
+            ys.moire.common.config.TypeEnum.RECT -> {
+                aBaseTypes = Rectangles()
+                bBaseTypes = Rectangles()
+            }
+            ys.moire.common.config.TypeEnum.HEART -> {
+                aBaseTypes = Hearts()
+                bBaseTypes = Hearts()
+            }
+            ys.moire.common.config.TypeEnum.SYNAPSE -> {
+                aBaseTypes = Synapses()
+                bBaseTypes = Synapses()
+            }
+            ys.moire.common.config.TypeEnum.ORIGINAL -> {
+                aBaseTypes = CustomLines()
+                bBaseTypes = CustomLines()
+            }
+            ys.moire.common.config.TypeEnum.OCTAGON -> {
+                aBaseTypes = Octagons()
+                bBaseTypes = Octagons()
+            }
+        }
+
+        aBaseTypes!!.loadData(aTypes)
+        bBaseTypes!!.loadData(bTypes)
+
+        when (type) {
+            ys.moire.common.config.TypeEnum.LINE,
+            ys.moire.common.config.TypeEnum.CIRCLE,
+            ys.moire.common.config.TypeEnum.HEART,
+            ys.moire.common.config.TypeEnum.SYNAPSE,
+            ys.moire.common.config.TypeEnum.ORIGINAL,
+            ys.moire.common.config.TypeEnum.OCTAGON -> {
                 aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight)
                 bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight)
             }
             ys.moire.common.config.TypeEnum.RECT -> {
-                aBaseTypes = Rectangles()
-                aBaseTypes!!.loadData(aTypes)
-                bBaseTypes = Rectangles()
-                bBaseTypes!!.loadData(bTypes)
-                // TODO change dynamic
+                // TODO change dynamically
                 val maxTopLength = layoutHeight / 3f * 2
                 val maxBottomLength = layoutHeight / 3f * 2
                 aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
                 bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight, maxTopLength, maxBottomLength)
-            }
-            ys.moire.common.config.TypeEnum.HEART -> {
-                aBaseTypes = Hearts()
-                aBaseTypes!!.loadData(aTypes)
-                bBaseTypes = Hearts()
-                bBaseTypes!!.loadData(bTypes)
-                aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight)
-                bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight)
-            }
-            ys.moire.common.config.TypeEnum.SYNAPSE -> {
-                aBaseTypes = Synapses()
-                aBaseTypes!!.loadData(aTypes)
-                bBaseTypes = Synapses()
-                bBaseTypes!!.loadData(bTypes)
-                aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight)
-                bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight)
-            }
-            ys.moire.common.config.TypeEnum.ORIGINAL -> {
-                aBaseTypes = CustomLines()
-                aBaseTypes!!.loadData(aTypes)
-                bBaseTypes = CustomLines()
-                bBaseTypes!!.loadData(bTypes)
-                aBaseTypes!!.init(LINE_A, layoutWidth, layoutHeight)
-                bBaseTypes!!.init(LINE_B, layoutWidth, layoutHeight)
             }
         }
     }
@@ -197,13 +191,15 @@ class MoireView(
             ys.moire.common.config.TypeEnum.CIRCLE,
             ys.moire.common.config.TypeEnum.RECT,
             ys.moire.common.config.TypeEnum.HEART,
-            ys.moire.common.config.TypeEnum.SYNAPSE
+            ys.moire.common.config.TypeEnum.SYNAPSE,
+            ys.moire.common.config.TypeEnum.OCTAGON
             -> if (which == LINE_A) {
                 aBaseTypes!!.addTouchVal(valX, valY)
             } else if (which == LINE_B) {
                 bBaseTypes!!.addTouchVal(valX, valY)
             }
-            ys.moire.common.config.TypeEnum.ORIGINAL -> if (which == LINE_A) {
+            ys.moire.common.config.TypeEnum.ORIGINAL
+            -> if (which == LINE_A) {
                 // add nothing for customLine
             } else if (which == LINE_B) {
                 // add nothing for customLine
@@ -224,18 +220,10 @@ class MoireView(
      * @param isOnTouch is on touch
      */
     fun setOnTouchMode(which: Int, isOnTouch: Boolean) {
-        when (type) {
-            ys.moire.common.config.TypeEnum.LINE,
-            ys.moire.common.config.TypeEnum.CIRCLE,
-            ys.moire.common.config.TypeEnum.RECT,
-            ys.moire.common.config.TypeEnum.HEART,
-            ys.moire.common.config.TypeEnum.SYNAPSE,
-            ys.moire.common.config.TypeEnum.ORIGINAL
-            -> if (which == LINE_A) {
-                aBaseTypes!!.setOnTouchMode(isOnTouch)
-            } else if (which == LINE_B) {
-                bBaseTypes!!.setOnTouchMode(isOnTouch)
-            }
+        if (which == LINE_A) {
+            aBaseTypes!!.setOnTouchMode(isOnTouch)
+        } else if (which == LINE_B) {
+            bBaseTypes!!.setOnTouchMode(isOnTouch)
         }
     }
 

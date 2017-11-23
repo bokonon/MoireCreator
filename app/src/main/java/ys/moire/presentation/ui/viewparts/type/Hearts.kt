@@ -56,8 +56,8 @@ class Hearts : BaseTypes() {
                 heart!![i]!!.autoMove(dx)
             }
         } else if (whichLine == BaseTypes.LINE_B) {
-            for (j in 0..number - 1) {
-                heart!![j]!!.autoMove(-dx)
+            for (i in 0..number - 1) {
+                heart!![i]!!.autoMove(-dx)
             }
         }
     }

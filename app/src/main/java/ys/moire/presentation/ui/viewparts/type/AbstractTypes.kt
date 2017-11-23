@@ -13,6 +13,8 @@ abstract class AbstractTypes {
 
     internal abstract fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int, maxTopLength: Float, maxBottomLength: Float)
 
+    internal abstract fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int, number: Int)
+
     internal abstract fun checkOutOfRange(layoutWidth: Int)
 
     internal abstract fun checkOutOfRange(whichLine: Int, layoutWidth: Int)
