@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 18
-        versionName "1.4.5"
+        versionCode 19
+        versionName "1.5.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resValue "string", "ad_unit_id", "${ad_unit_id}"
