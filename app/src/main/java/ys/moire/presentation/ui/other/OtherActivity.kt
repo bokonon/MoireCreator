@@ -22,10 +22,10 @@ class OtherActivity : BaseActivity() {
         setContentView(R.layout.activity_other)
 
         // set toolbar
-        val toolbar = findViewById(R.id.other_tool_bar) as Toolbar?
+        val toolbar = findViewById<Toolbar>(R.id.other_tool_bar)
         setSupportActionBar(toolbar)
 
-        val adView = findViewById(R.id.ad_view) as AdView?
+        val adView = findViewById<AdView>(R.id.ad_view)
         adView!!.adListener = object : AdListener() {
             override fun onAdClosed() {}
             override fun onAdFailedToLoad(errorCode: Int) {}

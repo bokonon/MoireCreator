@@ -1,4 +1,4 @@
-package ys.moire.presentation.ui.view_parts.type
+package ys.moire.presentation.ui.viewparts.type
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -56,8 +56,8 @@ class Hearts : BaseTypes() {
                 heart!![i]!!.autoMove(dx)
             }
         } else if (whichLine == BaseTypes.LINE_B) {
-            for (j in 0..number - 1) {
-                heart!![j]!!.autoMove(-dx)
+            for (i in 0..number - 1) {
+                heart!![i]!!.autoMove(-dx)
             }
         }
     }

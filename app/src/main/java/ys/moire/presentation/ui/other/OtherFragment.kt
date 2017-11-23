@@ -20,7 +20,7 @@ class OtherFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_other, container, false)
 
-        val listView = view.findViewById(R.id.listView) as ListView
+        val listView = view.findViewById<ListView>(R.id.listView)
         listView.addHeaderView(View(activity), null, false)
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             var url = ""

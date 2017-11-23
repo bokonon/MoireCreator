@@ -1,4 +1,4 @@
-package ys.moire.presentation.ui.view_parts.type
+package ys.moire.presentation.ui.viewparts.type
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -36,7 +36,13 @@ open class BaseTypes : AbstractTypes() {
     public override fun loadData(types: BaseTypes) {
         color = types.color
         paint!!.color = color
-        number = types.number
+        // for migration to new version
+        val previousValue = types.number
+        if (previousValue < MINIMUM_VAL) {
+            number = MINIMUM_VAL
+        } else {
+            number = previousValue
+        }
         thick = types.thick
         paint!!.strokeWidth = thick.toFloat()
         slope = types.slope
@@ -46,7 +52,21 @@ open class BaseTypes : AbstractTypes() {
 
     }
 
+    // for rect
+    override fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int, maxTopLength: Float, maxBottomLength: Float) {
+
+    }
+
+    // for octagon
+    override fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int, number: Int) {
+
+    }
+
     override fun checkOutOfRange(layoutWidth: Int) {
+
+    }
+
+    override fun checkOutOfRange(whichLine: Int, layoutWidth: Int) {
 
     }
 
@@ -62,6 +82,10 @@ open class BaseTypes : AbstractTypes() {
 
     }
 
+    override fun drawOriginalLine(layoutWidth: Int, valX: Float, valY: Float, moveCount: Int) {
+
+    }
+
     /**
      * set is OnTouch.
      * @param touch isOnTouch
@@ -74,6 +98,8 @@ open class BaseTypes : AbstractTypes() {
 
         val LINE_A = 0
         val LINE_B = 1
+
+        val MINIMUM_VAL = 10;
 
         protected val MAX_NUMBER = 50
         /** auto move speed  */

@@ -9,11 +9,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
-import org.mockito.junit.MockitoRule
 
 import ys.moire.domain.usecase.SharedPreferencesManager
 import ys.moire.presentation.presenter.main.MainPresenter
-import ys.moire.presentation.ui.view_parts.MoireView
+import ys.moire.presentation.ui.viewparts.MoireView
 
 import android.support.test.InstrumentationRegistry.getInstrumentation
 import org.mockito.Mockito.mock

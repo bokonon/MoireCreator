@@ -19,7 +19,7 @@ class OtherContentsFragment : Fragment() {
         val view = inflater!!.inflate(R.layout.fragment_other_contents, container, false)
 
         val url = arguments.getString(BUNDLE_KEY_CONTENT_URL)
-        val webView = view.findViewById(R.id.web_view) as WebView
+        val webView = view.findViewById<WebView>(R.id.web_view)
         webView.loadUrl(url)
 
         return view

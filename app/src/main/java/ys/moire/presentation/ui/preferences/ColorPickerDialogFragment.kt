@@ -59,10 +59,10 @@ class ColorPickerDialogFragment : DialogFragment() {
         selectedRgb[1] = Color.green(color)
         selectedRgb[2] = Color.blue(color)
 
-        seekBar[0] = view.findViewById(R.id.seekBar_red) as SeekBar
-        seekBar[1] = view.findViewById(R.id.seekBar_green) as SeekBar
-        seekBar[2] = view.findViewById(R.id.seekBar_blue) as SeekBar
-        preView = view.findViewById(R.id.pre_view) as View
+        seekBar[0] = view.findViewById<SeekBar>(R.id.seekBar_red)
+        seekBar[1] = view.findViewById<SeekBar>(R.id.seekBar_green)
+        seekBar[2] = view.findViewById<SeekBar>(R.id.seekBar_blue)
+        preView = view.findViewById<View>(R.id.pre_view)
 
         for (i in seekBar.indices) {
             seekBar[i]!!.setMax(255)

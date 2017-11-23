@@ -1,4 +1,4 @@
-package ys.moire.presentation.ui.view_parts.type
+package ys.moire.presentation.ui.viewparts.type
 
 import android.graphics.Canvas
 
@@ -19,7 +19,7 @@ class CustomLines : BaseTypes() {
         }
     }
 
-    fun checkOutOfRange(whichLine: Int, layoutWidth: Int) {
+    public override fun checkOutOfRange(whichLine: Int, layoutWidth: Int) {
         if (onTouch) {
             return
         }
@@ -59,7 +59,7 @@ class CustomLines : BaseTypes() {
      * *
      * @param moveCount move count
      */
-    fun drawOriginalLine(layoutWidth: Int, valX: Float, valY: Float, moveCount: Int) {
+    public override fun drawOriginalLine(layoutWidth: Int, valX: Float, valY: Float, moveCount: Int) {
         for (i in 0..number - 1) {
             customLines!![i]!!.drawOriginalLine(valX - layoutWidth / 2f + (i + 1) * layoutWidth / number, valY, moveCount)
         }

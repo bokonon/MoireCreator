@@ -14,7 +14,7 @@ import android.widget.LinearLayout
 import ys.moire.BuildConfig
 import ys.moire.common.sensor.SensorEL
 import ys.moire.presentation.ui.base.BaseActivity
-import ys.moire.presentation.ui.view_parts.AboutView
+import ys.moire.presentation.ui.viewparts.AboutView
 
 /**
  * about screen class

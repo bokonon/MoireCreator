@@ -1,4 +1,4 @@
-package ys.moire.presentation.ui.view_parts
+package ys.moire.presentation.ui.viewparts
 
 import android.content.Context
 import android.graphics.*

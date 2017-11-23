@@ -23,7 +23,7 @@ import ys.moire.presentation.ui.about.AboutActivity
 import ys.moire.presentation.ui.base.BaseActivity
 import ys.moire.presentation.ui.other.OtherActivity
 import ys.moire.presentation.ui.preferences.PreferencesActivity
-import ys.moire.presentation.ui.view_parts.MoireView
+import ys.moire.presentation.ui.viewparts.MoireView
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceChange {
@@ -56,7 +56,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         MoireApplication.component.inject(this)
 
         // set toolbar
-        val toolbar = findViewById(R.id.main_tool_bar) as Toolbar?
+        val toolbar = findViewById<Toolbar>(R.id.main_tool_bar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
@@ -72,7 +72,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         moireView = MoireView(this, layoutWidth, layoutHeight, mainPresenter.moireType)
         moireView!!.setBgColor(mainPresenter.bgColor)
 
-        val linearLayout = findViewById(R.id.parent_linear_layout) as LinearLayout?
+        val linearLayout = findViewById<LinearLayout>(R.id.parent_linear_layout)
         linearLayout!!.addView(moireView)
 
         initToolBarViews(toolbar!!)
@@ -164,16 +164,17 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
             MotionEvent.ACTION_DOWN -> {
                 firstTouchX = e.x.toInt()
                 firstTouchY = e.y.toInt()
-                if (moireView!!.type == ys.moire.common.config.TYPE_LINE()) {
+                if (moireView!!.type == ys.moire.common.config.TypeEnum.LINE) {
                     // TouchMode on
                     moireView!!.setOnTouchMode(touchLineMode, true)
                     // init dx dy
                     touchMoveX = 0
                     tempMoveX = 0
-                } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
-                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()
-                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()
-                        || moireView!!.type == ys.moire.common.config.TYPE_SYNAPSE()) {
+                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
                     // TouchMode on
                     moireView!!.setOnTouchMode(touchLineMode, true)
                     // init dx dy
@@ -181,29 +182,30 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                     touchMoveY = 0
                     tempMoveX = 0
                     tempMoveY = 0
-                } else if (moireView!!.type == ys.moire.common.config.TYPE_ORIGINAL()) {
+                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
                     // TouchModeをOnにします.
                     moireView!!.setOnTouchMode(touchLineMode, true)
                     moveCount = 0
                 }
             }
             MotionEvent.ACTION_MOVE -> if (Math.abs(currentX - firstTouchX) >= 2 || Math.abs(currentY - firstTouchY) >= 2) {
-                if (moireView!!.type == ys.moire.common.config.TYPE_LINE()) {
+                if (moireView!!.type == ys.moire.common.config.TypeEnum.LINE) {
                     touchMoveX = currentX - firstTouchX - tempMoveX
                     moireView!!.addTouchValue(touchLineMode, touchMoveX, 0)
 
                     tempMoveX = currentX - firstTouchX
-                } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
-                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()
-                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()
-                        || moireView!!.type == ys.moire.common.config.TYPE_SYNAPSE()) {
+                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
                     touchMoveX = currentX - firstTouchX - tempMoveX
                     touchMoveY = currentY - firstTouchY - tempMoveY
                     moireView!!.addTouchValue(touchLineMode, touchMoveX, touchMoveY)
 
                     tempMoveX = currentX - firstTouchX
                     tempMoveY = currentY - firstTouchY
-                } else if (moireView!!.type == ys.moire.common.config.TYPE_ORIGINAL()) {
+                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
                     moireView!!.drawOriginalLine(touchLineMode, e.x, e.y - statusBarHeight.toFloat() - toolBarHeight.toFloat(), moveCount)
                     moveCount++
                 }
@@ -211,16 +213,17 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                 moireView!!.drawFrame()
             }
             MotionEvent.ACTION_UP -> {
-                if (moireView!!.type == ys.moire.common.config.TYPE_LINE()) {
+                if (moireView!!.type == ys.moire.common.config.TypeEnum.LINE) {
                     // TouchMode off
                     moireView!!.setOnTouchMode(touchLineMode, false)
                     // init dx dy
                     touchMoveX = 0
                     tempMoveX = 0
-                } else if (moireView!!.type == ys.moire.common.config.TYPE_CIRCLE()
-                        || moireView!!.type == ys.moire.common.config.TYPE_RECT()
-                        || moireView!!.type == ys.moire.common.config.TYPE_HEART()
-                        || moireView!!.type == ys.moire.common.config.TYPE_SYNAPSE()) {
+                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
                     // TouchMode off
                     moireView!!.setOnTouchMode(touchLineMode, false)
                     // init dx dy
@@ -229,7 +232,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                     tempMoveX = 0
                     tempMoveY = 0
                 }
-                if (moireView!!.type == ys.moire.common.config.TYPE_ORIGINAL()) {
+                if (moireView!!.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
                     // TouchMode off
                     moireView!!.setOnTouchMode(touchLineMode, false)
                     // init dx dy
@@ -270,10 +273,10 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     private fun initToolBarViews(toolbar: Toolbar) {
-        aTouchSelectedButton = toolbar.findViewById(R.id.a_button) as Button
-        bTouchSelectedButton = toolbar.findViewById(R.id.b_button) as Button
-        pauseImageButton = toolbar.findViewById(R.id.pause_button) as ImageButton
-        screenShotImageButton = toolbar.findViewById(R.id.camera_button) as ImageButton
+        aTouchSelectedButton = toolbar.findViewById<Button>(R.id.a_button)
+        bTouchSelectedButton = toolbar.findViewById<Button>(R.id.b_button)
+        pauseImageButton = toolbar.findViewById<ImageButton>(R.id.pause_button)
+        screenShotImageButton = toolbar.findViewById<ImageButton>(R.id.camera_button)
 
         aTouchSelectedButton!!.setOnClickListener(this)
         bTouchSelectedButton!!.setOnClickListener(this)
@@ -299,7 +302,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        val toolbar = findViewById(R.id.main_tool_bar) as Toolbar?
+        val toolbar = findViewById<Toolbar>(R.id.main_tool_bar)
 
         toolBarHeight = toolbar!!.height
     }

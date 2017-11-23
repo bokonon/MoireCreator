@@ -11,10 +11,11 @@ import android.widget.Toast
 import com.google.android.gms.wearable.DataMap.TAG
 import ys.moire.BuildConfig
 import ys.moire.R
+import ys.moire.common.config.TypeEnum
 import ys.moire.domain.usecase.LoadMoireUseCase
 import ys.moire.presentation.presenter.base.BasePresenter
-import ys.moire.presentation.ui.view_parts.MoireView
-import ys.moire.presentation.ui.view_parts.type.BaseTypes
+import ys.moire.presentation.ui.viewparts.MoireView
+import ys.moire.presentation.ui.viewparts.type.BaseTypes
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -29,7 +30,7 @@ class MainPresenter(private val context: Context?, private val loadMoireUseCase:
 
     private var moireView: MoireView? = null
 
-    val moireType: Int
+    val moireType: TypeEnum
         get() = loadMoireUseCase!!.moireType
 
     val bgColor: Int
