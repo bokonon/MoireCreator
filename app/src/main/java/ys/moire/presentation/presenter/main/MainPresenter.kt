@@ -26,22 +26,22 @@ import java.util.*
 /**
  * MainPresenter.
  */
-class MainPresenter(private val context: Context?, private val loadMoireUseCase: LoadMoireUseCase?) : BasePresenter() {
+class MainPresenter(private val context: Context, private val loadMoireUseCase: LoadMoireUseCase) : BasePresenter() {
 
     private var moireView: MoireView? = null
 
     val moireType: TypeEnum
-        get() = loadMoireUseCase!!.moireType
+        get() = loadMoireUseCase.moireType
 
     val bgColor: Int
-        get() = loadMoireUseCase!!.bgColor
+        get() = loadMoireUseCase.bgColor
 
     fun setMoireView(moireView: MoireView) {
         this.moireView = moireView
     }
 
     fun loadTypesData(key: String): BaseTypes {
-        return loadMoireUseCase!!.getTypesData(key)
+        return loadMoireUseCase.getTypesData(key)
     }
 
     fun captureCanvas() {
@@ -79,7 +79,7 @@ class MainPresenter(private val context: Context?, private val loadMoireUseCase:
         }
         // reflected in gallery.
         val values = ContentValues()
-        val contentResolver = context!!.contentResolver
+        val contentResolver = context.contentResolver
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
         values.put(MediaStore.Images.Media.TITLE, fileName)
         values.put("_data", AttachName)
@@ -93,7 +93,7 @@ class MainPresenter(private val context: Context?, private val loadMoireUseCase:
     }
 
     fun showToast(message: String) {
-        Toast.makeText(context!!.applicationContext, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context.applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun createBitmap(): Bitmap {

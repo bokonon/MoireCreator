@@ -9,7 +9,7 @@ import ys.moire.presentation.ui.viewparts.type.BaseTypes
 /**
  * load moire use case.
  */
-class LoadMoireUseCase(private val prefsDao: PrefsDao?) {
+class LoadMoireUseCase(private val prefsDao: PrefsDao) {
 
     /**
      * get setting data.
@@ -18,21 +18,21 @@ class LoadMoireUseCase(private val prefsDao: PrefsDao?) {
      * @return Line Base Type
      */
     fun getTypesData(@NonNull lineConfigName: String): BaseTypes =
-            prefsDao!!.getTypesData(lineConfigName)
+            prefsDao.getTypesData(lineConfigName)
 
     /**
      * load MireType
      * @return MoireType
      */
     val moireType: TypeEnum
-        get() = prefsDao!!.moireType
+        get() = prefsDao.moireType
 
     /**
      * load background color
      * @return color
      */
     val bgColor: Int
-        get() = prefsDao!!.bgColor
+        get() = prefsDao.bgColor
 
     /**
      * common get
@@ -40,7 +40,7 @@ class LoadMoireUseCase(private val prefsDao: PrefsDao?) {
      * *
      * @return pref value
      */
-    fun getInt(@NonNull key: String): Int = prefsDao!!.getInt(key)
+    fun getInt(@NonNull key: String): Int = prefsDao.getInt(key)
 
 
     private fun convertToObj(@NonNull dto: BaseEntity): BaseTypes {

@@ -10,25 +10,25 @@ import ys.moire.presentation.ui.viewparts.type.BaseTypes
 /**
  * PreferencesPresenter.
  */
-class PreferencesPresenter(private val loadMoireUseCase: LoadMoireUseCase?, private val saveMoireUseCase: SaveMoireUseCase?) : BasePresenter() {
+class PreferencesPresenter(private val loadMoireUseCase: LoadMoireUseCase, private val saveMoireUseCase: SaveMoireUseCase) : BasePresenter() {
 
     val moireType: TypeEnum
-        get() = loadMoireUseCase!!.moireType
+        get() = loadMoireUseCase.moireType
 
     fun putMoireType(type: TypeEnum) {
-        saveMoireUseCase!!.putMoireType(type)
+        saveMoireUseCase.putMoireType(type)
     }
 
-    fun loadTypesData(@NonNull key: String): BaseTypes = loadMoireUseCase!!.getTypesData(key)
+    fun loadTypesData(@NonNull key: String): BaseTypes = loadMoireUseCase.getTypesData(key)
 
     fun saveTypesData(@NonNull lineConfigName: String, @NonNull types: BaseTypes) {
-        saveMoireUseCase!!.putTypesData(lineConfigName, types)
+        saveMoireUseCase.putTypesData(lineConfigName, types)
     }
 
     val bgColor: Int
-        get() = loadMoireUseCase!!.bgColor
+        get() = loadMoireUseCase.bgColor
 
     fun putBgColor(color: Int) {
-        saveMoireUseCase!!.putBgColor(color)
+        saveMoireUseCase.putBgColor(color)
     }
 }

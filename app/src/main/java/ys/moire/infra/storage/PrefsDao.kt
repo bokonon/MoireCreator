@@ -13,7 +13,7 @@ import ys.moire.presentation.ui.viewparts.type.Lines
 /**
  * load moire use case.
  */
-class PrefsDao(private val prefs: Prefs?) {
+class PrefsDao(private val prefs: Prefs) {
 
     /**
      * get setting data.
@@ -22,7 +22,7 @@ class PrefsDao(private val prefs: Prefs?) {
      * @return Line Base Type
      */
     fun getTypesData(@NonNull lineConfigName: String): BaseTypes {
-        val str = prefs!!.get(lineConfigName, "")
+        val str = prefs.get(lineConfigName, "")
         if ("" == str) {
             return Lines()
         }
@@ -34,14 +34,14 @@ class PrefsDao(private val prefs: Prefs?) {
      * @return MoireType
      */
     val moireType: TypeEnum
-        get() = getType(prefs!!.get(ys.moire.common.config.TYPE(), ys.moire.common.config.TypeEnum.LINE.number))
+        get() = getType(prefs.get(ys.moire.common.config.TYPE(), ys.moire.common.config.TypeEnum.LINE.number))
 
     /**
      * load background color
      * @return color
      */
     val bgColor: Int
-        get() = prefs!!.get(ys.moire.common.config.BG_COLOR(), Color.WHITE)
+        get() = prefs.get(ys.moire.common.config.BG_COLOR(), Color.WHITE)
 
     /**
      * common get
@@ -49,7 +49,7 @@ class PrefsDao(private val prefs: Prefs?) {
      * *
      * @return pref value
      */
-    fun getInt(@NonNull key: String): Int = prefs!!.get(key, -1)
+    fun getInt(@NonNull key: String): Int = prefs.get(key, -1)
 
 
     /**
@@ -59,7 +59,7 @@ class PrefsDao(private val prefs: Prefs?) {
      * @param types Line Type
      */
     fun putTypesData(@NonNull lineConfigName: String, @NonNull types: BaseTypes) {
-        prefs!!.put(lineConfigName, Gson().toJson(convertToDto(types)))
+        prefs.put(lineConfigName, Gson().toJson(convertToDto(types)))
     }
 
     /**
@@ -67,7 +67,7 @@ class PrefsDao(private val prefs: Prefs?) {
      * @param type Line Type
      */
     fun putMoireType(type: TypeEnum) {
-        prefs!!.put(ys.moire.common.config.TYPE(), type.number)
+        prefs.put(ys.moire.common.config.TYPE(), type.number)
     }
 
     /**
@@ -75,7 +75,7 @@ class PrefsDao(private val prefs: Prefs?) {
      * @param val color
      */
     fun putBgColor(`val`: Int) {
-        prefs!!.put(ys.moire.common.config.BG_COLOR(), `val`)
+        prefs.put(ys.moire.common.config.BG_COLOR(), `val`)
     }
 
     /**
@@ -85,7 +85,7 @@ class PrefsDao(private val prefs: Prefs?) {
      * @param val pref value
      */
     fun putInt(@NonNull key: String, `val`: Int) {
-        prefs!!.put(key, `val`)
+        prefs.put(key, `val`)
     }
 
     private fun convertToDto(@NonNull types: BaseTypes): BaseEntity {

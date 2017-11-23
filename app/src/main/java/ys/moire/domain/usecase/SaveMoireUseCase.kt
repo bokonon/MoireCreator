@@ -9,7 +9,7 @@ import ys.moire.presentation.ui.viewparts.type.BaseTypes
 /**
  * save moire use case.
  */
-class SaveMoireUseCase(private val prefsDao: PrefsDao?) {
+class SaveMoireUseCase(private val prefsDao: PrefsDao) {
 
     /**
      * put setting data.
@@ -18,7 +18,7 @@ class SaveMoireUseCase(private val prefsDao: PrefsDao?) {
      * @param types Line Type
      */
     fun putTypesData(@NonNull lineConfigName: String, @NonNull types: BaseTypes) {
-        prefsDao!!.putTypesData(lineConfigName, types)
+        prefsDao.putTypesData(lineConfigName, types)
     }
 
     /**
@@ -26,7 +26,7 @@ class SaveMoireUseCase(private val prefsDao: PrefsDao?) {
      * @param type Line Type
      */
     fun putMoireType(type: TypeEnum) {
-        prefsDao!!.putMoireType(type)
+        prefsDao.putMoireType(type)
     }
 
     /**
@@ -34,7 +34,7 @@ class SaveMoireUseCase(private val prefsDao: PrefsDao?) {
      * @param val color
      */
     fun putBgColor(`val`: Int) {
-        prefsDao!!.putBgColor(`val`)
+        prefsDao.putBgColor(`val`)
     }
 
     /**
@@ -44,7 +44,7 @@ class SaveMoireUseCase(private val prefsDao: PrefsDao?) {
      * @param val pref value
      */
     fun putInt(@NonNull key: String, `val`: Int) {
-        prefsDao!!.putInt(key, `val`)
+        prefsDao.putInt(key, `val`)
     }
 
     private fun convertToDto(@NonNull types: BaseTypes): BaseEntity {
