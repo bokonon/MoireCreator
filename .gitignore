@@ -47,5 +47,4 @@ captures/
 app/build/
 .DS_Store
 
-# AdMob Api Key
-gradle.properties
+output.json
