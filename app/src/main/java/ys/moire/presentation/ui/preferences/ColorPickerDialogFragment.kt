@@ -16,7 +16,7 @@ import ys.moire.R
  */
 class ColorPickerDialogFragment : DialogFragment() {
 
-    private var preView: View? = null
+    private lateinit var preView: View
     private val seekBar = arrayOfNulls<SeekBar>(3)
 
     private var colorOfType: String? = null
@@ -71,15 +71,15 @@ class ColorPickerDialogFragment : DialogFragment() {
                 override fun onStartTrackingTouch(seekBar: SeekBar) {}
                 override fun onProgressChanged(seekBar: SeekBar,
                                                progress: Int, fromUser: Boolean) {
-                    preView!!.setBackgroundColor(Color.rgb(this@ColorPickerDialogFragment.seekBar[0]!!.getProgress(),
+                    preView.setBackgroundColor(Color.rgb(this@ColorPickerDialogFragment.seekBar[0]!!.getProgress(),
                             this@ColorPickerDialogFragment.seekBar[1]!!.getProgress(), this@ColorPickerDialogFragment.seekBar[2]!!.getProgress()))
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar) {}
             })
         }
-        preView!!.setBackgroundColor(Color.rgb(seekBar[0]!!.getProgress(),
-                seekBar[1]!!.getProgress(), seekBar[2]!!.getProgress()))
+        preView.setBackgroundColor(Color.rgb(seekBar[0]!!.getProgress(),
+                seekBar[1]!!.progress, seekBar[2]!!.getProgress()))
     }
 
     private fun onOkClick() {

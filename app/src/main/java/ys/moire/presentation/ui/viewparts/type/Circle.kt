@@ -3,17 +3,7 @@ package ys.moire.presentation.ui.viewparts.type
 /**
  * Circle class.
  */
-class Circle : BaseType() {
-    var x: Float = 0f
-    var y: Float = 0f
-    /** radius  */
-    var r: Float = 0f
-
-    fun init(x: Float, y: Float, r: Float) {
-        this.x = x
-        this.y = y
-        this.r = r
-    }
+class Circle(var x: Float, var y: Float, var r: Float) : BaseType() {
 
     /**
      * scroll circle automatically.

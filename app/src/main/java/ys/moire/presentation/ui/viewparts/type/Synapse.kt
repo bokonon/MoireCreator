@@ -7,40 +7,16 @@ import android.util.Log
 /**
  * Synapse class.
  */
-class Synapse : BaseType() {
+class Synapse(var center: PointF, var left: PointF, var top: PointF,
+              var right: PointF, var bottom: PointF) : BaseType() {
 
-    lateinit var center: PointF
-    lateinit var left: PointF
-    lateinit var top: PointF
-    lateinit var right: PointF
-    lateinit var bottom: PointF
+    private var leftTop: PointF = PointF(left.x, top.y)
+    private var leftBottom: PointF = PointF(left.x, bottom.y)
+    private var rightTop: PointF = PointF(right.x, top.y)
+    private var rightBottom: PointF = PointF(right.x, bottom.y)
 
-    lateinit var leftTop: PointF
-    lateinit var leftBottom: PointF
-    lateinit var rightTop: PointF
-    lateinit var rightBottom: PointF
-
-    var curveMargin: Int = 1
-    lateinit var path: Path
-
-    fun init(center: PointF, left: PointF, top: PointF,
-             right: PointF, bottom: PointF) {
-        path = Path()
-
-        this.center = center
-
-        this.left = left
-        this.top = top
-        this.right = right
-        this.bottom = bottom
-
-        this.leftTop = PointF(left.x, top.y)
-        this.leftBottom = PointF(left.x, bottom.y)
-        this.rightTop = PointF(right.x, top.y)
-        this.rightBottom = PointF(right.x, bottom.y)
-
-        setPath()
-    }
+    private var curveMargin: Int = 1
+    var path: Path = Path()
 
     /**
      * scroll rectangle automatically.
@@ -53,7 +29,7 @@ class Synapse : BaseType() {
     fun autoMove(dx: Float, margin: Float) {
         center.x += dx
 
-        Log.d(TAG, "dx : "+dx)
+        Log.d(TAG, "dx : "+dx.toString())
         Log.d(TAG, "center.x : "+center.x)
 
         setMargin(margin)
@@ -75,7 +51,7 @@ class Synapse : BaseType() {
         setMargin(margin)
     }
 
-    fun setMargin(margin: Float) {
+    private fun setMargin(margin: Float) {
         left.x = center.x - margin
         left.y = center.y
         top.x = center.x
@@ -170,7 +146,7 @@ class Synapse : BaseType() {
     }
 
     companion object {
-        private val TAG = "Synapse"
+        private const val TAG = "Synapse"
     }
 
 }

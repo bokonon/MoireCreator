@@ -2,10 +2,8 @@ package ys.moire.presentation.ui.about
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.Configuration
 import android.hardware.Sensor
 import android.hardware.SensorManager
-import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -23,11 +21,11 @@ import ys.moire.presentation.ui.viewparts.AboutView
 class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
 
     /** Sensor EL  */
-    private var sensorEL: SensorEL? = null
+    private lateinit var sensorEL: SensorEL
     /** Sensor Manager  */
-    private var sensorManager: SensorManager? = null
+    private lateinit var sensorManager: SensorManager
     /** View  */
-    private var aboutView: AboutView? = null
+    private lateinit var aboutView: AboutView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +37,14 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
         val layoutWidth = metrics.widthPixels.toFloat()
         val layoutHeight = (metrics.heightPixels - statusBarHeight).toFloat()
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "layoutWidth : " + layoutWidth)
-            Log.d(TAG, "layoutHeight : " + layoutHeight)
+            Log.d(TAG, "layoutWidth : " + layoutWidth.toString())
+            Log.d(TAG, "layoutHeight : " + layoutHeight.toString())
         }
 
         sensorEL = SensorEL(isTablet, this)
 
         val ll = LinearLayout(this)
-        aboutView = AboutView(this, sensorEL!!, layoutWidth, layoutHeight)
+        aboutView = AboutView(this, sensorEL, layoutWidth, layoutHeight)
         ll.addView(aboutView)
         setContentView(ll)
     }
@@ -54,12 +52,12 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
     override fun onResume() {
         super.onResume()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        val sensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        sensorManager!!.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_GAME)
+        val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_GAME)
     }
 
     override fun onPause() {
-        sensorManager!!.unregisterListener(sensorEL)
+        sensorManager.unregisterListener(sensorEL)
         super.onPause()
     }
 
@@ -72,10 +70,8 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
     }
 
     override fun onSensorChange() {
-        if (aboutView != null) {
-            // draw on sensor change.
-            aboutView!!.drawFrame()
-        }
+        // draw on sensor change.
+        aboutView.drawFrame()
     }
 
     /**
@@ -87,11 +83,7 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
             val context = applicationContext
             val r = context.resources
             val configuration = r.configuration
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
-                return configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
-            } else {
-                return configuration.smallestScreenWidthDp >= 600
-            }
+            return configuration.smallestScreenWidthDp >= 600
         }
 
     /**
@@ -106,14 +98,14 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
                 result = resources.getDimensionPixelSize(resourceId)
             }
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, "status bar height : " + result)
+                Log.d(TAG, "status bar height : " + result.toString())
             }
             return result
         }
 
     companion object {
 
-        private val TAG = "AboutActivity"
+        private const val TAG = "AboutActivity"
     }
 
 }

@@ -8,7 +8,7 @@ import android.graphics.Canvas
 class Rectangles : BaseTypes() {
 
     /** Rectangle array  */
-    private var rectangle: Array<Rectangle?>? = null
+    private lateinit var rectangle: Array<Rectangle>
 
     // Trapezoidal judgment
     private var isTrapezoid: Boolean = false
@@ -18,21 +18,21 @@ class Rectangles : BaseTypes() {
              layoutHeight: Int,
              maxTopLength: Float,
              maxBottomLength: Float) {
-        rectangle = arrayOfNulls<Rectangle>(number)
-        for (i in 0..number - 1) {
-            rectangle!![i] = Rectangle()
-            if (whichLine == BaseTypes.LINE_A) {
-                // The upper side and the lower side are provisional values
-                rectangle!![i]!!.init(0f, layoutHeight / 3f,
-                        layoutHeight.toFloat() / 3f / number.toFloat() * i,
-                        maxTopLength / number * i,
-                        maxBottomLength / number * i)
-            } else if (whichLine == BaseTypes.LINE_B) {
-                rectangle!![i]!!.init(layoutWidth.toFloat(), layoutHeight * (2 / 3f),
-                        layoutHeight.toFloat() / 3f / number.toFloat() * i,
-                        maxTopLength / number * i,
-                        maxBottomLength / number * i)
-            }
+
+        rectangle = if (whichLine == BaseTypes.LINE_A) {
+            Array(number, {
+                Rectangle(0f, layoutHeight / 3f,
+                        layoutHeight.toFloat() / 3f / number.toFloat() * it,
+                        maxTopLength / number * it,
+                        maxBottomLength / number * it)
+            })
+        } else {
+            Array(number, {
+                Rectangle(layoutWidth.toFloat(), layoutHeight * (2 / 3f),
+                        layoutHeight.toFloat() / 3f / number.toFloat() * it,
+                        maxTopLength / number * it,
+                        maxBottomLength / number * it)
+            })
         }
         isTrapezoid = maxTopLength <= maxBottomLength
     }
@@ -40,27 +40,27 @@ class Rectangles : BaseTypes() {
     public override fun checkOutOfRange(layoutWidth: Int) {
         // check only out side line
         if (isTrapezoid) {
-            if (rectangle!![number - 1]!!.rightBottom.x < 0) {
+            if (rectangle[number - 1].rightBottom.x < 0) {
                 // disappear for less than 0
-                for (i in 0..number - 1) {
-                    rectangle!![i]!!.moveX(layoutWidth + rectangle!![number - 1]!!.bottomLength / 2)
+                for (i in 0 until number) {
+                    rectangle[i].moveX(layoutWidth + rectangle[number - 1].bottomLength / 2)
                 }
-            } else if (layoutWidth < rectangle!![number - 1]!!.leftBottom.x) {
+            } else if (layoutWidth < rectangle[number - 1].leftBottom.x) {
                 // disappear for more than width
-                for (i in 0..number - 1) {
-                    rectangle!![i]!!.moveX(-rectangle!![number - 1]!!.bottomLength / 2)
+                for (i in 0 until number) {
+                    rectangle[i].moveX(-rectangle[number - 1].bottomLength / 2)
                 }
             }
         } else {
-            if (rectangle!![number - 1]!!.rightTop.x < 0) {
+            if (rectangle[number - 1].rightTop.x < 0) {
                 // disappear less than 0
-                for (i in 0..number - 1) {
-                    rectangle!![i]!!.moveX(layoutWidth + rectangle!![number - 1]!!.topLength / 2)
+                for (i in 0 until number) {
+                    rectangle[i].moveX(layoutWidth + rectangle[number - 1].topLength / 2)
                 }
-            } else if (layoutWidth < rectangle!![number - 1]!!.leftTop.x) {
+            } else if (layoutWidth < rectangle[number - 1].leftTop.x) {
                 // disappear more than width
-                for (i in 0..number - 1) {
-                    rectangle!![i]!!.moveX(-rectangle!![number - 1]!!.topLength / 2)
+                for (i in 0 until number) {
+                    rectangle[i].moveX(-rectangle[number - 1].topLength / 2)
                 }
             }
         }
@@ -71,19 +71,19 @@ class Rectangles : BaseTypes() {
             return
         }
         if (whichLine == BaseTypes.LINE_A) {
-            for (i in 0..number - 1) {
-                rectangle!![i]!!.autoMove(dx)
+            for (i in 0 until number) {
+                rectangle[i].autoMove(dx)
             }
         } else if (whichLine == BaseTypes.LINE_B) {
-            for (j in 0..number - 1) {
-                rectangle!![j]!!.autoMove(-dx)
+            for (j in 0 until number) {
+                rectangle[j].autoMove(-dx)
             }
         }
     }
 
     public override fun draw(canvas: Canvas) {
-        for (i in 0..number - 1) {
-            canvas.drawPath(rectangle!![i]!!.path, paint!!)
+        for (i in 0 until number) {
+            canvas.drawPath(rectangle[i].path, paint)
         }
     }
 
@@ -92,13 +92,13 @@ class Rectangles : BaseTypes() {
      * @param valX dx
      */
     public override fun addTouchVal(valX: Int, valY: Int) {
-        for (i in 0..number - 1) {
-            rectangle!![i]!!.addTouchVal(valX, valY)
+        for (i in 0 until number) {
+            rectangle[i].addTouchVal(valX, valY)
         }
     }
 
     companion object {
 
-        private val TAG = "Rectangles"
+        private const val TAG = "Rectangles"
     }
 }

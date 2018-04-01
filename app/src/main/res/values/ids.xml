@@ -8,7 +8,7 @@
         <item>Synapse</item>
         <item>Original</item>
         <item>Octagon</item>
-        <!--<item>Octagon</item>-->
+        <item>Flower</item>
     </string-array>
     <integer-array name="chara_items">
         <item>@drawable/a</item>

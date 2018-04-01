@@ -46,7 +46,7 @@ class AboutView(context: Context,
     override fun surfaceCreated(holder: SurfaceHolder) {
 
         val tArray = resources.obtainTypedArray(R.array.chara_items)
-        for (i in 0..tArray.length() - 1) {
+        for (i in 0 until tArray.length()) {
             val resource = tArray.getResourceId(i, 0)
             bmp[i] = BitmapFactory.decodeResource(resources, resource)
         }
@@ -158,19 +158,19 @@ class AboutView(context: Context,
     private fun checkInFrame(i: Int, ab_dx: Float) {
         if (bmpPoint[i]!!.x - sensorEL.sensorX * ab_dx < 0) {
             bmpPoint[i]!!.set(0f, bmpPoint[i]!!.y)
-        } else if (layoutWidth < bmpPoint[i]!!.x - sensorEL.sensorX * ab_dx + bmp[i]!!.getWidth()) {
-            bmpPoint[i]!!.set(layoutWidth - bmp[i]!!.getWidth(), bmpPoint[i]!!.y)
+        } else if (layoutWidth < bmpPoint[i]!!.x - sensorEL.sensorX * ab_dx + bmp[i]!!.width) {
+            bmpPoint[i]!!.set(layoutWidth - bmp[i]!!.width, bmpPoint[i]!!.y)
         }
         if (bmpPoint[i]!!.y + sensorEL.sensorY * ab_dx < 0) {
             bmpPoint[i]!!.set(bmpPoint[i]!!.x, 0f)
-        } else if (layoutHeight < bmpPoint[i]!!.y + sensorEL.sensorY * ab_dx + bmp[i]!!.getHeight().toFloat()) {
-            bmpPoint[i]!!.set(bmpPoint[i]!!.x, layoutHeight - bmp[i]!!.getHeight())
+        } else if (layoutHeight < bmpPoint[i]!!.y + sensorEL.sensorY * ab_dx + bmp[i]!!.height.toFloat()) {
+            bmpPoint[i]!!.set(bmpPoint[i]!!.x, layoutHeight - bmp[i]!!.height)
         }
     }
 
     companion object {
 
         /** move value  */
-        private val VAL = 8
+        private const val VAL = 8
     }
 }

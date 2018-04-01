@@ -3,28 +3,12 @@ package ys.moire.presentation.ui.viewparts.type
 /**
  * line class.
  */
-class Line : BaseType() {
-    var topX: Float = 0f
-    var topY: Float = 0f
-    var bottomX: Float = 0f
-    var bottomY: Float = 0f
+class Line(layoutHeight: Int, slope: Int, value: Int, arg: Int) : BaseType() {
 
-    /**
-     * init line.
-     * @param layoutHeight screen width
-     * *
-     * @param slope slope
-     * *
-     * @param val offset x
-     * *
-     * @param arg b slope value (A:0 B:slope)
-     */
-    fun init(layoutHeight: Int, slope: Int, `val`: Int, arg: Int) {
-        topX = (`val` + slope - arg).toFloat()
-        topY = 0f
-        bottomX = topX - slope + arg * 2
-        bottomY = layoutHeight.toFloat()
-    }
+    var topX: Float = (value + slope - arg).toFloat()
+    var topY: Float = 0f
+    var bottomX: Float = topX - slope + arg * 2
+    var bottomY: Float = layoutHeight.toFloat()
 
     /**
      * scroll line automatically.

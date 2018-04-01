@@ -8,23 +8,23 @@ import android.graphics.Canvas
 class CustomLines : BaseTypes() {
 
     /** CustomLine array  */
-    private var customLines: Array<CustomLine?>? = null
+    private lateinit var customLines: Array<CustomLine>
 
     public override fun init(whichLine: Int,
                              layoutWidth: Int,
                              layoutHeight: Int) {
-        customLines = arrayOfNulls<CustomLine>(number)
-        for (i in 0..number - 1) {
-            customLines!![i] = CustomLine()
-        }
+
+        customLines = Array(number, {
+            CustomLine()
+        })
     }
 
     public override fun checkOutOfRange(whichLine: Int, layoutWidth: Int) {
         if (onTouch) {
             return
         }
-        for (i in 0..number - 1) {
-            customLines!![i]!!.checkParcellingOutOfRange(whichLine, layoutWidth)
+        for (i in 0 until number) {
+            customLines[i].checkParcellingOutOfRange(whichLine, layoutWidth)
         }
     }
 
@@ -33,19 +33,19 @@ class CustomLines : BaseTypes() {
             return
         }
         if (whichLine == BaseTypes.LINE_A) {
-            for (i in 0..number - 1) {
-                customLines!![i]!!.autoMove(dx)
+            for (i in 0 until number) {
+                customLines[i].autoMove(dx)
             }
         } else if (whichLine == BaseTypes.LINE_B) {
-            for (j in 0..number - 1) {
-                customLines!![j]!!.autoMove(-dx)
+            for (j in 0 until number) {
+                customLines[j].autoMove(-dx)
             }
         }
     }
 
     public override fun draw(canvas: Canvas) {
-        for (i in 0..number - 1) {
-            canvas.drawPath(customLines!![i]!!.path, paint!!)
+        for (i in 0 until number) {
+            canvas.drawPath(customLines[i].path, paint)
         }
     }
 
@@ -60,13 +60,13 @@ class CustomLines : BaseTypes() {
      * @param moveCount move count
      */
     public override fun drawOriginalLine(layoutWidth: Int, valX: Float, valY: Float, moveCount: Int) {
-        for (i in 0..number - 1) {
-            customLines!![i]!!.drawOriginalLine(valX - layoutWidth / 2f + (i + 1) * layoutWidth / number, valY, moveCount)
+        for (i in 0 until number) {
+            customLines[i].drawOriginalLine(valX - layoutWidth / 2f + (i + 1) * layoutWidth / number, valY, moveCount)
         }
     }
 
     companion object {
 
-        private val TAG = "CustomLines"
+        private const val TAG = "CustomLines"
     }
 }

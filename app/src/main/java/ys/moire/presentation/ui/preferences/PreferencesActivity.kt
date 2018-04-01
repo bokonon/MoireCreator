@@ -25,36 +25,36 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
     lateinit var presenter: PreferencesPresenter
 
     // ScrollView
-    private var scrollView: ScrollView? = null
+    private lateinit var scrollView: ScrollView
 
     // Type
-    private var spinner: Spinner? = null
+    private lateinit var spinner: Spinner
     // Color
-    private var lineAPreColor: View? = null
-    private var lineBPreColor: View? = null
-    private var bgPreColor: View? = null
-    private var lineAColorSelectButton: Button? = null
-    private var lineBColorSelectButton: Button? = null
-    private var backgroundColorSelectButton: Button? = null
+    private lateinit var lineAPreColor: View
+    private lateinit var lineBPreColor: View
+    private lateinit var bgPreColor: View
+    private lateinit var lineAColorSelectButton: Button
+    private lateinit var lineBColorSelectButton: Button
+    private lateinit var backgroundColorSelectButton: Button
     // Number
-    private var lineANumberText: TextView? = null
-    private var lineBNumberText: TextView? = null
-    private var lineANumberSeekBar: SeekBar? = null
-    private var lineBNumberSeekBar: SeekBar? = null
+    private lateinit var lineANumberText: TextView
+    private lateinit var lineBNumberText: TextView
+    private lateinit var lineANumberSeekBar: SeekBar
+    private lateinit var lineBNumberSeekBar: SeekBar
     // Thick
-    private var lineAThickText: TextView? = null
-    private var lineBThickText: TextView? = null
-    private var lineAThickSeekBar: SeekBar? = null
-    private var lineBThickSeekBar: SeekBar? = null
+    private lateinit var lineAThickText: TextView
+    private lateinit var lineBThickText: TextView
+    private lateinit var lineAThickSeekBar: SeekBar
+    private lateinit var lineBThickSeekBar: SeekBar
     // Slope
-    private var slopeLayout: LinearLayout? = null
-    private var lineASlopeText: TextView? = null
-    private var lineBSlopeText: TextView? = null
-    private var lineASlopeSeekBar: SeekBar? = null
-    private var lineBSlopeSeekBar: SeekBar? = null
+    private lateinit var slopeLayout: LinearLayout
+    private lateinit var lineASlopeText: TextView
+    private lateinit var lineBSlopeText: TextView
+    private lateinit var lineASlopeSeekBar: SeekBar
+    private lateinit var lineBSlopeSeekBar: SeekBar
 
-    private var aLines: BaseTypes? = null
-    private var bLines: BaseTypes? = null
+    private lateinit var aLines: BaseTypes
+    private lateinit var bLines: BaseTypes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +74,9 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
             override fun onAdOpened() {}
             override fun onAdLoaded() {
                 var currentY = 0
-                if (scrollView != null) {
-                    currentY = scrollView!!.scrollY
-                }
+                currentY = scrollView.scrollY
                 adView.visibility = View.VISIBLE
-                if (scrollView != null) {
-                    scrollView!!.scrollTo(0, currentY)
-                }
+                scrollView.scrollTo(0, currentY)
             }
         }
 
@@ -92,7 +88,7 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         // set listener
         setListener()
 
-        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(v: AdapterView<*>, view: View, pos: Int, id: Long) {
                 val spinner = v as Spinner
@@ -100,9 +96,9 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
                 val moireType = getType(typeRawValue)
                 presenter.putMoireType(moireType)
                 if (moireType == ys.moire.common.config.TypeEnum.LINE) {
-                    slopeLayout!!.visibility = View.VISIBLE
+                    slopeLayout.visibility = View.VISIBLE
                 } else {
-                    slopeLayout!!.visibility = View.GONE
+                    slopeLayout.visibility = View.GONE
                 }
             }
 
@@ -115,80 +111,80 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         bLines = presenter.loadTypesData(ys.moire.common.config.LINE_B())
 
         // Line A Number
-        lineANumberSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineANumberSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineANumberText?.text = getString(R.string.line_a_val_text, progress + MINIMUM_VAL)
+                lineANumberText.text = getString(R.string.line_a_val_text, progress + MINIMUM_VAL)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                aLines!!.number = seekBar.progress + MINIMUM_VAL
-                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines!!)
+                aLines.number = seekBar.progress + MINIMUM_VAL
+                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines)
             }
         })
         // Line B Number
-        lineBNumberSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineBNumberSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineBNumberText?.text = getString(R.string.line_b_val_text, progress + MINIMUM_VAL)
+                lineBNumberText.text = getString(R.string.line_b_val_text, progress + MINIMUM_VAL)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                bLines!!.number = seekBar.progress + MINIMUM_VAL
-                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines!!)
+                bLines.number = seekBar.progress + MINIMUM_VAL
+                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines)
             }
         })
         // Line A Thick
-        lineAThickSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineAThickSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineAThickText?.text = getString(R.string.line_a_val_text, progress)
+                lineAThickText.text = getString(R.string.line_a_val_text, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                aLines!!.thick = seekBar.progress
-                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines!!)
+                aLines.thick = seekBar.progress
+                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines)
             }
         })
         // Line B Thick
-        lineBThickSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineBThickSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineBThickText!!.text = getString(R.string.line_b_val_text, progress)
+                lineBThickText.text = getString(R.string.line_b_val_text, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                bLines!!.thick = seekBar.progress
-                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines!!)
+                bLines.thick = seekBar.progress
+                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines)
             }
         })
         // Slope
-        lineASlopeSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineASlopeSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineASlopeText!!.text = getString(R.string.line_a_val_text, progress)
+                lineASlopeText.text = getString(R.string.line_a_val_text, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                aLines!!.slope = seekBar.progress
-                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines!!)
+                aLines.slope = seekBar.progress
+                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines)
             }
         })
-        lineBSlopeSeekBar?.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        lineBSlopeSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                lineBSlopeText!!.text = getString(R.string.line_b_val_text, progress)
+                lineBSlopeText.text = getString(R.string.line_b_val_text, progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                bLines!!.slope = seekBar.progress
-                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines!!)
+                bLines.slope = seekBar.progress
+                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines)
             }
         })
 
@@ -234,25 +230,25 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         val type = args.getString(ys.moire.common.config.COLOR_OF_TYPE()) ?: return
         when (type) {
             ys.moire.common.config.LINE_A() -> {
-                aLines!!.color = color
-                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines!!)
-                lineAPreColor!!.setBackgroundColor(color)
+                aLines.color = color
+                presenter.saveTypesData(ys.moire.common.config.LINE_A(), aLines)
+                lineAPreColor.setBackgroundColor(color)
             }
             ys.moire.common.config.LINE_B() -> {
-                bLines!!.color = color
-                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines!!)
-                lineBPreColor!!.setBackgroundColor(color)
+                bLines.color = color
+                presenter.saveTypesData(ys.moire.common.config.LINE_B(), bLines)
+                lineBPreColor.setBackgroundColor(color)
             }
             ys.moire.common.config.BG_COLOR() -> {
                 presenter.putBgColor(color)
-                bgPreColor!!.setBackgroundColor(color)
+                bgPreColor.setBackgroundColor(color)
             }
             else -> {
             }
         }
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "color type : " + type)
-            Log.d(TAG, "color : " + color)
+            Log.d(TAG, "color type : " + type.toString())
+            Log.d(TAG, "color : " + color.toString())
         }
     }
 
@@ -273,31 +269,31 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         lineAPreColor = findViewById(R.id.line_a_pre_color)
         lineBPreColor = findViewById(R.id.line_b_pre_color)
         bgPreColor = findViewById(R.id.bg_pre_color)
-        lineAColorSelectButton = findViewById<Button>(R.id.line_a_color_button)
-        lineBColorSelectButton = findViewById<Button>(R.id.line_b_color_button)
-        backgroundColorSelectButton = findViewById<Button>(R.id.bg_color_button)
+        lineAColorSelectButton = findViewById(R.id.line_a_color_button)
+        lineBColorSelectButton = findViewById(R.id.line_b_color_button)
+        backgroundColorSelectButton = findViewById(R.id.bg_color_button)
         // Number
-        lineANumberSeekBar = findViewById<SeekBar>(R.id.number_a_seekBar)
-        lineANumberText = findViewById<TextView>(R.id.number_a_seekBar_text)
-        lineBNumberSeekBar = findViewById<SeekBar>(R.id.number_b_seekBar)
-        lineBNumberText = findViewById<TextView>(R.id.number_b_seekBar_text)
+        lineANumberSeekBar = findViewById(R.id.number_a_seekBar)
+        lineANumberText = findViewById(R.id.number_a_seekBar_text)
+        lineBNumberSeekBar = findViewById(R.id.number_b_seekBar)
+        lineBNumberText = findViewById(R.id.number_b_seekBar_text)
         // Thick
-        lineAThickSeekBar = findViewById<SeekBar>(R.id.thick_a_seekBar)
-        lineAThickText = findViewById<TextView>(R.id.thick_a_seekBar_text)
-        lineBThickSeekBar = findViewById<SeekBar>(R.id.thick_b_seekBar)
-        lineBThickText = findViewById<TextView>(R.id.thick_b_seekBar_text)
+        lineAThickSeekBar = findViewById(R.id.thick_a_seekBar)
+        lineAThickText = findViewById(R.id.thick_a_seekBar_text)
+        lineBThickSeekBar = findViewById(R.id.thick_b_seekBar)
+        lineBThickText = findViewById(R.id.thick_b_seekBar_text)
         // Slope
-        lineASlopeSeekBar = findViewById<SeekBar>(R.id.slope_a_seekBar)
-        lineASlopeText = findViewById<TextView>(R.id.slope_a_seekBar_text)
-        lineBSlopeSeekBar = findViewById<SeekBar>(R.id.slope_b_seekBar)
-        lineBSlopeText = findViewById<TextView>(R.id.slope_b_seekBar_text)
-        slopeLayout = findViewById<LinearLayout>(R.id.slope_layout)
+        lineASlopeSeekBar = findViewById(R.id.slope_a_seekBar)
+        lineASlopeText = findViewById(R.id.slope_a_seekBar_text)
+        lineBSlopeSeekBar = findViewById(R.id.slope_b_seekBar)
+        lineBSlopeText = findViewById(R.id.slope_b_seekBar_text)
+        slopeLayout = findViewById(R.id.slope_layout)
     }
 
     private fun setListener() {
-        lineAColorSelectButton?.setOnClickListener(this)
-        lineBColorSelectButton?.setOnClickListener(this)
-        backgroundColorSelectButton?.setOnClickListener(this)
+        lineAColorSelectButton.setOnClickListener(this)
+        lineBColorSelectButton.setOnClickListener(this)
+        backgroundColorSelectButton.setOnClickListener(this)
     }
 
     /**
@@ -305,32 +301,32 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
      */
     private fun setPreferencesValues() {
         // Type
-        spinner?.setSelection(presenter.moireType.number)
+        spinner.setSelection(presenter.moireType.number)
         // Color
-        lineAPreColor?.setBackgroundColor(aLines!!.color)
-        lineBPreColor?.setBackgroundColor(bLines!!.color)
-        bgPreColor?.setBackgroundColor(presenter.bgColor)
+        lineAPreColor.setBackgroundColor(aLines.color)
+        lineBPreColor.setBackgroundColor(bLines.color)
+        bgPreColor.setBackgroundColor(presenter.bgColor)
         // Number
-        lineANumberSeekBar?.progress = aLines!!.number - MINIMUM_VAL
-        lineANumberText?.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + MINIMUM_VAL)
-        lineBNumberSeekBar?.progress = bLines!!.number - MINIMUM_VAL
-        lineBNumberText?.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + MINIMUM_VAL)
+        lineANumberSeekBar.progress = aLines.number - MINIMUM_VAL
+        lineANumberText.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + MINIMUM_VAL)
+        lineBNumberSeekBar.progress = bLines.number - MINIMUM_VAL
+        lineBNumberText.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + MINIMUM_VAL)
         // Thick
-        lineAThickSeekBar?.progress = aLines!!.thick
-        lineAThickText?.text = getString(R.string.line_a_val_text, lineAThickSeekBar!!.progress)
-        lineBThickSeekBar?.progress = bLines!!.thick
-        lineBThickText?.text = getString(R.string.line_b_val_text, lineBThickSeekBar!!.progress)
+        lineAThickSeekBar.progress = aLines.thick
+        lineAThickText.text = getString(R.string.line_a_val_text, lineAThickSeekBar!!.progress)
+        lineBThickSeekBar.progress = bLines.thick
+        lineBThickText.text = getString(R.string.line_b_val_text, lineBThickSeekBar!!.progress)
         // Slope
-        lineASlopeSeekBar?.progress = aLines!!.slope
-        lineASlopeText?.text = getString(R.string.line_a_val_text, lineASlopeSeekBar!!.progress)
-        lineBSlopeSeekBar?.progress = bLines!!.slope
-        lineBSlopeText?.text = getString(R.string.line_b_val_text, lineBSlopeSeekBar!!.progress)
+        lineASlopeSeekBar.progress = aLines.slope
+        lineASlopeText.text = getString(R.string.line_a_val_text, lineASlopeSeekBar!!.progress)
+        lineBSlopeSeekBar.progress = bLines.slope
+        lineBSlopeText.text = getString(R.string.line_b_val_text, lineBSlopeSeekBar!!.progress)
     }
 
     companion object {
-        private val TAG = "PreferencesActivity"
+        private const val TAG = "PreferencesActivity"
 
-        private val MINIMUM_VAL = 10;
+        private const val MINIMUM_VAL = 10;
     }
 
 }
