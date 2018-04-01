@@ -12,15 +12,14 @@ import ys.moire.presentation.ui.main.MainActivity
 
 class SplashActivity : Activity() {
 
-    private var handler: Handler? = null
+    private val handler: Handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.splash)
 
-        handler = Handler()
-        handler!!.postDelayed(SplashHandler(), PENDING_TIME.toLong())
+        handler.postDelayed(SplashHandler(), PENDING_TIME.toLong())
     }
 
     private inner class SplashHandler : Runnable {
@@ -42,6 +41,6 @@ class SplashActivity : Activity() {
 
     companion object {
 
-        private val PENDING_TIME = 1000
+        private const val PENDING_TIME = 1000
     }
 }

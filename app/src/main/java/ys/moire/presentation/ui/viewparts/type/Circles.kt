@@ -10,34 +10,39 @@ import ys.moire.BuildConfig
 class Circles : BaseTypes() {
 
     /** Circle array  */
-    private var circle: Array<Circle?>? = null
+    private lateinit var circle: Array<Circle>
 
     public override fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Circles layoutHeight : " + layoutHeight)
+            Log.d(TAG, "Circles layoutHeight : " + layoutHeight.toString())
         }
-        circle = arrayOfNulls<Circle>(number)
-        for (i in 0..number - 1) {
-            circle!![i] = Circle()
-            if (whichLine == BaseTypes.LINE_A) {
-                circle!![i]!!.init(0f, layoutHeight / 3f, layoutHeight.toFloat() / 3f / number.toFloat() * i + 4)
-            } else if (whichLine == BaseTypes.LINE_B) {
-                circle!![i]!!.init(layoutWidth.toFloat(), layoutHeight * (2 / 3f), layoutHeight.toFloat() / 3f / number.toFloat() * i + 4)
-            }
+
+        circle = if (whichLine == BaseTypes.LINE_A) {
+            Array(number, {
+                Circle(0f,
+                        layoutHeight / 3f,
+                        layoutHeight.toFloat() / 3f / number.toFloat() * it + 4)
+            })
+        } else {
+            Array(number, {
+                Circle(layoutWidth.toFloat(),
+                        layoutHeight * (2 / 3f),
+                        layoutHeight.toFloat() / 3f / number.toFloat() * it + 4)
+            })
         }
     }
 
     public override fun checkOutOfRange(layoutWidth: Int) {
         // check only outside circle.
-        if (circle!![number - 1]!!.x < -circle!![number - 1]!!.r) {
+        if (circle[number - 1].x < -circle[number - 1].r) {
             // disappear for minus x val
-            for (i in 0..number - 1) {
-                circle!![i]!!.x = layoutWidth + circle!![number - 1]!!.r
+            for (i in 0 until number) {
+                circle[i].x = layoutWidth + circle[number - 1].r
             }
-        } else if (layoutWidth + circle!![number - 1]!!.r < circle!![number - 1]!!.x) {
+        } else if (layoutWidth + circle[number - 1].r < circle[number - 1].x) {
             // disappear for plus x value
-            for (i in 0..number - 1) {
-                circle!![i]!!.x = -circle!![number - 1]!!.r
+            for (i in 0 until number) {
+                circle[i].x = -circle[number - 1].r
             }
         }
     }
@@ -47,20 +52,20 @@ class Circles : BaseTypes() {
             return
         }
         if (whichLine == BaseTypes.LINE_A) {
-            for (i in 0..number - 1) {
-                circle!![i]!!.autoMove(dx)
+            for (i in 0 until number) {
+                circle[i].autoMove(dx)
             }
 
         } else if (whichLine == BaseTypes.LINE_B) {
-            for (j in 0..number - 1) {
-                circle!![j]!!.autoMove(-dx)
+            for (j in 0 until number) {
+                circle[j].autoMove(-dx)
             }
         }
     }
 
     public override fun draw(canvas: Canvas) {
-        for (i in 0..number - 1) {
-            canvas.drawCircle(circle!![i]!!.x, circle!![i]!!.y, circle!![i]!!.r, paint!!)
+        for (i in 0 until number) {
+            canvas.drawCircle(circle[i].x, circle[i].y, circle[i].r, paint)
         }
     }
 
@@ -71,12 +76,12 @@ class Circles : BaseTypes() {
      * @param valY dy
      */
     public override fun addTouchVal(valX: Int, valY: Int) {
-        for (i in 0..number - 1) {
-            circle!![i]!!.addTouchVal(valX, valY)
+        for (i in 0 until number) {
+            circle[i].addTouchVal(valX, valY)
         }
     }
 
     companion object {
-        private val TAG = "Circles"
+        private const val TAG = "Circles"
     }
 }

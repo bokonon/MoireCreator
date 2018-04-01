@@ -9,15 +9,10 @@ import java.util.*
  */
 class CustomLine : BaseType() {
 
-    var path: Path
+    val path: Path = Path()
 
-    var pathList: MutableList<PointF>
+    private val pathList: MutableList<PointF> = ArrayList()
     //    private final Object lock = new Object();
-
-    init {
-        path = Path()
-        pathList = ArrayList<PointF>()
-    }
 
     /**
      * scroll custom line automatically.
@@ -119,10 +114,10 @@ class CustomLine : BaseType() {
 
     companion object {
 
-        private val TAG = "CustomLine"
+        private const val TAG = "CustomLine"
 
-        private val LINE_A = 0
-        private val LINE_B = 1
+        private const val LINE_A = 0
+        private const val LINE_B = 1
     }
 
 }

@@ -32,15 +32,15 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     lateinit var mainPresenter: MainPresenter
 
     /** View  */
-    private var moireView: MoireView? = null
+    private lateinit var moireView: MoireView
     /** Touch A Button  */
-    private var aTouchSelectedButton: Button? = null
+    private lateinit var aTouchSelectedButton: Button
     /** Touch B Button  */
-    private var bTouchSelectedButton: Button? = null
+    private lateinit var bTouchSelectedButton: Button
     /** Pause Button  */
-    private var pauseImageButton: ImageButton? = null
+    private lateinit var pauseImageButton: ImageButton
     /** ScreenShot Button  */
-    private var screenShotImageButton: ImageButton? = null
+    private lateinit var screenShotImageButton: ImageButton
 
     /** Line Mode（AorB）  */
     private var touchLineMode: Int = 0
@@ -65,30 +65,30 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         val layoutWidth = metrics.widthPixels
         statusBarHeight = getStatusBarHeight()
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "statusBarHeight : " + statusBarHeight)
+            Log.d(TAG, "statusBarHeight : " + statusBarHeight.toString())
         }
         val layoutHeight = metrics.heightPixels - statusBarHeight
 
         moireView = MoireView(this, layoutWidth, layoutHeight, mainPresenter.moireType)
-        moireView!!.setBgColor(mainPresenter.bgColor)
+        moireView.setBgColor(mainPresenter.bgColor)
 
         val linearLayout = findViewById<LinearLayout>(R.id.parent_linear_layout)
         linearLayout!!.addView(moireView)
 
         initToolBarViews(toolbar!!)
 
-        mainPresenter.setMoireView(moireView!!)
+        mainPresenter.setMoireView(moireView)
         mainPresenter.onCreate()
     }
 
     override fun onResume() {
         super.onResume()
         mainPresenter.onResume()
-        moireView!!.setOnBackground(false)
+        moireView.setOnBackground(false)
     }
 
     override fun onPause() {
-        moireView!!.setOnBackground(true)
+        moireView.setOnBackground(true)
         mainPresenter.onPause()
         super.onPause()
     }
@@ -123,20 +123,25 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         super.onActivityResult(requestCode, resultCode, intent)
         if (resultCode == Activity.RESULT_OK) {
             // from preference screen
-            if (requestCode == INTENT_FOR_SETTING) {
-                moireView!!.setMoireType(mainPresenter.moireType)
-                moireView!!.setBgColor(mainPresenter.bgColor)
+            when (requestCode) {
+                INTENT_FOR_SETTING -> {
+                    moireView.setMoireType(mainPresenter.moireType)
+                    moireView.setBgColor(mainPresenter.bgColor)
 
-                moireView!!.loadLines(
-                        mainPresenter.loadTypesData(ys.moire.common.config.LINE_A()),
-                        mainPresenter.loadTypesData(ys.moire.common.config.LINE_B())
-                )
-            } else if (requestCode == INTENT_FOR_ABOUT) {
-                // NOP
-            } else if (requestCode == INTENT_FOR_OTHER) {
-                // NOP
-            }// from other screen
-            // from about screen
+                    moireView.loadLines(
+                            mainPresenter.loadTypesData(ys.moire.common.config.LINE_A()),
+                            mainPresenter.loadTypesData(ys.moire.common.config.LINE_B())
+                    )
+                }
+                INTENT_FOR_ABOUT -> {
+                    // from about screen
+                    // NOP
+                }
+                INTENT_FOR_OTHER -> {
+                    // from other screen
+                    // NOP
+                }
+            }
         }
     }
 
@@ -162,79 +167,73 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         val currentY = e.y.toInt()
         when (e.action) {
             MotionEvent.ACTION_DOWN -> {
+                // TouchMode on
+                moireView.setOnTouchMode(touchLineMode, true)
                 firstTouchX = e.x.toInt()
                 firstTouchY = e.y.toInt()
-                if (moireView!!.type == ys.moire.common.config.TypeEnum.LINE) {
-                    // TouchMode on
-                    moireView!!.setOnTouchMode(touchLineMode, true)
+                if (moireView.type == ys.moire.common.config.TypeEnum.LINE) {
                     // init dx dy
                     touchMoveX = 0
                     tempMoveX = 0
-                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
-                    // TouchMode on
-                    moireView!!.setOnTouchMode(touchLineMode, true)
+                } else if (moireView.type == ys.moire.common.config.TypeEnum.CIRCLE
+                        || moireView.type == ys.moire.common.config.TypeEnum.RECT
+                        || moireView.type == ys.moire.common.config.TypeEnum.HEART
+                        || moireView.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView.type == ys.moire.common.config.TypeEnum.OCTAGON
+                        || moireView.type == ys.moire.common.config.TypeEnum.FLOWER) {
                     // init dx dy
                     touchMoveX = 0
                     touchMoveY = 0
                     tempMoveX = 0
                     tempMoveY = 0
-                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
-                    // TouchModeをOnにします.
-                    moireView!!.setOnTouchMode(touchLineMode, true)
+                } else if (moireView.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
                     moveCount = 0
                 }
             }
             MotionEvent.ACTION_MOVE -> if (Math.abs(currentX - firstTouchX) >= 2 || Math.abs(currentY - firstTouchY) >= 2) {
-                if (moireView!!.type == ys.moire.common.config.TypeEnum.LINE) {
+                if (moireView.type == ys.moire.common.config.TypeEnum.LINE) {
                     touchMoveX = currentX - firstTouchX - tempMoveX
-                    moireView!!.addTouchValue(touchLineMode, touchMoveX, 0)
+                    moireView.addTouchValue(touchLineMode, touchMoveX, 0)
 
                     tempMoveX = currentX - firstTouchX
-                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
+                } else if (moireView.type == ys.moire.common.config.TypeEnum.CIRCLE
+                        || moireView.type == ys.moire.common.config.TypeEnum.RECT
+                        || moireView.type == ys.moire.common.config.TypeEnum.HEART
+                        || moireView.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView.type == ys.moire.common.config.TypeEnum.OCTAGON
+                        || moireView.type == ys.moire.common.config.TypeEnum.FLOWER) {
                     touchMoveX = currentX - firstTouchX - tempMoveX
                     touchMoveY = currentY - firstTouchY - tempMoveY
-                    moireView!!.addTouchValue(touchLineMode, touchMoveX, touchMoveY)
+                    moireView.addTouchValue(touchLineMode, touchMoveX, touchMoveY)
 
                     tempMoveX = currentX - firstTouchX
                     tempMoveY = currentY - firstTouchY
-                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
-                    moireView!!.drawOriginalLine(touchLineMode, e.x, e.y - statusBarHeight.toFloat() - toolBarHeight.toFloat(), moveCount)
+                } else if (moireView.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
+                    moireView.drawOriginalLine(touchLineMode, e.x, e.y - statusBarHeight.toFloat() - toolBarHeight.toFloat(), moveCount)
                     moveCount++
                 }
                 // draw
-                moireView!!.drawFrame()
+                moireView.drawFrame()
             }
             MotionEvent.ACTION_UP -> {
-                if (moireView!!.type == ys.moire.common.config.TypeEnum.LINE) {
-                    // TouchMode off
-                    moireView!!.setOnTouchMode(touchLineMode, false)
+                // TouchMode off
+                moireView.setOnTouchMode(touchLineMode, false)
+                if (moireView.type == ys.moire.common.config.TypeEnum.LINE) {
                     // init dx dy
                     touchMoveX = 0
                     tempMoveX = 0
-                } else if (moireView!!.type == ys.moire.common.config.TypeEnum.CIRCLE
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.RECT
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.HEART
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.SYNAPSE
-                        || moireView!!.type == ys.moire.common.config.TypeEnum.OCTAGON) {
-                    // TouchMode off
-                    moireView!!.setOnTouchMode(touchLineMode, false)
+                } else if (moireView.type == ys.moire.common.config.TypeEnum.CIRCLE
+                        || moireView.type == ys.moire.common.config.TypeEnum.RECT
+                        || moireView.type == ys.moire.common.config.TypeEnum.HEART
+                        || moireView.type == ys.moire.common.config.TypeEnum.SYNAPSE
+                        || moireView.type == ys.moire.common.config.TypeEnum.OCTAGON
+                        || moireView.type == ys.moire.common.config.TypeEnum.FLOWER) {
                     // init dx dy
                     touchMoveX = 0
                     touchMoveY = 0
                     tempMoveX = 0
                     tempMoveY = 0
-                }
-                if (moireView!!.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
-                    // TouchMode off
-                    moireView!!.setOnTouchMode(touchLineMode, false)
+                } else if (moireView.type == ys.moire.common.config.TypeEnum.ORIGINAL) {
                     // init dx dy
                     touchMoveX = 0
                     touchMoveY = 0
@@ -249,19 +248,19 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     override fun onClick(view: View) {
         if (view === aTouchSelectedButton) {
             touchLineMode = LINE_A
-            aTouchSelectedButton!!.isSelected = true
-            bTouchSelectedButton!!.isSelected = false
+            aTouchSelectedButton.isSelected = true
+            bTouchSelectedButton.isSelected = false
         } else if (view === bTouchSelectedButton) {
             touchLineMode = LINE_B
-            aTouchSelectedButton!!.isSelected = false
-            bTouchSelectedButton!!.isSelected = true
+            aTouchSelectedButton.isSelected = false
+            bTouchSelectedButton.isSelected = true
         } else if (view === pauseImageButton) {
-            if (moireView!!.isPause) {
-                moireView!!.pause(false)
-                pauseImageButton!!.setImageResource(R.drawable.ic_pause_black_24dp)
+            if (moireView.isPause) {
+                moireView.pause(false)
+                pauseImageButton.setImageResource(R.drawable.ic_pause_black_24dp)
             } else {
-                moireView!!.pause(true)
-                pauseImageButton!!.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+                moireView.pause(true)
+                pauseImageButton.setImageResource(R.drawable.ic_play_arrow_black_24dp)
             }
         } else if (view === screenShotImageButton) {
             if (isWriteExternalStoragePermission()) {
@@ -273,18 +272,18 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     private fun initToolBarViews(toolbar: Toolbar) {
-        aTouchSelectedButton = toolbar.findViewById<Button>(R.id.a_button)
-        bTouchSelectedButton = toolbar.findViewById<Button>(R.id.b_button)
-        pauseImageButton = toolbar.findViewById<ImageButton>(R.id.pause_button)
-        screenShotImageButton = toolbar.findViewById<ImageButton>(R.id.camera_button)
+        aTouchSelectedButton = toolbar.findViewById(R.id.a_button)
+        bTouchSelectedButton = toolbar.findViewById(R.id.b_button)
+        pauseImageButton = toolbar.findViewById(R.id.pause_button)
+        screenShotImageButton = toolbar.findViewById(R.id.camera_button)
 
-        aTouchSelectedButton!!.setOnClickListener(this)
-        bTouchSelectedButton!!.setOnClickListener(this)
-        pauseImageButton!!.setOnClickListener(this)
-        screenShotImageButton!!.setOnClickListener(this)
+        aTouchSelectedButton.setOnClickListener(this)
+        bTouchSelectedButton.setOnClickListener(this)
+        pauseImageButton.setOnClickListener(this)
+        screenShotImageButton.setOnClickListener(this)
 
         // set A button at first.
-        aTouchSelectedButton!!.isSelected = true
+        aTouchSelectedButton.isSelected = true
     }
 
     /**
@@ -308,7 +307,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     override fun onSurfaceChange() {
-        moireView!!.loadLines(
+        moireView.loadLines(
                 mainPresenter.loadTypesData(ys.moire.common.config.LINE_A()),
                 mainPresenter.loadTypesData(ys.moire.common.config.LINE_B())
         )
@@ -346,16 +345,16 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
 
     companion object {
 
-        private val TAG = "MainActivity"
+        private const val TAG = "MainActivity"
 
         /** RequestCode constant  */
-        private val INTENT_FOR_SETTING = 1
-        private val INTENT_FOR_ABOUT = 2
-        private val INTENT_FOR_OTHER = 3
+        private const val INTENT_FOR_SETTING = 1
+        private const val INTENT_FOR_ABOUT = 2
+        private const val INTENT_FOR_OTHER = 3
 
-        private val LINE_A = 0
-        private val LINE_B = 1
+        private const val LINE_A = 0
+        private const val LINE_B = 1
 
-        private val PERMISSION_REQUEST_CODE = 1
+        private const val PERMISSION_REQUEST_CODE = 1
     }
 }

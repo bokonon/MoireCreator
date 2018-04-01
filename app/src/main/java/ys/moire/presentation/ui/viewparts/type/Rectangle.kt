@@ -6,29 +6,15 @@ import android.graphics.PointF
 /**
  * rectangle class.
  */
-class Rectangle : BaseType() {
+class Rectangle(var x: Float, var y: Float, var height: Float, var topLength: Float, var bottomLength: Float) : BaseType() {
 
-    lateinit var leftTop: PointF
-    lateinit var rightTop: PointF
-    lateinit var rightBottom: PointF
-    lateinit var leftBottom: PointF
+    var leftTop: PointF = PointF(x - topLength / 2, y - height)
+    var rightTop: PointF = PointF(x + topLength / 2, y - height)
+    var leftBottom: PointF = PointF(x - bottomLength / 2, y + height)
+    var rightBottom: PointF = PointF(x + bottomLength / 2, y + height)
 
-    var topLength: Float = 0f
-    var bottomLength: Float = 0f
+    var path: Path = Path()
 
-    lateinit var path: Path
-
-    fun init(x: Float, y: Float, height: Float, topLength: Float, bottomLength: Float) {
-        this.topLength = topLength
-        this.bottomLength = bottomLength
-        this.leftTop = PointF(x - topLength / 2, y - height)
-        this.rightTop = PointF(x + topLength / 2, y - height)
-        this.leftBottom = PointF(x - bottomLength / 2, y + height)
-        this.rightBottom = PointF(x + bottomLength / 2, y + height)
-
-        path = Path()
-        setPath()
-    }
 
     /**
      * scroll rectangle automatically.

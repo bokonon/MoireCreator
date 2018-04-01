@@ -7,38 +7,38 @@ import android.graphics.PointF
 import ys.moire.BuildConfig
 
 /**
- * octagon set class.
+ * Flower shape set class.
  */
-class Octagons : BaseTypes() {
+class Flowers : BaseTypes() {
 
-    /** Octagon array  */
-    private lateinit var octagon: Array<Octagon>
+    /** Flower array  */
+    private lateinit var flower: Array<Flower>
 
     private var maxLength: Float = 0f
 
     override fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int){
 
         maxLength = layoutHeight/3f
-        octagon = if(whichLine == BaseTypes.LINE_A){
-            Array(number, { Octagon(PointF(0f,layoutHeight/3f),maxLength/number*it) })
+        flower = if(whichLine == BaseTypes.LINE_A){
+            Array(number, { Flower(PointF(0f,layoutHeight/3f),maxLength/number* it) })
         } else {
-            Array(number,{ Octagon(PointF(layoutWidth.toFloat(),layoutHeight*2f/3),maxLength/number*it) })
+            Array(number, { Flower(PointF(layoutWidth.toFloat(),layoutHeight*2f/3),maxLength/number* it) })
         }
     }
 
     override fun checkOutOfRange(layoutWidth :Int){
-        if(layoutWidth < octagon[number-1].center.x - octagon[number-1].length) {
-            val diff: Float = octagon[number-1].center.x - octagon[number-1].length - layoutWidth
+        if(layoutWidth < flower[number-1].center.x - flower[number-1].length) {
+            val diff: Float = flower[number-1].center.x - flower[number-1].length - layoutWidth
             val centerX: Float = -maxLength + diff
             for (i in 0 until number) {
-                octagon[i].checkOutOfRange(centerX)
+                flower[i].checkOutOfRange(centerX)
             }
         }
-        else if(octagon[number-1].center.x + octagon[number-1].length < 0) {
-            val diff: Float = -(octagon[number-1].center.x + octagon[number-1].length)
+        else if(flower[number-1].center.x + flower[number-1].length < 0) {
+            val diff: Float = -(flower[number-1].center.x + flower[number-1].length)
             val centerX: Float = layoutWidth + maxLength - diff
             for (i in 0 until number) {
-                octagon[i].checkOutOfRange(centerX)
+                flower[i].checkOutOfRange(centerX)
             }
         }
     }
@@ -49,12 +49,12 @@ class Octagons : BaseTypes() {
         }
         if(whichLine == BaseTypes.LINE_A) {
             for (i in 0 until number) {
-                octagon[i].autoMove(dx)
+                flower[i].autoMove(dx);
             }
         }
         else if(whichLine == BaseTypes.LINE_B) {
             for (i in 0 until number) {
-                octagon[i].autoMove(-dx)
+                flower[i].autoMove(-dx);
             }
         }
     }
@@ -68,7 +68,7 @@ class Octagons : BaseTypes() {
                     p.style = Paint.Style.STROKE
                     p.color = Color.BLUE
                     p.strokeWidth = thick.toFloat()
-                    canvas.drawPath(octagon[i].path, p)
+                    canvas.drawPath(flower[i].path, p)
                     continue
                 }
                 // make last line to red color for only debug build
@@ -77,18 +77,17 @@ class Octagons : BaseTypes() {
                     p.style = Paint.Style.STROKE
                     p.color = Color.RED
                     p.strokeWidth = thick.toFloat()
-                    canvas.drawPath(octagon[i].path, p)
+                    canvas.drawPath(flower[i].path, p)
                     continue
                 }
             }
-            canvas.drawPath(octagon[i].path, paint)
+            canvas.drawPath(flower[i].path, paint)
         }
     }
 
     override fun addTouchVal(valX: Int, valY: Int){
         for (i in 0 until number) {
-            octagon[i].addTouchVal(valX, valY);
+            flower[i].addTouchVal(valX, valY);
         }
     }
-
 }

@@ -28,7 +28,7 @@ import java.util.*
  */
 class MainPresenter(private val context: Context, private val loadMoireUseCase: LoadMoireUseCase) : BasePresenter() {
 
-    private var moireView: MoireView? = null
+    private lateinit var moireView: MoireView
 
     val moireType: TypeEnum
         get() = loadMoireUseCase.moireType
@@ -88,7 +88,7 @@ class MainPresenter(private val context: Context, private val loadMoireUseCase: 
         showToast(context.getString(R.string.message_capture_success)
                 + "\nFilePath : " + AttachName)
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "FilePath : " + AttachName)
+            Log.d(TAG, "FilePath : " + AttachName.toString())
         }
     }
 
@@ -97,9 +97,9 @@ class MainPresenter(private val context: Context, private val loadMoireUseCase: 
     }
 
     private fun createBitmap(): Bitmap {
-        val bitmap = Bitmap.createBitmap(moireView!!.width, moireView!!.height, Bitmap.Config.ARGB_8888)
+        val bitmap = Bitmap.createBitmap(moireView.width, moireView.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        moireView!!.captureCanvas(canvas)
+        moireView.captureCanvas(canvas)
         return bitmap
     }
 

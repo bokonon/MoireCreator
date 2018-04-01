@@ -18,7 +18,7 @@ open class BaseTypes : AbstractTypes() {
     /** color  */
     var color = Color.BLACK
     /** paint  */
-    protected var paint: Paint? = null
+    protected val paint: Paint = Paint()
     /** isOnTouch  */
     protected var onTouch: Boolean = false
 
@@ -26,16 +26,15 @@ open class BaseTypes : AbstractTypes() {
     protected var dx = AUTO_SPEED
 
     init {
-        paint = Paint()
-        paint!!.isAntiAlias = true
-        paint!!.style = Paint.Style.STROKE
-        paint!!.strokeWidth = thick.toFloat()
-        paint!!.color = color
+        paint.isAntiAlias = true
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = thick.toFloat()
+        paint.color = color
     }
 
     public override fun loadData(types: BaseTypes) {
         color = types.color
-        paint!!.color = color
+        paint.color = color
         // for migration to new version
         val previousValue = types.number
         if (previousValue < MINIMUM_VAL) {
@@ -44,7 +43,7 @@ open class BaseTypes : AbstractTypes() {
             number = previousValue
         }
         thick = types.thick
-        paint!!.strokeWidth = thick.toFloat()
+        paint.strokeWidth = thick.toFloat()
         slope = types.slope
     }
 
@@ -96,13 +95,13 @@ open class BaseTypes : AbstractTypes() {
 
     companion object {
 
-        val LINE_A = 0
-        val LINE_B = 1
+        const val LINE_A = 0
+        const val LINE_B = 1
 
-        val MINIMUM_VAL = 10;
+        const val MINIMUM_VAL = 10;
 
-        protected val MAX_NUMBER = 50
+        protected const val MAX_NUMBER = 50
         /** auto move speed  */
-        protected val AUTO_SPEED = 0.7f
+        protected const val AUTO_SPEED = 0.7f
     }
 }

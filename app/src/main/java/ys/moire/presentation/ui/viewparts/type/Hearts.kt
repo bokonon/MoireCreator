@@ -11,38 +11,43 @@ import ys.moire.BuildConfig
 class Hearts : BaseTypes() {
 
     /** Heart array  */
-    private var heart: Array<Heart?>? = null
+    private lateinit var heart: Array<Heart>
 
     override fun init(whichLine: Int,
              layoutWidth: Int,
              layoutHeight: Int) {
-        heart = arrayOfNulls<Heart>(number)
-        for (i in 0..number - 1) {
-            heart!![i] = Heart()
-            val heartWidth = layoutWidth.toFloat() / number * (i + 1)
-            val heartHeight = layoutHeight.toFloat() * 2 / 3 / number * (i + 1)
-            if (whichLine == BaseTypes.LINE_A) {
-                heart!![i]!!.init(0.toFloat(), layoutHeight.toFloat() * 5 / 18, heartWidth, heartHeight)
-            } else if (whichLine == BaseTypes.LINE_B) {
-                heart!![i]!!.init(layoutWidth.toFloat(), layoutHeight.toFloat() * 2 / 3, heartWidth, heartHeight)
-            }
+
+        heart = if (whichLine == BaseTypes.LINE_A) {
+            Array(number, {
+                Heart(0f,
+                        layoutHeight.toFloat() * 5 / 18,
+                        layoutWidth.toFloat() / number * (it + 1),
+                        layoutHeight.toFloat() * 2 / 3 / number * (it + 1))
+            })
+        } else {
+            Array(number, {
+                Heart(layoutWidth.toFloat(),
+                        layoutHeight.toFloat() * 2 / 3,
+                        layoutWidth.toFloat() / number * (it + 1),
+                        layoutHeight.toFloat() * 2 / 3 / number * (it + 1))
+            })
         }
     }
 
     public override fun checkOutOfRange(layoutWidth: Int) {
-        if (heart!![number - 1]!!.rightTop[0]!!.x < 0) {
+        if (heart[number - 1].rightTop[0].x < 0) {
             // disappear for less than 0
-            for (i in 0..number - 1) {
-                heart!![i]!!.moveX(
+            for (i in 0 until number) {
+                heart[i].moveX(
                         layoutWidth + layoutWidth.toFloat() / 2,
-                        heart!![i]!!.centerTop.y + (heart!![i]!!.height / 2 - heart!![i]!!.height / 5))
+                        heart[i].centerTop.y + (heart[i].height / 2 - heart[i].height / 5))
             }
-        } else if (layoutWidth < heart!![number - 1]!!.leftTop[1]!!.x) {
+        } else if (layoutWidth < heart[number - 1].leftTop[1].x) {
             // disappear for more than width
-            for (i in 0..number - 1) {
-                heart!![i]!!.moveX(
+            for (i in 0 until number) {
+                heart[i].moveX(
                         - layoutWidth.toFloat() / 2,
-                        heart!![i]!!.centerTop.y + (heart!![i]!!.height / 2 - heart!![i]!!.height / 5))
+                        heart[i].centerTop.y + (heart[i].height / 2 - heart[i].height / 5))
             }
         }
     }
@@ -52,18 +57,18 @@ class Hearts : BaseTypes() {
             return
         }
         if (whichLine == BaseTypes.LINE_A) {
-            for (i in 0..number - 1) {
-                heart!![i]!!.autoMove(dx)
+            for (i in 0 until number) {
+                heart[i].autoMove(dx)
             }
         } else if (whichLine == BaseTypes.LINE_B) {
-            for (i in 0..number - 1) {
-                heart!![i]!!.autoMove(-dx)
+            for (i in 0 until number) {
+                heart[i].autoMove(-dx)
             }
         }
     }
 
     public override fun draw(canvas: Canvas) {
-        for (i in 0..number - 1) {
+        for (i in 0 until number) {
             if (BuildConfig.DEBUG) {
                 // make first line to blue color for only debug
                 if (i == 0) {
@@ -71,7 +76,7 @@ class Hearts : BaseTypes() {
                     p.style = Paint.Style.STROKE
                     p.color = Color.BLUE
                     p.strokeWidth = thick.toFloat()
-                    canvas.drawPath(heart!![i]!!.path, p)
+                    canvas.drawPath(heart[i].path, p)
                     continue
                 }
                 // make last line to red color for only debug build
@@ -80,11 +85,11 @@ class Hearts : BaseTypes() {
                     p.style = Paint.Style.STROKE
                     p.color = Color.RED
                     p.strokeWidth = thick.toFloat()
-                    canvas.drawPath(heart!![i]!!.path, p)
+                    canvas.drawPath(heart[i].path, p)
                     continue
                 }
             }
-            canvas.drawPath(heart!![i]!!.path, paint!!)
+            canvas.drawPath(heart[i].path, paint)
         }
     }
 
@@ -93,12 +98,12 @@ class Hearts : BaseTypes() {
      * @param valX dx
      */
     public override fun addTouchVal(valX: Int, valY: Int) {
-        for (i in 0..number - 1) {
-            heart!![i]!!.addTouchVal(valX, valY)
+        for (i in 0 until number) {
+            heart[i].addTouchVal(valX, valY)
         }
     }
 
     companion object {
-        private val TAG = "hearts"
+        private const val TAG = "hearts"
     }
 }

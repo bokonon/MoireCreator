@@ -84,16 +84,14 @@
                     <TextView
                         android:id="@+id/line_a_color_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:text="@string/line_a"
                         android:textSize="18sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:id="@+id/line_a_pre_color"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_height="match_parent" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -120,16 +118,14 @@
                     <TextView
                         android:id="@+id/line_b_color_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:text="@string/line_b"
                         android:textSize="18sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:id="@+id/line_b_pre_color"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_height="match_parent" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -154,16 +150,14 @@
                     <TextView
                         android:id="@+id/bg_color_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:text="@string/bg_color"
                         android:textSize="18sp"
                         android:textColor="@color/black"/>
                     <TextView
                         android:id="@+id/bg_pre_color"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_height="match_parent" />
                 </LinearLayout>
             </RelativeLayout>
 
