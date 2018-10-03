@@ -16,13 +16,13 @@ class Lines : BaseTypes() {
     public override fun init(whichLine: Int, layoutWidth: Int, layoutHeight: Int) {
 
         line = if (whichLine == BaseTypes.LINE_A) {
-            Array(number, {
-                Line(layoutHeight, slope, (layoutWidth + slope) / number * it, 0)
-            })
+            Array(number) {
+                Line(layoutHeight, slope, (layoutWidth + slope*2) / number * it, 0)
+            }
         } else {
-            Array(number, {
-                Line(layoutHeight, slope, (layoutWidth + slope) / number * it, slope)
-            })
+            Array(number) {
+                Line(layoutHeight, slope, (layoutWidth + slope*2) / number * it, slope)
+            }
         }
     }
 
