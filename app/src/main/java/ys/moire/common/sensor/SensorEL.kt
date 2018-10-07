@@ -54,10 +54,10 @@ class SensorEL(private val isTablet: Boolean, private val listener: SensorEL.OnS
 
     companion object {
 
-        private val TAG = "SensorEL"
+        private const val TAG = "SensorEL"
 
         /** threshold val  */
-        private val VAL = 1
+        private const val VAL = 1
     }
 
 }
