@@ -18,19 +18,19 @@ class Hearts : BaseTypes() {
              layoutHeight: Int) {
 
         heart = if (whichLine == BaseTypes.LINE_A) {
-            Array(number, {
+            Array(number) {
                 Heart(0f,
                         layoutHeight.toFloat() * 5 / 18,
                         layoutWidth.toFloat() / number * (it + 1),
                         layoutHeight.toFloat() * 2 / 3 / number * (it + 1))
-            })
+            }
         } else {
-            Array(number, {
+            Array(number) {
                 Heart(layoutWidth.toFloat(),
                         layoutHeight.toFloat() * 2 / 3,
                         layoutWidth.toFloat() / number * (it + 1),
                         layoutHeight.toFloat() * 2 / 3 / number * (it + 1))
-            })
+            }
         }
     }
 

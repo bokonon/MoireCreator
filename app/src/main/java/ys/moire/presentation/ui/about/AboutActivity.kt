@@ -53,7 +53,7 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
         super.onResume()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        sensorManager.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_GAME)
+        sensorManager.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
     override fun onPause() {

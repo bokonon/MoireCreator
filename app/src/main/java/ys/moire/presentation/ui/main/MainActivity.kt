@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
@@ -24,6 +25,7 @@ import ys.moire.presentation.ui.base.BaseActivity
 import ys.moire.presentation.ui.other.OtherActivity
 import ys.moire.presentation.ui.preferences.PreferencesActivity
 import ys.moire.presentation.ui.viewparts.MoireView
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceChange {
@@ -47,6 +49,9 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
 
     private var statusBarHeight: Int = 0
     private var toolBarHeight: Int = 0
+
+    private var timer: Timer? = null
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +78,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         moireView.setBgColor(mainPresenter.bgColor)
 
         val linearLayout = findViewById<LinearLayout>(R.id.parent_linear_layout)
-        linearLayout!!.addView(moireView)
+        linearLayout?.addView(moireView)
 
         initToolBarViews(toolbar!!)
 
@@ -83,13 +88,17 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
 
     override fun onResume() {
         super.onResume()
+
         mainPresenter.onResume()
         moireView.setOnBackground(false)
+        startTimer()
     }
 
     override fun onPause() {
         moireView.setOnBackground(true)
         mainPresenter.onPause()
+        stopTimer()
+
         super.onPause()
     }
 
@@ -323,6 +332,23 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                 }
             }
         }
+    }
+
+    private fun startTimer() {
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                handler.post {
+                    moireView.drawFrame()
+                }
+            }
+        }, 0, 100)
+
+    }
+
+    private fun stopTimer() {
+        timer?.cancel()
+        timer = null
     }
 
     private fun isWriteExternalStoragePermission(): Boolean {

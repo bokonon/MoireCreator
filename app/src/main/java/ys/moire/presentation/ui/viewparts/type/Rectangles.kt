@@ -20,19 +20,19 @@ class Rectangles : BaseTypes() {
              maxBottomLength: Float) {
 
         rectangle = if (whichLine == BaseTypes.LINE_A) {
-            Array(number, {
+            Array(number) {
                 Rectangle(0f, layoutHeight / 3f,
                         layoutHeight.toFloat() / 3f / number.toFloat() * it,
                         maxTopLength / number * it,
                         maxBottomLength / number * it)
-            })
+            }
         } else {
-            Array(number, {
+            Array(number) {
                 Rectangle(layoutWidth.toFloat(), layoutHeight * (2 / 3f),
                         layoutHeight.toFloat() / 3f / number.toFloat() * it,
                         maxTopLength / number * it,
                         maxBottomLength / number * it)
-            })
+            }
         }
         isTrapezoid = maxTopLength <= maxBottomLength
     }

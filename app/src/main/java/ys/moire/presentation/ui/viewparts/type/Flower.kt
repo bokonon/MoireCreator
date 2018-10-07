@@ -26,6 +26,8 @@ class Flower(var center: PointF, var length: Float) : BaseType() {
 
     init {
         initCircumferencePoints()
+        setPoint(center)
+        setPath()
     }
 
     override fun autoMove(dx :Float) {
@@ -61,12 +63,12 @@ class Flower(var center: PointF, var length: Float) : BaseType() {
     }
 
     private fun initCircumferencePoints() {
-        outer = Array(POINT_NUMBER,
-                {CircumferencePoint(PointF(), length, it*60f)})
-        middle = Array(POINT_NUMBER,
-                {CircumferencePoint(PointF(), length*4/5, it*60f+15)})
-        inner = Array(POINT_NUMBER,
-                {CircumferencePoint(PointF(), length*3/5, it*60f+30)})
+        outer = Array(POINT_NUMBER
+        ) {CircumferencePoint(PointF(), length, it*60f)}
+        middle = Array(POINT_NUMBER
+        ) {CircumferencePoint(PointF(), length*4/5, it*60f+15)}
+        inner = Array(POINT_NUMBER
+        ) {CircumferencePoint(PointF(), length*3/5, it*60f+30)}
     }
 
     private fun Float.degreesToRadians(): Double = this * Math.PI / 180

@@ -2,9 +2,7 @@ package ys.moire.presentation.ui.other
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.view.View
 
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 
@@ -26,15 +24,6 @@ class OtherActivity : BaseActivity() {
         setSupportActionBar(toolbar)
 
         val adView = findViewById<AdView>(R.id.ad_view)
-        adView!!.adListener = object : AdListener() {
-            override fun onAdClosed() {}
-            override fun onAdFailedToLoad(errorCode: Int) {}
-            override fun onAdLeftApplication() {}
-            override fun onAdOpened() {}
-            override fun onAdLoaded() {
-                adView.visibility = View.VISIBLE
-            }
-        }
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
     }

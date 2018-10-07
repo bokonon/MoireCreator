@@ -23,6 +23,8 @@ class Octagon(var center: PointF, var length: Float) : BaseType() {
 
     init {
         initCircumferencePoints()
+        setPoint(center)
+        setPath()
     }
 
     override fun autoMove(dx :Float){
@@ -56,8 +58,8 @@ class Octagon(var center: PointF, var length: Float) : BaseType() {
     }
 
     private fun initCircumferencePoints() {
-        outer = Array(POINT_NUMBER,
-                {CircumferencePoint(PointF(), length, it*45f)})
+        outer = Array(POINT_NUMBER
+        ) {CircumferencePoint(PointF(), length, it*45f)}
     }
 
     private fun setPoint(center: PointF){

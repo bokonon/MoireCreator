@@ -18,17 +18,17 @@ class Circles : BaseTypes() {
         }
 
         circle = if (whichLine == BaseTypes.LINE_A) {
-            Array(number, {
+            Array(number) {
                 Circle(0f,
                         layoutHeight / 3f,
                         layoutHeight.toFloat() / 3f / number.toFloat() * it + 4)
-            })
+            }
         } else {
-            Array(number, {
+            Array(number) {
                 Circle(layoutWidth.toFloat(),
                         layoutHeight * (2 / 3f),
                         layoutHeight.toFloat() / 3f / number.toFloat() * it + 4)
-            })
+            }
         }
     }
 

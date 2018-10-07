@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="type_items">
-        <item>Line</item>
-        <item>Circle</item>
-        <item>Rect</item>
-        <item>Heart</item>
-        <item>Synapse</item>
-        <item>Original</item>
-        <item>Octagon</item>
-        <item>Flower</item>
-    </string-array>
+
     <integer-array name="chara_items">
         <item>@drawable/a</item>
         <item>@drawable/space</item>

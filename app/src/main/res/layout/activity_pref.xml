@@ -348,6 +348,5 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adUnitId="@string/ad_unit_id"
-        ads:adSize="BANNER"
-        android:visibility="gone"/>
+        ads:adSize="BANNER"/>
 </RelativeLayout>

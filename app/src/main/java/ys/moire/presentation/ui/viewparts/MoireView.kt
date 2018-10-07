@@ -3,7 +3,6 @@ package ys.moire.presentation.ui.viewparts
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.os.Handler
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -34,11 +33,6 @@ class MoireView (
 
     private var isOnBackground = false
 
-    /** Handler  */
-    @get:JvmName("getHandler_") private var handler: Handler? = null
-    /** Thread  */
-    private val drawRunnable = Runnable { drawFrame() }
-
     interface OnSurfaceChange {
         fun onSurfaceChange()
     }
@@ -54,8 +48,6 @@ class MoireView (
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        handler = Handler()
-
         // Do on SurfaceChanged for height is changed.
         //        linesLoad();
         //        drawFrame();
@@ -77,6 +69,9 @@ class MoireView (
     }
 
     fun drawFrame() {
+        if (isOnBackground) {
+            return
+        }
         val canvas = holder.lockCanvas()
         if (canvas != null) {
             canvas.drawColor(colorOfBg)
@@ -104,10 +99,6 @@ class MoireView (
             aBaseTypes.draw(canvas)
             bBaseTypes.draw(canvas)
             holder.unlockCanvasAndPost(canvas)
-            handler?.removeCallbacks(drawRunnable)
-            if (!isPause && !isOnBackground) {
-                handler?.postDelayed(drawRunnable, 100)
-            }
         }
     }
 
@@ -118,7 +109,7 @@ class MoireView (
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        handler!!.removeCallbacks(drawRunnable)
+
     }
 
     fun setBgColor(color: Int) {
@@ -244,9 +235,6 @@ class MoireView (
      */
     fun pause(pause: Boolean) {
         isPause = pause
-        if (!pause) {
-            handler?.postDelayed(drawRunnable, 100)
-        }
     }
 
     /**
@@ -255,9 +243,6 @@ class MoireView (
      */
     fun setOnBackground(onBack: Boolean) {
         isOnBackground = onBack
-        if (!onBack) {
-            handler?.postDelayed(drawRunnable, 100)
-        }
     }
 
     companion object {

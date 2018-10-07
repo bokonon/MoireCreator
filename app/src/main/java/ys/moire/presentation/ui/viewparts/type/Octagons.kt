@@ -20,9 +20,9 @@ class Octagons : BaseTypes() {
 
         maxLength = layoutHeight/3f
         octagon = if(whichLine == BaseTypes.LINE_A){
-            Array(number, { Octagon(PointF(0f,layoutHeight/3f),maxLength/number*it) })
+            Array(number) { Octagon(PointF(0f,layoutHeight/3f),maxLength/number*it) }
         } else {
-            Array(number,{ Octagon(PointF(layoutWidth.toFloat(),layoutHeight*2f/3),maxLength/number*it) })
+            Array(number) { Octagon(PointF(layoutWidth.toFloat(),layoutHeight*2f/3),maxLength/number*it) }
         }
     }
 

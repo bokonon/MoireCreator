@@ -37,10 +37,10 @@ open class BaseTypes : AbstractTypes() {
         paint.color = color
         // for migration to new version
         val previousValue = types.number
-        if (previousValue < MINIMUM_VAL) {
-            number = MINIMUM_VAL
+        number = if (previousValue < MINIMUM_VAL) {
+            MINIMUM_VAL
         } else {
-            number = previousValue
+            previousValue
         }
         thick = types.thick
         paint.strokeWidth = thick.toFloat()
