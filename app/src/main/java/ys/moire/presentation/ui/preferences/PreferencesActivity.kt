@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import ys.moire.BuildConfig
@@ -65,23 +64,6 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         // set toolbar
         val toolbar = findViewById<Toolbar>(R.id.preference_tool_bar)
         setSupportActionBar(toolbar)
-
-        val adView = this.findViewById<AdView>(R.id.ad_view)
-        adView?.adListener = object : AdListener() {
-            override fun onAdClosed() {}
-            override fun onAdFailedToLoad(errorCode: Int) {}
-            override fun onAdLeftApplication() {}
-            override fun onAdOpened() {}
-            override fun onAdLoaded() {
-                var currentY = 0
-                currentY = scrollView.scrollY
-                adView.visibility = View.VISIBLE
-                scrollView.scrollTo(0, currentY)
-            }
-        }
-
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
 
         // get view resources.
         initViews()
@@ -189,11 +171,10 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         })
 
         setPreferencesValues()
-    }
 
-    override fun onDestroy() {
-//        adView.destroy();
-        super.onDestroy()
+        val adView = this.findViewById<AdView>(R.id.ad_view)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     override fun onClick(view: View) {

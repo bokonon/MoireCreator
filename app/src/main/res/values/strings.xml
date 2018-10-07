@@ -32,6 +32,17 @@
     <string name="message_capture_success">successful in capture!</string>
     <string name="message_capture_failed">failed to capture</string>
 
+    <string-array name="type_items">
+        <item>Line</item>
+        <item>Circle</item>
+        <item>Rect</item>
+        <item>Heart</item>
+        <item>Synapse</item>
+        <item>Original</item>
+        <item>Octagon</item>
+        <item>Flower</item>
+    </string-array>
+
     <string-array name="other_items">
         <item>privacy policy</item>
         <item>license</item>

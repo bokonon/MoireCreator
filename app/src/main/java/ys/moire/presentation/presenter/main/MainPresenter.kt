@@ -105,7 +105,7 @@ class MainPresenter(private val context: Context, private val loadMoireUseCase: 
 
     private val fileName: String
         get() {
-            val formatter = SimpleDateFormat("yyyyMMddHHmmss")
+            val formatter = SimpleDateFormat("yyyyMMdd_HH:mm:ss", Locale.US)
             val date = Date()
             return "Moire_" + formatter.format(date) + ".png"
         }

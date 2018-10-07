@@ -15,6 +15,10 @@ class Rectangle(var x: Float, var y: Float, var height: Float, var topLength: Fl
 
     var path: Path = Path()
 
+    init {
+        setPath()
+    }
+
 
     /**
      * scroll rectangle automatically.

@@ -28,13 +28,13 @@ class Synapses : BaseTypes() {
             centerY = layoutHeight * 2 / 3f
         }
         margin = layoutHeight.toFloat() / number
-        synapse = Array(number, {
+        synapse = Array(number) {
             Synapse(PointF(centerX, centerY),
                     PointF(centerX - margin * it, centerY),
                     PointF(centerX, centerY - margin * it),
                     PointF(centerX + margin * it, centerY),
                     PointF(centerX, centerY + margin * it))
-        })
+        }
     }
 
     public override fun checkOutOfRange(layoutWidth: Int) {

@@ -18,6 +18,10 @@ class Synapse(var center: PointF, var left: PointF, var top: PointF,
     private var curveMargin: Int = 1
     var path: Path = Path()
 
+    init {
+        setPath()
+    }
+
     /**
      * scroll rectangle automatically.
      * @param dx dx

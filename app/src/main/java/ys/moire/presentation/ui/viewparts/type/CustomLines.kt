@@ -14,9 +14,9 @@ class CustomLines : BaseTypes() {
                              layoutWidth: Int,
                              layoutHeight: Int) {
 
-        customLines = Array(number, {
+        customLines = Array(number) {
             CustomLine()
-        })
+        }
     }
 
     public override fun checkOutOfRange(whichLine: Int, layoutWidth: Int) {
