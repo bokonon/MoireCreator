@@ -1,33 +1,17 @@
 package ys.moire.presentation.ui.base
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 
-/**
- * BaseActivity.
- */
-
-open class BaseActivity : AppCompatActivity() {
+open class BaseFragment: Fragment() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-    }
-
-    public override fun onResume() {
-        super.onResume()
-    }
-
-    public override fun onPause() {
-        super.onPause()
-    }
-
-    public override fun onDestroy() {
-        super.onDestroy()
+        firebaseAnalytics = FirebaseAnalytics.getInstance(activity)
     }
 
     public fun postLogEvent(contentType: String) {

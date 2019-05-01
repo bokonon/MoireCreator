@@ -8,7 +8,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
-import com.google.android.gms.wearable.DataMap.TAG
 import ys.moire.BuildConfig
 import ys.moire.R
 import ys.moire.common.config.TypeEnum
@@ -27,6 +26,10 @@ import java.util.*
  * MainPresenter.
  */
 class MainPresenter(private val context: Context, private val loadMoireUseCase: LoadMoireUseCase) : BasePresenter() {
+
+    companion object {
+        private val TAG: String = MainPresenter::class.java.simpleName
+    }
 
     private lateinit var moireView: MoireView
 

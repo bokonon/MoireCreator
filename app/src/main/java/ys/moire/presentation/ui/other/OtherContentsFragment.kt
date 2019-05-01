@@ -1,18 +1,18 @@
 package ys.moire.presentation.ui.other
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 
 import ys.moire.R
+import ys.moire.presentation.ui.base.BaseFragment
 
 /**
  * OtherContentsFragment.
  */
-class OtherContentsFragment : Fragment() {
+class OtherContentsFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,7 +27,7 @@ class OtherContentsFragment : Fragment() {
 
     companion object {
 
-        private val BUNDLE_KEY_CONTENT_URL = "contentUrl"
+        private const val BUNDLE_KEY_CONTENT_URL = "contentUrl"
 
         fun newInstance(url: String): OtherContentsFragment {
             val f = OtherContentsFragment()

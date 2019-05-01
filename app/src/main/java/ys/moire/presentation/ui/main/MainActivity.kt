@@ -30,6 +30,20 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceChange {
 
+    companion object {
+        private val TAG: String = MainActivity::class.java.simpleName
+
+        /** RequestCode constant  */
+        private const val INTENT_FOR_SETTING = 1
+        private const val INTENT_FOR_ABOUT = 2
+        private const val INTENT_FOR_OTHER = 3
+
+        private const val LINE_A = 0
+        private const val LINE_B = 1
+
+        private const val PERMISSION_REQUEST_CODE = 1
+    }
+
     @Inject
     lateinit var mainPresenter: MainPresenter
 
@@ -109,22 +123,27 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var contentType = ""
         when (item.itemId) {
             R.id.menu_settings -> {
                 val settingIntent = Intent(this, PreferencesActivity::class.java)
                 startActivityForResult(settingIntent, INTENT_FOR_SETTING)
+                contentType = "setting"
             }
             R.id.menu_about -> {
                 val aboutIntent = Intent(this, AboutActivity::class.java)
                 startActivityForResult(aboutIntent, INTENT_FOR_ABOUT)
+                contentType = "about"
             }
             R.id.menu_other -> {
                 val otherIntent = Intent(this, OtherActivity::class.java)
                 startActivityForResult(otherIntent, INTENT_FOR_OTHER)
+                contentType = "other"
             }
             else -> {
             }
         }
+        postLogEvent(contentType)
         return true
     }
 
@@ -255,21 +274,26 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     override fun onClick(view: View) {
+        var contentType = ""
         if (view === aTouchSelectedButton) {
             touchLineMode = LINE_A
             aTouchSelectedButton.isSelected = true
             bTouchSelectedButton.isSelected = false
+            contentType = "a button"
         } else if (view === bTouchSelectedButton) {
             touchLineMode = LINE_B
             aTouchSelectedButton.isSelected = false
             bTouchSelectedButton.isSelected = true
+            contentType = "b button"
         } else if (view === pauseImageButton) {
             if (moireView.isPause) {
                 moireView.pause(false)
                 pauseImageButton.setImageResource(R.drawable.ic_pause_black_24dp)
+                contentType = "start"
             } else {
                 moireView.pause(true)
                 pauseImageButton.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+                contentType = "pause"
             }
         } else if (view === screenShotImageButton) {
             if (isWriteExternalStoragePermission()) {
@@ -277,7 +301,9 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
             } else {
                 requestPermission()
             }
+            contentType = "screen shot"
         }
+        postLogEvent(contentType)
     }
 
     private fun initToolBarViews(toolbar: Toolbar) {
@@ -356,7 +382,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
                     this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 return true
             }
             return false
@@ -370,18 +396,4 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
                 PERMISSION_REQUEST_CODE)
     }
 
-    companion object {
-
-        private const val TAG = "MainActivity"
-
-        /** RequestCode constant  */
-        private const val INTENT_FOR_SETTING = 1
-        private const val INTENT_FOR_ABOUT = 2
-        private const val INTENT_FOR_OTHER = 3
-
-        private const val LINE_A = 0
-        private const val LINE_B = 1
-
-        private const val PERMISSION_REQUEST_CODE = 1
-    }
 }

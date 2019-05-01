@@ -48,3 +48,6 @@ app/build/
 .DS_Store
 
 output.json
+
+# Firebase
+app/google-services.json
