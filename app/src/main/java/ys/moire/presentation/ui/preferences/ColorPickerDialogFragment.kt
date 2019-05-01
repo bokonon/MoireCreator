@@ -16,6 +16,16 @@ import ys.moire.R
  */
 class ColorPickerDialogFragment : DialogFragment() {
 
+    companion object {
+        val TAG: String = ColorPickerDialogFragment::class.java.simpleName
+
+        fun newInstance(bundle: Bundle): ColorPickerDialogFragment {
+            val f = ColorPickerDialogFragment()
+            f.arguments = bundle
+            return f
+        }
+    }
+
     private lateinit var preView: View
     private val seekBar = arrayOfNulls<SeekBar>(3)
 
@@ -92,14 +102,4 @@ class ColorPickerDialogFragment : DialogFragment() {
         }
     }
 
-    companion object {
-
-        val TAG = "ColorPickerDialogFragment"
-
-        fun newInstance(bundle: Bundle): ColorPickerDialogFragment {
-            val f = ColorPickerDialogFragment()
-            f.arguments = bundle
-            return f
-        }
-    }
 }

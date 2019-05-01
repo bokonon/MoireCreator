@@ -20,6 +20,12 @@ import javax.inject.Inject
 
 class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDialogFragment.OnColorSelectedListener {
 
+    companion object {
+        private val TAG: String = PreferencesActivity::class.java.simpleName
+
+        private const val MINIMUM_VAL = 10;
+    }
+
     @Inject
     lateinit var presenter: PreferencesPresenter
 
@@ -180,18 +186,24 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
     override fun onClick(view: View) {
         var colorOfType: String? = null
         var color = -1
+
+        var contentType = ""
+
         when (view.id) {
             R.id.line_a_color_button -> {
                 colorOfType = ys.moire.common.config.LINE_A()
                 color = presenter.loadTypesData(ys.moire.common.config.LINE_A()).color
+                contentType = "line a color"
             }
             R.id.line_b_color_button -> {
                 colorOfType = ys.moire.common.config.LINE_B()
                 color = presenter.loadTypesData(ys.moire.common.config.LINE_B()).color
+                contentType = "line b color"
             }
             R.id.bg_color_button -> {
                 colorOfType = ys.moire.common.config.BG_COLOR()
                 color = presenter.bgColor
+                contentType = "background color"
             }
             else -> {
             }
@@ -204,6 +216,8 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         val f = ColorPickerDialogFragment.newInstance(bundle)
         f.setOnColorSelectedListener(this)
         f.show(supportFragmentManager, ColorPickerDialogFragment.TAG)
+
+        postLogEvent(contentType)
     }
 
     override fun onColorSelected(args: Bundle) {
@@ -289,25 +303,19 @@ class PreferencesActivity : BaseActivity(), View.OnClickListener, ColorPickerDia
         bgPreColor.setBackgroundColor(presenter.bgColor)
         // Number
         lineANumberSeekBar.progress = aLines.number - MINIMUM_VAL
-        lineANumberText.text = getString(R.string.line_a_val_text, lineANumberSeekBar!!.progress + MINIMUM_VAL)
+        lineANumberText.text = getString(R.string.line_a_val_text, lineANumberSeekBar.progress + MINIMUM_VAL)
         lineBNumberSeekBar.progress = bLines.number - MINIMUM_VAL
-        lineBNumberText.text = getString(R.string.line_b_val_text, lineBNumberSeekBar!!.progress + MINIMUM_VAL)
+        lineBNumberText.text = getString(R.string.line_b_val_text, lineBNumberSeekBar.progress + MINIMUM_VAL)
         // Thick
         lineAThickSeekBar.progress = aLines.thick
-        lineAThickText.text = getString(R.string.line_a_val_text, lineAThickSeekBar!!.progress)
+        lineAThickText.text = getString(R.string.line_a_val_text, lineAThickSeekBar.progress)
         lineBThickSeekBar.progress = bLines.thick
-        lineBThickText.text = getString(R.string.line_b_val_text, lineBThickSeekBar!!.progress)
+        lineBThickText.text = getString(R.string.line_b_val_text, lineBThickSeekBar.progress)
         // Slope
         lineASlopeSeekBar.progress = aLines.slope
-        lineASlopeText.text = getString(R.string.line_a_val_text, lineASlopeSeekBar!!.progress)
+        lineASlopeText.text = getString(R.string.line_a_val_text, lineASlopeSeekBar.progress)
         lineBSlopeSeekBar.progress = bLines.slope
-        lineBSlopeText.text = getString(R.string.line_b_val_text, lineBSlopeSeekBar!!.progress)
-    }
-
-    companion object {
-        private const val TAG = "PreferencesActivity"
-
-        private const val MINIMUM_VAL = 10;
+        lineBSlopeText.text = getString(R.string.line_b_val_text, lineBSlopeSeekBar.progress)
     }
 
 }

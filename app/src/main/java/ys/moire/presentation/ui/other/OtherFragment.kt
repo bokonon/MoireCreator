@@ -1,7 +1,6 @@
 package ys.moire.presentation.ui.other
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,12 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 
 import ys.moire.R
+import ys.moire.presentation.ui.base.BaseFragment
 
 /**
  * OtherFragment.
  */
-class OtherFragment : Fragment() {
+class OtherFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,17 +24,26 @@ class OtherFragment : Fragment() {
         listView.addHeaderView(View(activity), null, false)
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             var url = ""
+            var contentType = ""
             when (i) {
             // header
-                0 -> {
+                0 -> {}
+                1 -> {
+                    url = "http://bokonon.html.xdomain.jp/privacy_policy.html"
+                    contentType = "privacy policy"
                 }
-                1 -> url = "http://bokonon.html.xdomain.jp/etc/privacy_policy.html"
-                2 -> url = "file:///android_asset/license.html"
-                3 -> url = "file:///android_asset/version.html"
-                else -> {
+                2 -> {
+                    url = "file:///android_asset/license.html"
+                    contentType = "license"
                 }
+                3 -> {
+                    url = "file:///android_asset/version.html"
+                    contentType = "version"
+                }
+                else -> {}
             }// NOP
             moveToContents(url)
+            postLogEvent(contentType)
         }
 
         // create adapter

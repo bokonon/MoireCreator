@@ -48,3 +48,9 @@ app/build/
 .DS_Store
 
 output.json
+
+# Bundle app
+app/release/app.aab
+
+# Firebase
+app/google-services.json
