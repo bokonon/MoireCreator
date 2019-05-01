@@ -49,5 +49,8 @@ app/build/
 
 output.json
 
+# Bundle app
+app/release/app.aab
+
 # Firebase
 app/google-services.json
