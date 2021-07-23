@@ -5,10 +5,10 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
+import androidx.fragment.app.DialogFragment
 import ys.moire.R
 
 /**
@@ -40,7 +40,7 @@ class ColorPickerDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        val inflater = activity.applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = requireActivity().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.fragment_color_picker, null)
 
         builder.setTitle(R.string.color)
@@ -60,7 +60,7 @@ class ColorPickerDialogFragment : DialogFragment() {
     }
 
     private fun initViews(view: View) {
-        val bundle = arguments
+        val bundle = arguments ?: return
         colorOfType = bundle.getString(ys.moire.common.config.COLOR_OF_TYPE())
         val color = bundle.getInt(ys.moire.common.config.COLOR())
 
@@ -69,10 +69,10 @@ class ColorPickerDialogFragment : DialogFragment() {
         selectedRgb[1] = Color.green(color)
         selectedRgb[2] = Color.blue(color)
 
-        seekBar[0] = view.findViewById<SeekBar>(R.id.seekBar_red)
-        seekBar[1] = view.findViewById<SeekBar>(R.id.seekBar_green)
-        seekBar[2] = view.findViewById<SeekBar>(R.id.seekBar_blue)
-        preView = view.findViewById<View>(R.id.pre_view)
+        seekBar[0] = view.findViewById(R.id.seekBar_red)
+        seekBar[1] = view.findViewById(R.id.seekBar_green)
+        seekBar[2] = view.findViewById(R.id.seekBar_blue)
+        preView = view.findViewById(R.id.pre_view)
 
         for (i in seekBar.indices) {
             seekBar[i]!!.setMax(255)

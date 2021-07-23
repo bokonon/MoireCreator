@@ -7,15 +7,15 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.Toolbar
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import ys.moire.BuildConfig
 import ys.moire.MoireApplication
 import ys.moire.R
@@ -84,7 +84,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
         val layoutWidth = metrics.widthPixels
         statusBarHeight = getStatusBarHeight()
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "statusBarHeight : " + statusBarHeight.toString())
+            Log.d(TAG, "statusBarHeight : $statusBarHeight")
         }
         val layoutHeight = metrics.heightPixels - statusBarHeight
 
@@ -379,11 +379,19 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     private fun isWriteExternalStoragePermission(): Boolean {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                return true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (ContextCompat.checkSelfPermission(
+                                this,
+                                android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    return true
+                }
+            } else {
+                if (ContextCompat.checkSelfPermission(
+                                this,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    return true
+                }
             }
             return false
         }
@@ -391,9 +399,15 @@ class MainActivity : BaseActivity(), View.OnClickListener, MoireView.OnSurfaceCh
     }
 
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                PERMISSION_REQUEST_CODE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    PERMISSION_REQUEST_CODE)
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    PERMISSION_REQUEST_CODE)
+        }
     }
 
 }

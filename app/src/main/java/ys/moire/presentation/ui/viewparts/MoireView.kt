@@ -55,7 +55,7 @@ class MoireView (
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "surfaceChanged height : " + height.toString())
+            Log.d(TAG, "surfaceChanged height : $height")
         }
         if (layoutHeight != height) {
             layoutWidth = width
