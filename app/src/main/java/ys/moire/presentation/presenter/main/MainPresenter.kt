@@ -1,9 +1,12 @@
 package ys.moire.presentation.presenter.main
 
+import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
@@ -21,6 +24,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * MainPresenter.
@@ -48,50 +52,60 @@ class MainPresenter(private val context: Context, private val loadMoireUseCase: 
     }
 
     fun captureCanvas() {
-        // decide stored directory.
-        val dir: File
-        val path = Environment.getExternalStorageDirectory().toString() + "/ys.MoireCreator/"
-        if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-            dir = File(path)
-            dir.mkdirs()
-        } else {
-            dir = Environment.getDataDirectory()
-        }
-        // create file name.
-        val fileName = fileName
-        val AttachName = dir.absolutePath + "/" + fileName
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val values = ContentValues()
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+            values.put(MediaStore.Images.Media.IS_PENDING, 1)
 
-        val file = File(path + fileName)
-        var fos: FileOutputStream? = null
-        val bitmap = createBitmap()
-        try {
-            fos = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-        } catch (e: FileNotFoundException) {
-            showToast(context!!.getString(R.string.message_capture_failed))
-        } finally {
-            bitmap.recycle()
-            if (fos != null) {
-                try {
-                    fos.close()
-                } catch (e: IOException) {
-                    Log.e(TAG, e.message, e)
+            val contentResolver: ContentResolver = context.contentResolver
+            val collection = MediaStore.Images.Media.getContentUri(
+                    MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            val item = contentResolver.insert(collection, values)
+            item?.let { it ->
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "Uri : $it")
                 }
-
+                val result = storeImage(contentResolver, item)
+                if (result) {
+                    values.clear()
+                    values.put(MediaStore.Images.Media.IS_PENDING, 0)
+                    contentResolver.update(item, values, null, null)
+                    showToast(context.getString(R.string.message_capture_success))
+                } else {
+                    showToast(context.getString(R.string.message_capture_failed))
+                }
             }
-        }
-        // reflected in gallery.
-        val values = ContentValues()
-        val contentResolver = context.contentResolver
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-        values.put(MediaStore.Images.Media.TITLE, fileName)
-        values.put("_data", AttachName)
-        contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        } else {
+            val dir: File
+            val path = Environment.getExternalStorageDirectory().toString()
+            if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+                dir = File(path)
+                dir.mkdirs()
+            } else {
+                dir = Environment.getDataDirectory()
+            }
+            val fileName = fileName
+            val attachName = dir.absolutePath + "/" + fileName
 
-        showToast(context.getString(R.string.message_capture_success)
-                + "\nFilePath : " + AttachName)
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "FilePath : " + AttachName.toString())
+            val result = storeImage(path, fileName)
+            if (result) {
+                // reflected in gallery.
+                val values = ContentValues()
+                val contentResolver = context.contentResolver
+                values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                values.put(MediaStore.Images.Media.TITLE, fileName)
+                values.put("_data", attachName)
+                contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+
+                showToast(context.getString(R.string.message_capture_success)
+                        + "\nFilePath : " + attachName)
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "FilePath : $attachName")
+                }
+            } else {
+                showToast(context.getString(R.string.message_capture_failed))
+            }
         }
     }
 
@@ -108,8 +122,49 @@ class MainPresenter(private val context: Context, private val loadMoireUseCase: 
 
     private val fileName: String
         get() {
-            val formatter = SimpleDateFormat("yyyyMMdd_HH:mm:ss", Locale.US)
+            val formatter = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
             val date = Date()
             return "Moire_" + formatter.format(date) + ".png"
         }
+
+    private fun storeImage(contentResolver: ContentResolver, item: Uri): Boolean {
+        val bitmap = createBitmap()
+        try {
+            contentResolver.openOutputStream(item).use { outputStream ->
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            }
+        } catch (e: IOException) {
+            if (BuildConfig.DEBUG) {
+                Log.e(TAG, e.message, e)
+            }
+            return false
+        }
+        return true
+    }
+
+    private fun storeImage(path: String, fileName: String): Boolean {
+        val file = File("$path/$fileName")
+        var fos: FileOutputStream? = null
+        val bitmap = createBitmap()
+        try {
+            fos = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+            return true
+        } catch (e: FileNotFoundException) {
+            if (BuildConfig.DEBUG) {
+                Log.e(TAG, e.message, e)
+            }
+            return false
+        } finally {
+            bitmap.recycle()
+            if (fos != null) {
+                try {
+                    fos.close()
+                } catch (e: IOException) {
+                    Log.e(TAG, e.message, e)
+                }
+
+            }
+        }
+    }
 }

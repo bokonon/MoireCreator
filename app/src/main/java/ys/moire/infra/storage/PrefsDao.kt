@@ -1,8 +1,8 @@
 package ys.moire.infra.storage
 
 import android.graphics.Color
+import androidx.annotation.NonNull
 import com.google.gson.Gson
-import lombok.NonNull
 import ys.moire.common.config.TypeEnum
 import ys.moire.common.config.getType
 import ys.moire.domain.model.BaseEntity
@@ -23,7 +23,7 @@ class PrefsDao(private val prefs: Prefs) {
      */
     fun getTypesData(@NonNull lineConfigName: String): BaseTypes {
         val str = prefs.get(lineConfigName, "")
-        if ("" == str) {
+        if (str == null || "" == str) {
             return Lines()
         }
         return convertToObj(Gson().fromJson(str, BaseEntity::class.java))

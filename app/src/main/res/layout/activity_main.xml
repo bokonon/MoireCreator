@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true">
 
     <!-- ToolBar -->
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             android:text="Cam"
             android:src="@drawable/ic_camera_enhance_black_24dp"
             android:background="@drawable/selector_toolbar_pause_button"/>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/parent_linear_layout"

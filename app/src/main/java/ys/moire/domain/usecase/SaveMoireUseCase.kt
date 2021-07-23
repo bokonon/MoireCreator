@@ -1,6 +1,6 @@
 package ys.moire.domain.usecase
 
-import lombok.NonNull
+import androidx.annotation.NonNull
 import ys.moire.common.config.TypeEnum
 import ys.moire.domain.model.BaseEntity
 import ys.moire.infra.storage.PrefsDao

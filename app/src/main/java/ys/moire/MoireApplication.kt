@@ -1,6 +1,6 @@
 package ys.moire
 
-import android.support.multidex.MultiDexApplication
+import androidx.multidex.MultiDexApplication
 import com.google.android.gms.ads.MobileAds
 import ys.moire.common.di.ApplicationComponent
 import ys.moire.common.di.ApplicationModule
@@ -24,8 +24,7 @@ class MoireApplication : MultiDexApplication() {
                 .applicationModule(ApplicationModule(this))
                 .build()
 
-        MobileAds.initialize(this, getString(R.string.ad_app_id))
-
+        MobileAds.initialize(this)
     }
 
 }

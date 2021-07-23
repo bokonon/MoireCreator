@@ -36,7 +36,7 @@ class AboutView(context: Context,
                 val abDx = VAL / 2f * (r / 5)
                 bmpPoint[i]!!.set(bmpPoint[i]!!.x - sensorEL.sensorX * abDx, bmpPoint[i]!!.y + sensorEL.sensorY * abDx)
                 checkInFrame(i, abDx)
-                canvas.drawBitmap(bmp[i], bmpPoint[i]!!.x, bmpPoint[i]!!.y, paint)
+                bmp[i]?.let { canvas.drawBitmap(it, bmpPoint[i]!!.x, bmpPoint[i]!!.y, paint) }
             }
             holder.unlockCanvasAndPost(canvas)
         }

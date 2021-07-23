@@ -1,7 +1,7 @@
 package ys.moire.presentation.ui.base
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 
 open class BaseFragment: Fragment() {
@@ -11,10 +11,10 @@ open class BaseFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        firebaseAnalytics = FirebaseAnalytics.getInstance(activity)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
     }
 
-    public fun postLogEvent(contentType: String) {
+    fun postLogEvent(contentType: String) {
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)

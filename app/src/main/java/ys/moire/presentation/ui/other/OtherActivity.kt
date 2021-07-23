@@ -1,7 +1,7 @@
 package ys.moire.presentation.ui.other
 
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView

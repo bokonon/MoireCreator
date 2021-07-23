@@ -22,7 +22,7 @@ class PrefsImpl(context: Context) : Prefs {
         preferences.edit().putInt(key, value).apply()
     }
 
-    override fun get(key: String, defValue: String): String = preferences.getString(key, defValue)
+    override fun get(key: String, defValue: String): String? = preferences.getString(key, defValue)
 
     override fun get(key: String, defValue: Int): Int = preferences.getInt(key, defValue)
 }

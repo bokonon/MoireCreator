@@ -14,13 +14,15 @@ import ys.moire.presentation.ui.base.BaseFragment
  */
 class OtherContentsFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_other_contents, container, false)
+        val view = inflater.inflate(R.layout.fragment_other_contents, container, false)
 
-        val url = arguments.getString(BUNDLE_KEY_CONTENT_URL)
+        val url = arguments?.getString(BUNDLE_KEY_CONTENT_URL)
         val webView = view.findViewById<WebView>(R.id.web_view)
-        webView.loadUrl(url)
+        url?.let {
+            webView.loadUrl(url)
+        }
 
         return view
     }
