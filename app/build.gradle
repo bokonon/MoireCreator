@@ -3,16 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     Properties properties = new Properties()
     properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 23
-        versionName "1.5.4"
+        targetSdkVersion 31
+        versionCode 24
+        versionName "1.5.5"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -68,6 +68,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:19.0.0'
     implementation 'com.google.firebase:firebase-ads:20.2.0'
     implementation 'com.google.android.gms:play-services-ads:20.2.0'
+
+    implementation 'androidx.work:work-runtime-ktx:2.7.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

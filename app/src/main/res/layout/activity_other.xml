@@ -15,19 +15,6 @@
         android:background="?attr/colorPrimary">
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/other_tool_bar">
-        <fragment
-            android:id="@+id/other_fragment"
-            android:name="ys.moire.presentation.ui.other.OtherFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_other" />
-    </FrameLayout>
-
     <!-- AD -->
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -39,5 +26,19 @@
         ads:adSize="BANNER"
         ads:adUnitId="@string/ad_unit_id">
     </com.google.android.gms.ads.AdView>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/other_tool_bar"
+        android:layout_above="@id/ad_view">
+        <fragment
+            android:id="@+id/other_fragment"
+            android:name="ys.moire.presentation.ui.other.OtherFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_other" />
+    </FrameLayout>
 
 </RelativeLayout>

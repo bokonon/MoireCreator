@@ -35,10 +35,11 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
         val metrics = DisplayMetrics()
         this.windowManager.defaultDisplay.getMetrics(metrics)
         val layoutWidth = metrics.widthPixels.toFloat()
-        val layoutHeight = (metrics.heightPixels - statusBarHeight).toFloat()
+//        val layoutHeight = (metrics.heightPixels - statusBarHeight).toFloat()
+        val layoutHeight = metrics.heightPixels.toFloat()
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "layoutWidth : " + layoutWidth.toString())
-            Log.d(TAG, "layoutHeight : " + layoutHeight.toString())
+            Log.d(TAG, "layoutWidth : $layoutWidth")
+            Log.d(TAG, "layoutHeight : $layoutHeight")
         }
 
         sensorEL = SensorEL(isTablet, this)
@@ -98,7 +99,7 @@ class AboutActivity : BaseActivity(), SensorEL.OnSensorChangeListener {
                 result = resources.getDimensionPixelSize(resourceId)
             }
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, "status bar height : " + result.toString())
+                Log.d(TAG, "status bar height : $result")
             }
             return result
         }

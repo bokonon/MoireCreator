@@ -53,16 +53,22 @@ class AboutView(context: Context,
         // init char point
         // line1
         for (i in 0..14) {
-            if (i == 0) {
-                bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 20, layoutHeight / 10 - bmp[i]!!.getHeight())
-            } else if (i == 2) {
-                bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) - 10, layoutHeight / 10 - bmp[i]!!.getHeight())
-            } else if (i == 4) {
-                bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 10, layoutHeight / 10 - bmp[i]!!.getHeight())
-            } else if (i == 8) {
-                bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 5, layoutHeight / 10 - bmp[i]!!.getHeight() * 4 / 5)
-            } else {
-                bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 5, layoutHeight / 10 - bmp[i]!!.getHeight())
+            when (i) {
+                0 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 20, layoutHeight / 10 - bmp[i]!!.getHeight())
+                }
+                2 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) - 10, layoutHeight / 10 - bmp[i]!!.getHeight())
+                }
+                4 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 10, layoutHeight / 10 - bmp[i]!!.getHeight())
+                }
+                8 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 5, layoutHeight / 10 - bmp[i]!!.getHeight() * 4 / 5)
+                }
+                else -> {
+                    bmpPoint[i] = PointF(layoutWidth / 17 * (i + 1) + 5, layoutHeight / 10 - bmp[i]!!.getHeight())
+                }
             }
         }
         // line2
@@ -95,12 +101,16 @@ class AboutView(context: Context,
         }
         // line5
         for (i in 65..77) {
-            if (i == 65) {
-                bmpPoint[i] = PointF(layoutWidth / 15 * (i - 65) + 10, layoutHeight * 5 / 10 - bmp[i]!!.getHeight())
-            } else if (i == 69) {
-                bmpPoint[i] = PointF(layoutWidth / 15 * (i - 65) + 5, layoutHeight * 5 / 10 - bmp[i]!!.getHeight() * 4 / 5)
-            } else {
-                bmpPoint[i] = PointF(layoutWidth / 15 * (i - 65) + 5, layoutHeight * 5 / 10 - bmp[i]!!.getHeight())
+            when (i) {
+                65 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 15 * (i - 65) + 10, layoutHeight * 5 / 10 - bmp[i]!!.getHeight())
+                }
+                69 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 15 * (i - 65) + 5, layoutHeight * 5 / 10 - bmp[i]!!.getHeight() * 4 / 5)
+                }
+                else -> {
+                    bmpPoint[i] = PointF(layoutWidth / 15 * (i - 65) + 5, layoutHeight * 5 / 10 - bmp[i]!!.getHeight())
+                }
             }
         }
         // line6
@@ -113,12 +123,16 @@ class AboutView(context: Context,
         }
         // line7
         for (i in 99..115) {
-            if (i == 102) {
-                bmpPoint[i] = PointF(layoutWidth / 20 * (i - 98) - 15, layoutHeight * 7 / 10 - bmp[i]!!.getHeight())
-            } else if (i == 110) {
-                bmpPoint[i] = PointF(layoutWidth / 20 * (i - 98) + 5, layoutHeight * 7 / 10 - bmp[i]!!.getHeight() * 4 / 5)
-            } else {
-                bmpPoint[i] = PointF(layoutWidth / 20 * (i - 98) + 5, layoutHeight * 7 / 10 - bmp[i]!!.getHeight())
+            when (i) {
+                102 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 20 * (i - 98) - 15, layoutHeight * 7 / 10 - bmp[i]!!.getHeight())
+                }
+                110 -> {
+                    bmpPoint[i] = PointF(layoutWidth / 20 * (i - 98) + 5, layoutHeight * 7 / 10 - bmp[i]!!.getHeight() * 4 / 5)
+                }
+                else -> {
+                    bmpPoint[i] = PointF(layoutWidth / 20 * (i - 98) + 5, layoutHeight * 7 / 10 - bmp[i]!!.getHeight())
+                }
             }
         }
         // line8
@@ -171,6 +185,6 @@ class AboutView(context: Context,
     companion object {
 
         /** move value  */
-        private const val VAL = 8
+        private const val VAL = 48
     }
 }
